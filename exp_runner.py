@@ -128,6 +128,7 @@ log_space_press = None
 test_condition_index = None
 #endregion
 
+#region Device IO
 #region Start up screen
 """
 After input() before UI
@@ -135,7 +136,18 @@ After input() before UI
 screen = pygame.display.set_mode((w, h), pygame.NOFRAME)
 #endregion
 
-#region IO
+#region Start up speakers
+audio_start()
+audio_settings = settings
+audio_sample  = load_mono_wav(r"Y:\Beno\hangfalfal\sounds\Linda\tri_channel_output_1.wav", to_sample_rate=audio_settings["sample_rate"])[: int(5 * audio_settings["sample_rate"])]
+sp = 35
+ch = audio_settings['sp_to_ch'][sp-1]
+
+#endregion
+
+#endregion
+
+#region Data IO
 
 #region Load
 instructions = {}
@@ -1306,16 +1318,31 @@ def start_stimulus():
         case 'familiarization':
             log(f"Start stimulus for {stage['name']}.")
             subject_data['repeat_num'][stage['name']] = repeat_num
+            match stage['modifiers']['modality']:
+                case 'aud':
+                    channel_play_at(channel_index=ch, mono=audio_sample, start_in_s = 0)
+                case 'vis':
+                    pass
             # any other starter logic for starting stimulus
         case 'practice':
             log(f"Start stimulus for {stage['name']}, repeat {repeat_num}.")
             subject_data['repeat_num'][stage['name']] = repeat_num
             subject_data['space_presses'][stage['name']][f"repeat_{repeat_num}"] = []
             log_space_press = True
+            match stage['modifiers']['modality']:
+                case 'aud':
+                    channel_play_at(channel_index=ch, mono=audio_sample, start_in_s = 0)
+                case 'vis':
+                    pass
             # any other starter logic for starting stimulus
         case 'test':
             log(f"Start stimulus for {stage['name']} in condition {stage['conditions'][test_condition_index]}.")
             log_space_press = True
+            match stage['modifiers']['modality']:
+                case 'aud':
+                    channel_play_at(channel_index=ch, mono=audio_sample, start_in_s = 0)
+                case 'vis':
+                    pass
             # any other starter logic for starting stimulus
         case _:
             pass
@@ -1326,7 +1353,8 @@ def compute_stimulus_finished():
     '''
     match exp_structure[stage_index]['modifiers']['modality']:
         case 'aud':
-            return secs_since(stimulus_start) > 1 #DEV: make this dependent on actual audio stream
+            #return secs_since(stimulus_start) > 1 #DEV: make this dependent on actual audio stream
+            return not audio_is_playing()
         case 'vis':
             return secs_since(stimulus_start) > 1 #DEV: make this dependent on actual audio stream
         case _:

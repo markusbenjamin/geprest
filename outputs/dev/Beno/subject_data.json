@@ -1,4 +1,57 @@
 {
-  "space_presses": {},
-  "repeat_num": {}
+  "space_presses": {
+    "baseline_practice_aud": {
+      "repeat_0": [
+        0.9597,
+        1.3411,
+        2.462,
+        4.262
+      ],
+      "repeat_1": [
+        0.6735,
+        1.5917,
+        2.2403
+      ]
+    },
+    "baseline_test_aud": {
+      "cond2": [],
+      "cond1": [],
+      "cond3": []
+    },
+    "baseline_practice_vis": {
+      "repeat_0": []
+    },
+    "baseline_test_vis": {
+      "cond2": [],
+      "cond1": []
+    },
+    "pattern_practice_aud": {
+      "repeat_0": []
+    },
+    "pattern_test_aud": {
+      "cond1": []
+    },
+    "pattern_practice_vis": {
+      "repeat_0": []
+    },
+    "pattern_test_vis": {
+      "cond3": [],
+      "cond1": [],
+      "cond2": []
+    }
+  },
+  "repeat_num": {
+    "baseline_familiarization_aud": 1,
+    "baseline_practice_aud": 1,
+    "baseline_familiarization_vis": 0,
+    "baseline_practice_vis": 0,
+    "pattern_practice_aud": 0,
+    "pattern_practice_vis": 0
+  },
+  "gender": "male",
+  "age": "1234",
+  "strategy": "Test",
+  "likert_aud": "3",
+  "likert_vis": "3",
+  "patterns_saw": "yes"
 }
