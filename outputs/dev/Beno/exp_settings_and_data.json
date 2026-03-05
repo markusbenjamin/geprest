@@ -1,0 +1,133 @@
+{
+  "batch": "dev",
+  "zoom": 1,
+  "size": {
+    "w": 1536,
+    "h": 864
+  },
+  "subject": "Beno",
+  "run_label": "dev_Beno",
+  "modality_order": [
+    "aud",
+    "vis"
+  ],
+  "exp_structure": [
+    {
+      "type": "welcome",
+      "name": "welcome"
+    },
+    {
+      "type": "intro_questionnaire",
+      "name": "intro_questionnaire"
+    },
+    {
+      "type": "familiarization",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "baseline"
+      },
+      "name": "baseline_familiarization_aud"
+    },
+    {
+      "type": "practice",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "baseline"
+      },
+      "name": "baseline_practice_aud"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "baseline"
+      },
+      "conditions": [
+        "cond2",
+        "cond1",
+        "cond3"
+      ],
+      "name": "baseline_test_aud"
+    },
+    {
+      "type": "familiarization",
+      "modifiers": {
+        "modality": "vis",
+        "phase": "baseline"
+      },
+      "name": "baseline_familiarization_vis"
+    },
+    {
+      "type": "practice",
+      "modifiers": {
+        "modality": "vis",
+        "phase": "baseline"
+      },
+      "name": "baseline_practice_vis"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "vis",
+        "phase": "baseline"
+      },
+      "conditions": [
+        "cond2",
+        "cond1"
+      ],
+      "name": "baseline_test_vis"
+    },
+    {
+      "type": "practice",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "pattern"
+      },
+      "name": "pattern_practice_aud"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "pattern"
+      },
+      "conditions": [
+        "cond1"
+      ],
+      "name": "pattern_test_aud"
+    },
+    {
+      "type": "practice",
+      "modifiers": {
+        "modality": "vis",
+        "phase": "pattern"
+      },
+      "name": "pattern_practice_vis"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "vis",
+        "phase": "pattern"
+      },
+      "conditions": [
+        "cond3",
+        "cond1",
+        "cond2"
+      ],
+      "name": "pattern_test_vis"
+    },
+    {
+      "type": "outro_questionnaire",
+      "name": "outro_questionnaire"
+    },
+    {
+      "type": "thanks",
+      "name": "thanks"
+    }
+  ],
+  "end": {
+    "time": 407.9048,
+    "cause": "End."
+  }
+}
