@@ -1082,15 +1082,15 @@ def flush_experiment(log_message, cause="Finished."):
         origin = _error_origin(e)
         log(f"Could not save data: {origin['file']}:{origin['line']} {repr(e)}")
 
+    log(log_message)
+    exp_settings_and_data['end'] = {'time': exp_time(), 'cause': cause}
+
     try:
         git_commit_and_sync_from_root("outputs",message="Incoming subject data.")
     except Exception as e:
         origin = _error_origin(e)
         log(f"Could not upload data: {origin['file']}:{origin['line']} {repr(e)}")
-    log(log_message)
     
-    log(log_message)
-    exp_settings_and_data['end'] = {'time': exp_time(), 'cause': cause}
 #endregion
 
 #region Logging
