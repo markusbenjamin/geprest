@@ -1,41 +1,12 @@
 {
   "space_presses": {
     "baseline_practice_aud": {
-      "repeat_0": [],
-      "repeat_1": [
-        0.4613,
-        0.5774,
-        0.7276,
-        0.845,
-        0.9602
-      ],
-      "repeat_2": [
-        0.2814,
-        0.4129,
-        0.5626,
-        0.6928,
-        0.8109
-      ]
+      "repeat_0": []
     },
     "baseline_test_aud": {
-      "cond2": [
-        0.2811,
-        0.4466,
-        0.5795,
-        0.7268,
-        0.8427
-      ],
-      "cond1": [
-        0.5086,
-        0.6403,
-        0.7742,
-        0.9733
-      ],
-      "cond3": [
-        0.6271,
-        0.7926,
-        0.9605
-      ]
+      "cond2": [],
+      "cond1": [],
+      "cond3": []
     },
     "baseline_practice_vis": {
       "repeat_0": []
@@ -60,17 +31,17 @@
     }
   },
   "repeat_num": {
-    "baseline_familiarization_aud": 2,
-    "baseline_practice_aud": 2,
+    "baseline_familiarization_aud": 0,
+    "baseline_practice_aud": 0,
     "baseline_familiarization_vis": 0,
     "baseline_practice_vis": 0,
     "pattern_practice_aud": 0,
     "pattern_practice_vis": 0
   },
   "gender": "male",
-  "age": "54",
-  "strategy": "ougougougoguoh",
-  "likert_aud": "4",
-  "likert_vis": "3",
-  "patterns_saw": "no"
+  "age": "43",
+  "strategy": "GH",
+  "likert_aud": "2",
+  "likert_vis": "2",
+  "patterns_saw": "yes"
 }

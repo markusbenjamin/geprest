@@ -2,8 +2,8 @@
   "batch": "dev",
   "zoom": 1,
   "size": {
-    "w": 1536,
-    "h": 864
+    "w": 1920,
+    "h": 1080
   },
   "subject": "Beno",
   "run_label": "dev_Beno",
@@ -125,9 +125,5 @@
       "type": "thanks",
       "name": "thanks"
     }
-  ],
-  "end": {
-    "time": 407.9048,
-    "cause": "End."
-  }
+  ]
 }
