@@ -39,9 +39,9 @@
     "pattern_practice_vis": 0
   },
   "gender": "male",
-  "age": "43",
-  "strategy": "GH",
-  "likert_aud": "2",
-  "likert_vis": "2",
-  "patterns_saw": "yes"
+  "age": "23",
+  "strategy": "GH2",
+  "likert_aud": "4",
+  "likert_vis": "4",
+  "patterns_saw": "no"
 }
