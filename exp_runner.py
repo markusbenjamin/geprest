@@ -162,33 +162,32 @@ subject_data['repeat_num'] = {}
 #endregion
 
 #region GitHub
-def git_commit_and_sync_from_root(target_from_root=".", message=None, *, repo_hint=None, pull_rebase=True):
+def git_commit_and_sync_from_root(
+    target_from_root=".",
+    message=None,
+    *,
+    anchor_file=__file__,
+    pull_rebase=True,
+):
     """
-    Commit + sync changes for `target_from_root`, where that path is ALWAYS relative to the repo root.
+    Commit + sync changes for `target_from_root` (interpreted relative to the repo root),
+    locating the repo root from `anchor_file` (a file guaranteed to live inside the repo).
 
-    - Call it from any working directory *as long as you're somewhere inside the repo*.
-      If you're not inside the repo, pass `repo_hint` (any path inside the repo, e.g. the repo root).
+    Works regardless of current working directory.
 
-    Parameters
-    ----------
-    target_from_root : str
-        Path to stage/commit, interpreted relative to repo root (e.g. ".", "data", "src/app.py").
-        If you pass an absolute path, it will be converted to a repo-root-relative path.
-    message : str | None
-        Commit message. If None and there are staged changes, an automatic message is used.
-    repo_hint : str | None
-        Any path inside the repo, used to locate the repo root if your current working directory is not inside it.
-    pull_rebase : bool
-        If True: `git pull --rebase --autostash` before committing.
-        If False: `git pull --ff-only` before committing.
-
-    Returns
-    -------
-    dict with keys: repo_root, did_commit, outputs (list of (label, stdout)).
+    Returns: dict(repo_root=..., did_commit=..., outputs=[(label, stdout), ...])
     Raises RuntimeError on git errors.
     """
     def run_git(args, cwd):
-        p = subprocess.run(["git", "-C", cwd, *args], capture_output=True, text=True)
+        try:
+            p = subprocess.run(
+                ["git", "-C", cwd, *args],
+                capture_output=True,
+                text=True,
+            )
+        except FileNotFoundError as e:
+            raise RuntimeError("git executable not found on PATH") from e
+
         out = (p.stdout or "").strip()
         err = (p.stderr or "").strip()
         if p.returncode != 0:
@@ -200,12 +199,10 @@ def git_commit_and_sync_from_root(target_from_root=".", message=None, *, repo_hi
             raise RuntimeError(msg)
         return out
 
-    base = repo_hint if repo_hint is not None else os.getcwd()
+    anchor_dir = os.path.dirname(os.path.abspath(anchor_file))
+    repo_root = run_git(["rev-parse", "--show-toplevel"], anchor_dir)
 
-    # find repo root from wherever we are (or from repo_hint)
-    repo_root = run_git(["rev-parse", "--show-toplevel"], base)
-
-    # normalize target path to be relative to repo root
+    # interpret target as repo-root-relative, unless it's absolute (then convert)
     if os.path.isabs(target_from_root):
         ap = os.path.normpath(target_from_root)
         rr = os.path.normpath(repo_root)
@@ -213,23 +210,23 @@ def git_commit_and_sync_from_root(target_from_root=".", message=None, *, repo_hi
             raise RuntimeError(f"target_from_root is not inside this repo: {target_from_root}")
         rel = os.path.relpath(ap, repo_root)
     else:
-        rel = os.path.normpath(target_from_root)
+        rel = os.path.normpath(target_from_root) if target_from_root not in (".", "", None) else "."
 
-    # git pathspecs are happiest with forward slashes
-    rel_git = rel.replace("\\", "/") if rel not in (".", "") else "."
+    # git likes forward slashes in pathspecs on windows too
+    rel_git = rel.replace("\\", "/") if rel != "." else "."
 
     outputs = []
 
-    # update from remote first
+    # sync remote -> local first
     if pull_rebase:
         outputs.append(("pull --rebase --autostash", run_git(["pull", "--rebase", "--autostash"], repo_root)))
     else:
         outputs.append(("pull --ff-only", run_git(["pull", "--ff-only"], repo_root)))
 
-    # stage changes (including deletions) for the target path
+    # stage changes (incl deletions) for just the target path
     outputs.append(("add -A", run_git(["add", "-A", "--", rel_git], repo_root)))
 
-    # commit if anything staged
+    # commit only if something is staged
     did_commit = False
     diff_rc = subprocess.run(["git", "-C", repo_root, "diff", "--cached", "--quiet"]).returncode
     if diff_rc == 1:
@@ -244,8 +241,7 @@ def git_commit_and_sync_from_root(target_from_root=".", message=None, *, repo_hi
     # push
     outputs.append(("push", run_git(["push"], repo_root)))
 
-    return {"repo_root": repo_root, "did_commit": did_commit, "outputs": outputs}#endregion
-
+    return {"repo_root": repo_root, "did_commit": did_commit, "outputs": outputs}
 #endregion
 
 #endregion
