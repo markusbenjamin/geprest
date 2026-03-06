@@ -129,19 +129,32 @@ test_condition_index = None
 #endregion
 
 #region Device IO
-#region Start up screen
+#region Video
 """
 After input() before UI
 """
 screen = pygame.display.set_mode((w, h), pygame.NOFRAME)
 #endregion
 
-#region Start up speakers
+#region Audio
 audio_start()
 audio_settings = settings
+#DEV: placeholders follow
 audio_sample  = load_mono_wav(r"Y:\Beno\hangfalfal\sounds\Linda\tri_channel_output_1.wav", to_sample_rate=audio_settings["sample_rate"])[: int(5 * audio_settings["sample_rate"])]
-sp = 35
+sp = 33
 ch = audio_settings['sp_to_ch'][sp-1]
+gain = audio_settings['sp_gains'][sp-1]
+#gain = 1
+
+mic_blocksize = 128 #DEV: maybe this is a bit too high res
+mic_meter_start(blocksize=mic_blocksize, channels=1)   # non-blocking
+mic_measurement_gap = mic_blocksize / settings["sample_rate"]
+
+def mic_level():
+    block, sr = mic_raw_block()
+    channel0 = block[:, 0]
+    level = float(np.sqrt( np.mean( channel0 * channel0 ) ))
+    return level
 
 #endregion
 
@@ -1314,16 +1327,15 @@ def start_stimulus():
     stage = exp_structure[stage_index]
     
     match stage['type']:
-        #DEV: branch based on modality
         case 'familiarization':
             log(f"Start stimulus for {stage['name']}.")
             subject_data['repeat_num'][stage['name']] = repeat_num
             match stage['modifiers']['modality']:
                 case 'aud':
-                    channel_play_at(channel_index=ch, mono=audio_sample, start_in_s = 0)
+                    channel_play_at(channel_index=ch, mono=audio_sample*1, start_in_s = 0)
                 case 'vis':
                     pass
-            # any other starter logic for starting stimulus
+                    # any starter logic for starting stimulus
         case 'practice':
             log(f"Start stimulus for {stage['name']}, repeat {repeat_num}.")
             subject_data['repeat_num'][stage['name']] = repeat_num
@@ -1334,7 +1346,7 @@ def start_stimulus():
                     channel_play_at(channel_index=ch, mono=audio_sample, start_in_s = 0)
                 case 'vis':
                     pass
-            # any other starter logic for starting stimulus
+                    # any starter logic for starting stimulus
         case 'test':
             log(f"Start stimulus for {stage['name']} in condition {stage['conditions'][test_condition_index]}.")
             log_space_press = True
@@ -1343,7 +1355,7 @@ def start_stimulus():
                     channel_play_at(channel_index=ch, mono=audio_sample, start_in_s = 0)
                 case 'vis':
                     pass
-            # any other starter logic for starting stimulus
+                    # any starter logic for starting stimulus
         case _:
             pass
 
@@ -1681,6 +1693,8 @@ except Exception as e:
     raise  # remove to suppress crash
 
 finally:
+    mic_meter_stop()
+    audio_stop()
     pygame.quit()
 #endregion
 
