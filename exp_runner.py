@@ -137,6 +137,7 @@ screen = pygame.display.set_mode((w, h), pygame.NOFRAME)
 #endregion
 
 #region Audio
+'''
 audio_start()
 audio_settings = settings
 #DEV: placeholders follow
@@ -155,6 +156,12 @@ def mic_level():
     channel0 = block[:, 0]
     level = float(np.sqrt( np.mean( channel0 * channel0 ) ))
     return level
+'''
+
+ch = None
+audio_sample = 1
+def channel_play_at(channel_index, mono, start_in_s):
+    pass
 
 #endregion
 
@@ -1365,8 +1372,8 @@ def compute_stimulus_finished():
     '''
     match exp_structure[stage_index]['modifiers']['modality']:
         case 'aud':
-            #return secs_since(stimulus_start) > 1 #DEV: make this dependent on actual audio stream
-            return not audio_is_playing()
+            return secs_since(stimulus_start) > 1 #DEV: make this dependent on actual audio stream
+            #return not audio_is_playing()
         case 'vis':
             return secs_since(stimulus_start) > 1 #DEV: make this dependent on actual audio stream
         case _:

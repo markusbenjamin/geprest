@@ -1,8 +1,75 @@
 {
-  "space_presses": {},
+  "space_presses": {
+    "baseline_practice_aud": {
+      "repeat_0": [
+        0.9869
+      ],
+      "repeat_1": [
+        0.3318,
+        0.6303,
+        0.8802
+      ],
+      "repeat_2": [
+        0.3138,
+        0.5117,
+        0.6955,
+        0.863
+      ]
+    },
+    "baseline_test_aud": {
+      "cond2": [],
+      "cond1": [],
+      "cond3": []
+    },
+    "baseline_practice_vis": {
+      "repeat_0": [
+        0.8444
+      ],
+      "repeat_1": [
+        0.378,
+        0.6764,
+        0.9391
+      ]
+    },
+    "baseline_test_vis": {
+      "cond2": [
+        0.5283
+      ],
+      "cond1": []
+    },
+    "pattern_practice_aud": {
+      "repeat_0": []
+    },
+    "pattern_test_aud": {
+      "cond1": [
+        0.9453
+      ]
+    },
+    "pattern_practice_vis": {
+      "repeat_0": [
+        0.7269
+      ]
+    },
+    "pattern_test_vis": {
+      "cond3": [
+        0.8858
+      ],
+      "cond1": [],
+      "cond2": []
+    }
+  },
   "repeat_num": {
-    "baseline_familiarization_aud": 0
+    "baseline_familiarization_aud": 3,
+    "baseline_practice_aud": 2,
+    "baseline_familiarization_vis": 2,
+    "baseline_practice_vis": 1,
+    "pattern_practice_aud": 0,
+    "pattern_practice_vis": 0
   },
   "gender": "male",
-  "age": "123"
+  "age": "23",
+  "strategy": "Test.",
+  "likert_aud": "3",
+  "likert_vis": "4",
+  "patterns_saw": "yes"
 }

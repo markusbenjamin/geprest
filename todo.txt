@@ -1,3 +1,6 @@
 - consent form?
-- mic level checker script
+- mic level checker script -- illesztés
 - wav exporter
+- conditionok előtt kiírni, hogy hányadik condition
+- teszt mód, ahol csak egy videó és egy audió kondíció van csak
+- VLC a gépre

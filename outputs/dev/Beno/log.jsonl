@@ -1,14 +1,149 @@
 {"time": 0.0, "msg": "Start."}
-{"time": 0.0535, "msg": "Set up welcome stage."}
-{"time": 1.3619, "event": "Proceed clicked."}
-{"time": 1.3883, "msg": "Shut down welcome stage."}
-{"time": 1.4262, "msg": "Set up intro_questionnaire stage."}
-{"time": 3.2057, "event": "Proceed clicked."}
-{"time": 3.2316, "msg": "Shut down intro_questionnaire stage."}
-{"time": 3.2671, "event": "Gender submitted.", "answer": "male"}
-{"time": 3.301, "event": "Age submitted.", "answer": "123"}
-{"time": 3.3265, "msg": "Set up baseline_familiarization_aud stage."}
-{"time": 5.0299, "event": "Start clicked for {'type': 'familiarization', 'modifiers': {'modality': 'aud', 'phase': 'baseline'}, 'name': 'baseline_familiarization_aud'}."}
-{"time": 5.0688, "msg": "Start stimulus for baseline_familiarization_aud."}
-{"time": 5.9596, "msg": "Data successfully exported."}
-{"time": 6.0191, "msg": "User interrupt."}
+{"time": 0.0039, "msg": "Set up welcome stage."}
+{"time": 1.5994, "event": "Proceed clicked."}
+{"time": 1.6007, "msg": "Shut down welcome stage."}
+{"time": 1.6012, "msg": "Set up intro_questionnaire stage."}
+{"time": 8.6652, "event": "Proceed clicked."}
+{"time": 8.6662, "msg": "Shut down intro_questionnaire stage."}
+{"time": 8.6668, "event": "Gender submitted.", "answer": "male"}
+{"time": 8.6674, "event": "Age submitted.", "answer": "23"}
+{"time": 8.668, "msg": "Set up baseline_familiarization_aud stage."}
+{"time": 11.4764, "event": "Start clicked for {'type': 'familiarization', 'modifiers': {'modality': 'aud', 'phase': 'baseline'}, 'name': 'baseline_familiarization_aud'}."}
+{"time": 11.4816, "msg": "Start stimulus for baseline_familiarization_aud."}
+{"time": 12.4875, "msg": "Finished stimulus for baseline_familiarization_aud."}
+{"time": 30.7196, "event": "Repeat clicked for {'type': 'familiarization', 'modifiers': {'modality': 'aud', 'phase': 'baseline'}, 'name': 'baseline_familiarization_aud'}."}
+{"time": 30.7205, "msg": "Start stimulus for baseline_familiarization_aud."}
+{"time": 31.7287, "msg": "Finished stimulus for baseline_familiarization_aud."}
+{"time": 32.5481, "event": "Repeat clicked for {'type': 'familiarization', 'modifiers': {'modality': 'aud', 'phase': 'baseline'}, 'name': 'baseline_familiarization_aud'}."}
+{"time": 32.5504, "msg": "Start stimulus for baseline_familiarization_aud."}
+{"time": 33.5564, "msg": "Finished stimulus for baseline_familiarization_aud."}
+{"time": 34.5799, "event": "Repeat clicked for {'type': 'familiarization', 'modifiers': {'modality': 'aud', 'phase': 'baseline'}, 'name': 'baseline_familiarization_aud'}."}
+{"time": 34.5807, "msg": "Start stimulus for baseline_familiarization_aud."}
+{"time": 35.5967, "msg": "Finished stimulus for baseline_familiarization_aud."}
+{"time": 38.1679, "event": "Proceed clicked."}
+{"time": 38.1688, "msg": "Shut down baseline_familiarization_aud stage."}
+{"time": 38.1694, "msg": "Set up baseline_practice_aud stage."}
+{"time": 40.8932, "event": "Start clicked for {'type': 'practice', 'modifiers': {'modality': 'aud', 'phase': 'baseline'}, 'name': 'baseline_practice_aud'}."}
+{"time": 40.8945, "msg": "Start stimulus for baseline_practice_aud, repeat 0."}
+{"time": 41.8804, "msg": "Space pressed in stage baseline_practice_aud."}
+{"time": 41.8968, "msg": "Finished stimulus for baseline_practice_aud."}
+{"time": 43.3866, "event": "Repeat clicked for {'type': 'practice', 'modifiers': {'modality': 'aud', 'phase': 'baseline'}, 'name': 'baseline_practice_aud'}."}
+{"time": 43.3878, "msg": "Start stimulus for baseline_practice_aud, repeat 1."}
+{"time": 43.7187, "msg": "Space pressed in stage baseline_practice_aud."}
+{"time": 44.0171, "msg": "Space pressed in stage baseline_practice_aud."}
+{"time": 44.2671, "msg": "Space pressed in stage baseline_practice_aud."}
+{"time": 44.402, "msg": "Finished stimulus for baseline_practice_aud."}
+{"time": 45.6633, "event": "Repeat clicked for {'type': 'practice', 'modifiers': {'modality': 'aud', 'phase': 'baseline'}, 'name': 'baseline_practice_aud'}."}
+{"time": 45.6645, "msg": "Start stimulus for baseline_practice_aud, repeat 2."}
+{"time": 45.9774, "msg": "Space pressed in stage baseline_practice_aud."}
+{"time": 46.175, "msg": "Space pressed in stage baseline_practice_aud."}
+{"time": 46.3585, "msg": "Space pressed in stage baseline_practice_aud."}
+{"time": 46.5262, "msg": "Space pressed in stage baseline_practice_aud."}
+{"time": 46.6764, "msg": "Finished stimulus for baseline_practice_aud."}
+{"time": 48.5703, "event": "Proceed clicked."}
+{"time": 48.5717, "msg": "Shut down baseline_practice_aud stage."}
+{"time": 48.5728, "msg": "Set up baseline_test_aud stage."}
+{"time": 50.6747, "event": "Start clicked for {'type': 'test', 'modifiers': {'modality': 'aud', 'phase': 'baseline'}, 'conditions': ['cond2', 'cond1', 'cond3'], 'name': 'baseline_test_aud'}."}
+{"time": 50.6773, "msg": "Start stimulus for baseline_test_aud in condition cond2."}
+{"time": 51.682, "msg": "Finished stimulus for baseline_test_aud."}
+{"time": 64.4942, "event": "Next clicked for {'type': 'test', 'modifiers': {'modality': 'aud', 'phase': 'baseline'}, 'conditions': ['cond2', 'cond1', 'cond3'], 'name': 'baseline_test_aud'}."}
+{"time": 64.4955, "msg": "Test condition changed to cond1 in baseline_test_aud."}
+{"time": 64.4962, "msg": "Set up baseline_test_aud stage."}
+{"time": 245.6082, "event": "Start clicked for {'type': 'test', 'modifiers': {'modality': 'aud', 'phase': 'baseline'}, 'conditions': ['cond2', 'cond1', 'cond3'], 'name': 'baseline_test_aud'}."}
+{"time": 245.6093, "msg": "Start stimulus for baseline_test_aud in condition cond1."}
+{"time": 246.6246, "msg": "Finished stimulus for baseline_test_aud."}
+{"time": 250.771, "event": "Next clicked for {'type': 'test', 'modifiers': {'modality': 'aud', 'phase': 'baseline'}, 'conditions': ['cond2', 'cond1', 'cond3'], 'name': 'baseline_test_aud'}."}
+{"time": 250.7722, "msg": "Test condition changed to cond3 in baseline_test_aud."}
+{"time": 250.7729, "msg": "Set up baseline_test_aud stage."}
+{"time": 252.4726, "event": "Start clicked for {'type': 'test', 'modifiers': {'modality': 'aud', 'phase': 'baseline'}, 'conditions': ['cond2', 'cond1', 'cond3'], 'name': 'baseline_test_aud'}."}
+{"time": 252.4738, "msg": "Start stimulus for baseline_test_aud in condition cond3."}
+{"time": 253.4834, "msg": "Finished stimulus for baseline_test_aud."}
+{"time": 290.6509, "event": "Proceed clicked."}
+{"time": 290.6518, "msg": "Shut down baseline_test_aud stage."}
+{"time": 290.6524, "msg": "Set up baseline_familiarization_vis stage."}
+{"time": 296.0781, "event": "Start clicked for {'type': 'familiarization', 'modifiers': {'modality': 'vis', 'phase': 'baseline'}, 'name': 'baseline_familiarization_vis'}."}
+{"time": 296.079, "msg": "Start stimulus for baseline_familiarization_vis."}
+{"time": 297.0921, "msg": "Finished stimulus for baseline_familiarization_vis."}
+{"time": 581.4983, "event": "Repeat clicked for {'type': 'familiarization', 'modifiers': {'modality': 'vis', 'phase': 'baseline'}, 'name': 'baseline_familiarization_vis'}."}
+{"time": 581.4992, "msg": "Start stimulus for baseline_familiarization_vis."}
+{"time": 582.5141, "msg": "Finished stimulus for baseline_familiarization_vis."}
+{"time": 582.9449, "event": "Repeat clicked for {'type': 'familiarization', 'modifiers': {'modality': 'vis', 'phase': 'baseline'}, 'name': 'baseline_familiarization_vis'}."}
+{"time": 582.9463, "msg": "Start stimulus for baseline_familiarization_vis."}
+{"time": 583.9599, "msg": "Finished stimulus for baseline_familiarization_vis."}
+{"time": 584.5261, "event": "Proceed clicked."}
+{"time": 584.5274, "msg": "Shut down baseline_familiarization_vis stage."}
+{"time": 584.5281, "msg": "Set up baseline_practice_vis stage."}
+{"time": 588.6558, "event": "Start clicked for {'type': 'practice', 'modifiers': {'modality': 'vis', 'phase': 'baseline'}, 'name': 'baseline_practice_vis'}."}
+{"time": 588.6566, "msg": "Start stimulus for baseline_practice_vis, repeat 0."}
+{"time": 589.5002, "msg": "Space pressed in stage baseline_practice_vis."}
+{"time": 589.6656, "msg": "Finished stimulus for baseline_practice_vis."}
+{"time": 590.9633, "event": "Repeat clicked for {'type': 'practice', 'modifiers': {'modality': 'vis', 'phase': 'baseline'}, 'name': 'baseline_practice_vis'}."}
+{"time": 590.9646, "msg": "Start stimulus for baseline_practice_vis, repeat 1."}
+{"time": 591.3413, "msg": "Space pressed in stage baseline_practice_vis."}
+{"time": 591.6396, "msg": "Space pressed in stage baseline_practice_vis."}
+{"time": 591.9024, "msg": "Space pressed in stage baseline_practice_vis."}
+{"time": 591.9678, "msg": "Finished stimulus for baseline_practice_vis."}
+{"time": 592.9684, "event": "Proceed clicked."}
+{"time": 592.9695, "msg": "Shut down baseline_practice_vis stage."}
+{"time": 592.9702, "msg": "Set up baseline_test_vis stage."}
+{"time": 594.7225, "event": "Start clicked for {'type': 'test', 'modifiers': {'modality': 'vis', 'phase': 'baseline'}, 'conditions': ['cond2', 'cond1'], 'name': 'baseline_test_vis'}."}
+{"time": 594.7236, "msg": "Start stimulus for baseline_test_vis in condition cond2."}
+{"time": 595.2508, "msg": "Space pressed in stage baseline_test_vis."}
+{"time": 595.732, "msg": "Finished stimulus for baseline_test_vis."}
+{"time": 597.5777, "event": "Next clicked for {'type': 'test', 'modifiers': {'modality': 'vis', 'phase': 'baseline'}, 'conditions': ['cond2', 'cond1'], 'name': 'baseline_test_vis'}."}
+{"time": 597.5785, "msg": "Test condition changed to cond1 in baseline_test_vis."}
+{"time": 597.579, "msg": "Set up baseline_test_vis stage."}
+{"time": 599.2389, "event": "Start clicked for {'type': 'test', 'modifiers': {'modality': 'vis', 'phase': 'baseline'}, 'conditions': ['cond2', 'cond1'], 'name': 'baseline_test_vis'}."}
+{"time": 599.2402, "msg": "Start stimulus for baseline_test_vis in condition cond1."}
+{"time": 600.2457, "msg": "Finished stimulus for baseline_test_vis."}
+{"time": 600.7265, "event": "Proceed clicked."}
+{"time": 600.7277, "msg": "Shut down baseline_test_vis stage."}
+{"time": 600.7284, "msg": "Set up pattern_practice_aud stage."}
+{"time": 602.0507, "event": "Start clicked for {'type': 'practice', 'modifiers': {'modality': 'aud', 'phase': 'pattern'}, 'name': 'pattern_practice_aud'}."}
+{"time": 602.0521, "msg": "Start stimulus for pattern_practice_aud, repeat 0."}
+{"time": 603.0567, "msg": "Finished stimulus for pattern_practice_aud."}
+{"time": 603.403, "event": "Proceed clicked."}
+{"time": 603.4037, "msg": "Shut down pattern_practice_aud stage."}
+{"time": 603.4043, "msg": "Set up pattern_test_aud stage."}
+{"time": 605.2068, "event": "Start clicked for {'type': 'test', 'modifiers': {'modality': 'aud', 'phase': 'pattern'}, 'conditions': ['cond1'], 'name': 'pattern_test_aud'}."}
+{"time": 605.208, "msg": "Start stimulus for pattern_test_aud in condition cond1."}
+{"time": 606.1521, "msg": "Space pressed in stage pattern_test_aud."}
+{"time": 606.2187, "msg": "Finished stimulus for pattern_test_aud."}
+{"time": 610.8255, "event": "Proceed clicked."}
+{"time": 610.8266, "msg": "Shut down pattern_test_aud stage."}
+{"time": 610.8275, "msg": "Set up pattern_practice_vis stage."}
+{"time": 613.1789, "event": "Start clicked for {'type': 'practice', 'modifiers': {'modality': 'vis', 'phase': 'pattern'}, 'name': 'pattern_practice_vis'}."}
+{"time": 613.1812, "msg": "Start stimulus for pattern_practice_vis, repeat 0."}
+{"time": 613.9068, "msg": "Space pressed in stage pattern_practice_vis."}
+{"time": 614.1907, "msg": "Finished stimulus for pattern_practice_vis."}
+{"time": 615.3644, "event": "Proceed clicked."}
+{"time": 615.3657, "msg": "Shut down pattern_practice_vis stage."}
+{"time": 615.3665, "msg": "Set up pattern_test_vis stage."}
+{"time": 617.2824, "event": "Start clicked for {'type': 'test', 'modifiers': {'modality': 'vis', 'phase': 'pattern'}, 'conditions': ['cond3', 'cond1', 'cond2'], 'name': 'pattern_test_vis'}."}
+{"time": 617.2838, "msg": "Start stimulus for pattern_test_vis in condition cond3."}
+{"time": 618.1687, "msg": "Space pressed in stage pattern_test_vis."}
+{"time": 618.2855, "msg": "Finished stimulus for pattern_test_vis."}
+{"time": 619.7146, "event": "Next clicked for {'type': 'test', 'modifiers': {'modality': 'vis', 'phase': 'pattern'}, 'conditions': ['cond3', 'cond1', 'cond2'], 'name': 'pattern_test_vis'}."}
+{"time": 619.7156, "msg": "Test condition changed to cond1 in pattern_test_vis."}
+{"time": 619.7171, "msg": "Set up pattern_test_vis stage."}
+{"time": 621.29, "event": "Start clicked for {'type': 'test', 'modifiers': {'modality': 'vis', 'phase': 'pattern'}, 'conditions': ['cond3', 'cond1', 'cond2'], 'name': 'pattern_test_vis'}."}
+{"time": 621.291, "msg": "Start stimulus for pattern_test_vis in condition cond1."}
+{"time": 622.3041, "msg": "Finished stimulus for pattern_test_vis."}
+{"time": 622.669, "event": "Next clicked for {'type': 'test', 'modifiers': {'modality': 'vis', 'phase': 'pattern'}, 'conditions': ['cond3', 'cond1', 'cond2'], 'name': 'pattern_test_vis'}."}
+{"time": 622.6703, "msg": "Test condition changed to cond2 in pattern_test_vis."}
+{"time": 622.6711, "msg": "Set up pattern_test_vis stage."}
+{"time": 624.0481, "event": "Start clicked for {'type': 'test', 'modifiers': {'modality': 'vis', 'phase': 'pattern'}, 'conditions': ['cond3', 'cond1', 'cond2'], 'name': 'pattern_test_vis'}."}
+{"time": 624.0495, "msg": "Start stimulus for pattern_test_vis in condition cond2."}
+{"time": 625.0602, "msg": "Finished stimulus for pattern_test_vis."}
+{"time": 625.4577, "event": "Proceed clicked."}
+{"time": 625.459, "msg": "Shut down pattern_test_vis stage."}
+{"time": 625.46, "msg": "Set up outro_questionnaire stage."}
+{"time": 639.3417, "event": "Proceed clicked."}
+{"time": 639.3426, "msg": "Shut down outro_questionnaire stage."}
+{"time": 639.3436, "event": "Strategy submitted.", "answer": "Test."}
+{"time": 639.3454, "event": "Auditory likert submitted.", "answer": "3"}
+{"time": 639.347, "event": "Visual likert submitted.", "answer": "4"}
+{"time": 639.3479, "event": "Pattern reply submitted.", "answer": "yes"}
+{"time": 639.3489, "msg": "Set up thanks stage."}
+{"time": 641.3603, "msg": "Data successfully exported."}
+{"time": 641.3609, "msg": "End."}
