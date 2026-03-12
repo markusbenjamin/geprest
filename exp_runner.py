@@ -1586,6 +1586,8 @@ def start_stimulus():
         case 'demo_stimulus':
             log(f"Start stimulus for {stage['name']}.")
             subject_data['repeat_num'][stage['name']] = repeat_num
+            subject_data['space_presses'][stage['name']][f"repeat_{repeat_num}"] = []
+            log_space_press = True
             match stage['modifiers']['modality']:
                 case 'aud':
                     play_auditory_stimulus(channel_index=ch, samp=audio_sample_demo*spkeaker_gain*master_gain_exp, start_in_s = 0)
@@ -1671,6 +1673,7 @@ def set_up_stage():
         case 'demo_stimulus':
             substage = 'intro'
             start_button.show()
+            subject_data['space_presses'][stage['name']] = {}
         case 'demo_thanks':
             pass
         case 'welcome':

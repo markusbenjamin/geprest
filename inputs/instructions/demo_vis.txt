@@ -1,1 +1,1 @@
-Will now play the file 'VIS_demo.mp4'.
+Will now play the file 'VIS_demo.mp4' and log Space presses.

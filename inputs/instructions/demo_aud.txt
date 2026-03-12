@@ -1,1 +1,1 @@
-Will now play the file 'AUD_demo.wav'.
+Will now play the file 'AUD_demo.wav' and log Space presses.
