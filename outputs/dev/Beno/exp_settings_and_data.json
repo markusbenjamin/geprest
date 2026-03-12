@@ -2,8 +2,8 @@
   "batch": "dev",
   "zoom": 1,
   "size": {
-    "w": 1536,
-    "h": 864
+    "w": 2048,
+    "h": 1152
   },
   "subject": "Beno",
   "run_label": "dev_Beno",
@@ -15,6 +15,10 @@
     {
       "type": "welcome",
       "name": "welcome"
+    },
+    {
+      "type": "screener",
+      "name": "screener"
     },
     {
       "type": "intro_questionnaire",
@@ -125,5 +129,6 @@
       "type": "thanks",
       "name": "thanks"
     }
-  ]
+  ],
+  "master_gain": 1
 }

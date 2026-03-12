@@ -1,1 +1,5 @@
-<instructions_pattern_test_vis>
+This is the test session in this part. This sessions is similar to the practice session, only that it is a little more difficult and there are way fewer longer pauses. Press the space bar in those rare cases, when you see the pause (blank screen) in-between the squares longer compared to the typical pause duration.
+
+Get ready.
+
+After clicking 'Start', place your finger on the space bar. The test will start automatically.

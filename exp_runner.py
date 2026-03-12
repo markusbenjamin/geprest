@@ -6,6 +6,7 @@ pygame.init()
 import traceback
 import shutil
 import subprocess
+import cv2
 #endregion
 
 #region Persistent settings and environmental parameters
@@ -13,6 +14,10 @@ exp_settings_and_data = {}
 exp_root = "./geprest/"
 
 dev = True
+demo = True
+if demo:
+    dev = False
+on_grid = False
 batch = 'dev' if dev else 'batch'
 exp_settings_and_data['batch'] = batch
 
@@ -44,7 +49,7 @@ exp_settings_and_data['size'] = {'w':w, 'h':h}
 subject_data = {}
 
 #
-# put subject and else here with input()
+# DEV: put subject and else here with input()
 #
 subject = 'Beno'
 exp_settings_and_data['subject'] = subject
@@ -59,11 +64,11 @@ log_path = f'{output_path}/log.jsonl'
 #endregion
 
 #region Experiment structure
-modality_order = ['aud','vis'] #DEV: randomized?
+modality_order = ['aud','vis'] #DEV: randomize
 exp_settings_and_data['modality_order'] = modality_order
-phase_order = ['baseline','pattern'] #DEV: is this fixed?
+phase_order = ['baseline','pattern']
 
-test_conditions = { #DEV: make this file-dependent? or hardcode here?
+test_conditions = { #DEV: hardcode here, select set based on participant number
     'baseline_aud':['cond1','cond2','cond3'],
     'baseline_vis':['cond1','cond2'],
     'pattern_aud': ['cond1'],
@@ -93,6 +98,7 @@ def generate_exp_structure(modality_order, test_conditions, condition_orderings)
 
     exp_structure = [
         {'type': 'welcome'},
+        {'type': 'screener'},
         {'type': 'intro_questionnaire'},
         {'type': 'familiarization', 'modifiers': {'modality': modality_order[0], 'phase': phase_order[0]}}
     ] + practice_and_test_block(modality_order[0], phase_order[0]) + [
@@ -113,8 +119,18 @@ def generate_exp_structure(modality_order, test_conditions, condition_orderings)
     
     return exp_structure
 
-exp_structure = generate_exp_structure(modality_order,test_conditions,condition_orderings)
+demo_exp = [
+    {'type': 'demo_welcome','name':'demo_welcome'},
+    {'type': 'demo_stimulus','modifiers': {'modality': 'aud', 'phase': ''},'name':'demo_aud'},
+    {'type': 'demo_stimulus','modifiers': {'modality': 'vis', 'phase': ''},'name':'demo_vis'},
+    {'type': 'demo_thanks','name':'demo_thanks'}
+]
+
+exp_structure = demo_exp if demo else generate_exp_structure(modality_order,test_conditions,condition_orderings)
 exp_settings_and_data['exp_structure'] = exp_structure
+
+master_gain_exp = 1
+exp_settings_and_data['master_gain'] = master_gain_exp #DEV: define usage
 #endregion
 
 #region Declare flags
@@ -129,40 +145,46 @@ test_condition_index = None
 #endregion
 
 #region Device IO
-#region Video
+#region Video startup
 """
 After input() before UI
 """
 screen = pygame.display.set_mode((w, h), pygame.NOFRAME)
 #endregion
 
-#region Audio
-'''
-audio_start()
-audio_settings = settings
-#DEV: placeholders follow
-audio_sample  = load_mono_wav(r"Y:\Beno\hangfalfal\sounds\Linda\tri_channel_output_1.wav", to_sample_rate=audio_settings["sample_rate"])[: int(5 * audio_settings["sample_rate"])]
-sp = 33
-ch = audio_settings['sp_to_ch'][sp-1]
-gain = audio_settings['sp_gains'][sp-1]
-#gain = 1
+#region Audio startup
+if on_grid:
+    audio_start()
+    audio_settings = settings
+    #DEV: placeholders follow
+    audio_sample  = load_mono_wav(r"Y:\Beno\hangfalfal\sounds\Linda\tri_channel_output_1.wav", to_sample_rate=audio_settings["sample_rate"])[: int(5 * audio_settings["sample_rate"])]
+    sp = 33 #DEV: placeholder for now
+    ch = audio_settings['sp_to_ch'][sp-1] #DEV: placeholder for now
+    spkeaker_gain = audio_settings['sp_gains'][sp-1] #DEV: placeholder for now
 
-mic_blocksize = 128 #DEV: maybe this is a bit too high res
-mic_meter_start(blocksize=mic_blocksize, channels=1)   # non-blocking
-mic_measurement_gap = mic_blocksize / settings["sample_rate"]
+    mic_blocksize = 128 #DEV: maybe this is a bit too high res
+    mic_meter_start(blocksize=mic_blocksize, channels=1)   # non-blocking
+    mic_measurement_gap = mic_blocksize / settings["sample_rate"]
 
-def mic_level():
-    block, sr = mic_raw_block()
-    channel0 = block[:, 0]
-    level = float(np.sqrt( np.mean( channel0 * channel0 ) ))
-    return level
-'''
+    def mic_level():
+        block, sr = mic_raw_block()
+        channel0 = block[:, 0]
+        level = float(np.sqrt( np.mean( channel0 * channel0 ) ))
+        return level
+    
+    def play_auditory_stimulus(channel_index, samp, start_in_s):
+        channel_play_at(channel_index, samp, start_in_s)
+else:  
+    audio_settings = settings
+    audio_settings["device_id"] = get_default_output_device_id()
+    audio_start(device_id=audio_settings["device_id"], ch_num=2)
+    audio_sample  = load_wav(f'{exp_root}/inputs/stimuli/tri.wav', to_sample_rate=audio_settings["sample_rate"])[: int(10 * audio_settings["sample_rate"])]
+    ch = None
+    spkeaker_gain = 1
+    def play_auditory_stimulus(channel_index, samp, start_in_s):
+        play_wav_lr(samp)
 
-ch = None
-audio_sample = 1
-def channel_play_at(channel_index, mono, start_in_s):
-    pass
-
+audio_sample_demo  = load_mono_wav(f'{exp_root}/inputs/stimuli/AUD_demo.wav', to_sample_rate=audio_settings["sample_rate"])[: int(5 * audio_settings["sample_rate"])]
 #endregion
 
 #endregion
@@ -353,6 +375,96 @@ def text_on_screen(
         screen.blit(s, rect)
         y += s.get_height() + line_gap
 
+def wrapped_text_on_screen(
+    text_or_lines,
+    box_rrect,                    # (rcx, rcy, rw, rh) – centre-anchored, in 0..1 units
+    *,
+    size       = font_size,
+    color      = (0, 0, 0),
+    font_path  = None,
+    antialias  = True,
+    line_gap   = 6,
+    bg         = None,
+    bg_pad     = 6,
+    bg_alpha   = None,
+    align      = "center",        # "center" | "left" | "right"
+):
+    """
+    A superset of `text_on_screen`:
+
+    • Accepts either a string **or** a list/tuple of already-split lines.
+      If you give a list/tuple, *each* element is treated as its own paragraph
+      and word-wrapped separately.
+    • Ensures no rendered line exceeds the width of `box_rrect`.
+    • Vertically centres the wrapped block inside `box_rrect`.
+    """
+
+    # ------------------------------------------------------------------ set-up
+    if not font_path:
+        font = ui_font
+    else:
+        font = pygame.font.Font(font_path, size)
+
+    sw, sh = screen.get_size()
+    rcx, rcy, rw, rh = box_rrect
+    box_w = int(rw * sw)
+    box_h = int(rh * sh)
+
+    # ------------------------------------------------------------------ prepare raw paragraphs
+    if isinstance(text_or_lines, (list, tuple)):
+        raw_paragraphs = [str(p) for p in text_or_lines]
+    else:
+        raw_paragraphs = str(text_or_lines).splitlines()
+
+    # ------------------------------------------------------------------ word-wrap each paragraph
+    space_w, _ = font.size(" ")
+    wrapped_lines = []
+
+    for para in raw_paragraphs:
+        words = para.split()
+        cur_line, cur_w = [], 0
+
+        for w in words or [""]:          # keep empty lines
+            w_w, _ = font.size(w)
+            if cur_line and cur_w + space_w + w_w > box_w:
+                wrapped_lines.append(" ".join(cur_line))
+                cur_line, cur_w = [w], w_w
+            else:
+                if cur_line:
+                    cur_w += space_w
+                cur_line.append(w)
+                cur_w += w_w
+        wrapped_lines.append(" ".join(cur_line))
+
+    # ------------------------------------------------------------------ vertical centring inside box
+    sample_h = font.size("Tg")[1]
+    total_h  = len(wrapped_lines) * sample_h + (len(wrapped_lines) - 1) * line_gap
+    first_line_top = rcy * sh - box_h / 2 + max(0, (box_h - total_h) / 2)
+
+    # ------------------------------------------------------------------ delegate drawing line-by-line
+    y = int(first_line_top)
+    cx = int(rcx * sw)
+
+    for line in wrapped_lines:
+        surf = font.render(line, antialias, color)
+        if align == "left":
+            rect = surf.get_rect(topleft=(cx, y))
+        elif align == "right":
+            rect = surf.get_rect(topright=(cx, y))
+        else:  # center
+            rect = surf.get_rect(midtop=(cx, y))
+
+        if bg is not None:
+            bg_rect = rect.inflate(bg_pad * 2, bg_pad * 2)
+            if bg_alpha is None:
+                pygame.draw.rect(screen, bg, bg_rect)
+            else:
+                tmp = pygame.Surface(bg_rect.size, pygame.SRCALPHA)
+                tmp.fill((*bg, int(bg_alpha * 255)))
+                screen.blit(tmp, bg_rect.topleft)
+
+        screen.blit(surf, rect)
+        y += surf.get_height() + line_gap
 ui = [] # global ui registry
 
 class TextField:
@@ -1117,7 +1229,7 @@ def flush_experiment(log_message, cause="Finished."):
     log(log_message)
     exp_settings_and_data['end'] = {'time': exp_time(), 'cause': cause}
 
-    if not dev:
+    if not dev and on_grid:
         try:
             git_commit_and_sync_from_root("outputs",message="Incoming subject data.")
         except Exception as e:
@@ -1172,11 +1284,148 @@ def handle_error(e):
 
 #endregion
 
+#region Video
+_video_state = None          # global dict holding the current clip (or None)
+
+def video_start(
+    path,
+    *,
+    rrect=(0.5, 0.5, 1.0, 1.0),    # (rcx, rcy, rw, rh) – 0‥1 screen-relative
+    keep_aspect=True,
+    loop=False,
+):
+    """
+    Begin playing the video track of an .mp4 **without blocking**.
+
+    Returns the clip duration in seconds (float).  Call `video_tick()` from
+    your main loop to advance and draw frames.  Use `video_is_playing()` to
+    poll its state.
+    """
+    import cv2, os
+
+    global _video_state
+
+    # -------- resolve path --------------------------------------------------
+    p = os.path.expanduser(os.path.expandvars(str(path)))
+    if not os.path.splitext(p)[1]:
+        p += ".mp4"
+    if not os.path.isabs(p):
+        p = os.path.join(exp_root, p)
+    if not os.path.exists(p):
+        raise FileNotFoundError(f"video not found: {p}")
+
+    cap = cv2.VideoCapture(p)
+    if not cap.isOpened():
+        raise RuntimeError(f"cannot open video: {p}")
+
+    fps   = cap.get(cv2.CAP_PROP_FPS) or 30.0
+    fcnt  = cap.get(cv2.CAP_PROP_FRAME_COUNT)
+    dur   = fcnt / fps if fcnt > 0 else 0
+
+    sw, sh = screen.get_size()
+    rcx, rcy, rw, rh = rrect
+    tgt_w = int(rw * sw)
+    tgt_h = int(rh * sh)
+
+    vw  = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    vh  = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+    if keep_aspect:
+        scale = min(tgt_w / vw, tgt_h / vh)
+        dw, dh = int(vw * scale), int(vh * scale)
+    else:
+        dw, dh = tgt_w, tgt_h
+
+    dest = pygame.Rect(0, 0, dw, dh)
+    dest.center = (int(rcx * sw), int(rcy * sh))
+
+    _video_state = {
+        "cap": cap,
+        "fps": fps,
+        "ms_per": 1000.0 / fps,
+        "next_ms": pygame.time.get_ticks(),
+        "dest": dest,
+        "loop": loop,
+        "keep_aspect": keep_aspect,
+    }
+    return dur
+
+
+def video_tick():
+    """
+    Advance the current video by one frame **if it is time** and blit it.
+    Call this once per iteration of your main loop *before* the display flip.
+    """
+    global _video_state
+    if _video_state is None:
+        return
+
+    now = pygame.time.get_ticks()
+    if now < _video_state["next_ms"]:
+        return  # not time for the next frame yet
+
+    cap = _video_state["cap"]
+    ret, frame = cap.read()
+    if not ret:                                       # clip ended
+        if _video_state["loop"]:
+            cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+            return
+        else:
+            video_stop()
+            return
+
+    _video_state["next_ms"] += _video_state["ms_per"]
+
+    # BGR → RGB and Pygame surface
+    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    surf  = pygame.surfarray.make_surface(frame.swapaxes(0, 1))
+
+    if surf.get_size() != _video_state["dest"].size:
+        surf = pygame.transform.smoothscale(surf, _video_state["dest"].size)
+
+    screen.blit(surf, _video_state["dest"])
+
+def video_is_playing():
+    """Return True while a clip started with `video_start_mp4` is still active."""
+    return _video_state is not None
+
+def video_stop():
+    """Abort the current clip and free resources."""
+    global _video_state
+    if _video_state is not None:
+        try:
+            _video_state["cap"].release()
+        except Exception:
+            pass
+    _video_state = None
+
+#endregion
+
 #endregion
 
 #region Flow control
 
 #region UI elements
+consent_radio = RadioButtons(
+    ui,
+    ["I consent to participate in the experiment"],
+    rrect=(0.5, 0.65,  0.3, 0.15),
+    on_submit=lambda ans: (
+        log({"event": "Consented.", "answer": ans})
+    ),
+    layout="vertical"
+)
+
+screener_radio = RadioButtons(
+    ui,
+    ["I confirm that none of the above listed items applies to me."],
+    rrect=(0.5, 0.65,  0.4, 0.15),
+    on_submit=lambda ans: (
+        log({"event": "Screened.", "answer": ans})
+    ),
+    layout="vertical"
+)
+
 gender_radio = RadioButtons(
     ui,
     ["female", "male"],
@@ -1221,7 +1470,7 @@ start_button = Button( # Used to initiate 'stimulus' substage
     (0.5, button_pos_v, button_w, button_h), 
     "Start", 
     lambda: (
-        log({"event": f"Start clicked for {exp_structure[stage_index]}."}),
+        log({"event": f"Start clicked for {exp_structure[stage_index]['name']}."}),
         start_stimulus()
     )
 )
@@ -1231,7 +1480,7 @@ repeat_button = Button( # Used to re-initiate 'stimulus' substage
     (0.5, button_pos_v - button_h*1.1, button_w, button_h), 
     "Repeat", 
     lambda: (
-        log({"event": f"Repeat clicked for {exp_structure[stage_index]}."}),
+        log({"event": f"Repeat clicked for {exp_structure[stage_index]['name']}."}),
         start_stimulus()
     )
 )
@@ -1241,7 +1490,7 @@ next_button = Button( # Used to proceed to next test condition
     (0.5, button_pos_v, button_w, button_h), 
     "Next", 
     lambda: (
-        log({"event": f"Next clicked for {exp_structure[stage_index]}."}),
+        log({"event": f"Next clicked for {exp_structure[stage_index]['name']}."}),
         change_test_condition()
     )
 )
@@ -1334,15 +1583,22 @@ def start_stimulus():
     stage = exp_structure[stage_index]
     
     match stage['type']:
+        case 'demo_stimulus':
+            log(f"Start stimulus for {stage['name']}.")
+            subject_data['repeat_num'][stage['name']] = repeat_num
+            match stage['modifiers']['modality']:
+                case 'aud':
+                    play_auditory_stimulus(channel_index=ch, samp=audio_sample_demo*spkeaker_gain*master_gain_exp, start_in_s = 0)
+                case 'vis':
+                    video_start(f'inputs/stimuli/VIS_demo.mp4',rrect=(0.5, 0.5, 0.3, 0.3))
         case 'familiarization':
             log(f"Start stimulus for {stage['name']}.")
             subject_data['repeat_num'][stage['name']] = repeat_num
             match stage['modifiers']['modality']:
                 case 'aud':
-                    channel_play_at(channel_index=ch, mono=audio_sample*1, start_in_s = 0)
+                    play_auditory_stimulus(channel_index=ch, samp=audio_sample*spkeaker_gain*master_gain_exp, start_in_s = 0)
                 case 'vis':
-                    pass
-                    # any starter logic for starting stimulus
+                    video_start(f'inputs/stimuli/VIS_demo.mp4',rrect=(0.5, 0.5, 0.3, 0.3))
         case 'practice':
             log(f"Start stimulus for {stage['name']}, repeat {repeat_num}.")
             subject_data['repeat_num'][stage['name']] = repeat_num
@@ -1350,21 +1606,38 @@ def start_stimulus():
             log_space_press = True
             match stage['modifiers']['modality']:
                 case 'aud':
-                    channel_play_at(channel_index=ch, mono=audio_sample, start_in_s = 0)
+                    play_auditory_stimulus(channel_index=ch, samp=audio_sample*spkeaker_gain*master_gain_exp, start_in_s = 0)
                 case 'vis':
-                    pass
-                    # any starter logic for starting stimulus
+                    video_start(f'inputs/stimuli/VIS_demo.mp4',rrect=(0.5, 0.5, 0.3, 0.3))
         case 'test':
             log(f"Start stimulus for {stage['name']} in condition {stage['conditions'][test_condition_index]}.")
             log_space_press = True
             match stage['modifiers']['modality']:
                 case 'aud':
-                    channel_play_at(channel_index=ch, mono=audio_sample, start_in_s = 0)
+                    play_auditory_stimulus(channel_index=ch, samp=audio_sample*spkeaker_gain*master_gain_exp, start_in_s = 0)
                 case 'vis':
-                    pass
-                    # any starter logic for starting stimulus
+                    video_start(f'inputs/stimuli/VIS_demo.mp4',rrect=(0.5, 0.5, 0.3, 0.3))
         case _:
             pass
+
+def stop_stimulus():
+    global substage, log_space_press
+    audio_stop('immediate')
+    video_stop()
+    log(f"Finished stimulus for {exp_structure[stage_index]['name']}.")
+    substage = 'repeat'
+
+    if is_test_stage():
+        if all_test_conditions_done():
+            next_button.deactivate()
+            proceed_button.activate()
+        else:
+            next_button.activate()
+    else:
+        repeat_button.activate()
+        proceed_button.activate()
+
+    log_space_press = False
 
 def compute_stimulus_finished():
     '''
@@ -1372,10 +1645,9 @@ def compute_stimulus_finished():
     '''
     match exp_structure[stage_index]['modifiers']['modality']:
         case 'aud':
-            return secs_since(stimulus_start) > 1 #DEV: make this dependent on actual audio stream
-            #return not audio_is_playing()
+            return not audio_is_playing()
         case 'vis':
-            return secs_since(stimulus_start) > 1 #DEV: make this dependent on actual audio stream
+            return not video_is_playing()
         case _:
             return None
         
@@ -1394,8 +1666,19 @@ def set_up_stage():
     
     stage_start = exp_time()
     match stage['type']:
+        case 'demo_welcome':
+            proceed_button.show()
+        case 'demo_stimulus':
+            substage = 'intro'
+            start_button.show()
+        case 'demo_thanks':
+            pass
         case 'welcome':
             proceed_button.show()
+            consent_radio.show()
+        case 'screener':
+            proceed_button.show()
+            screener_radio.show()
         case 'intro_questionnaire':
             proceed_button.show()
             gender_radio.show()
@@ -1442,13 +1725,27 @@ def shutdown_stage():
     log(f"Shut down {stage['name']} stage.")
 
     match stage['type']:
+        case 'demo_welcome':
+            proceed_button.deactivate()
+        case 'demo_thanks':
+            pass
         case 'welcome':
             proceed_button.deactivate()
+            consent_radio.submit()
+            consent_radio.hide()
+        case 'screener':
+            proceed_button.deactivate()
+            screener_radio.submit()
+            screener_radio.hide()
         case 'intro_questionnaire':
             gender_radio.submit()
             age_field.submit()
             gender_radio.hide()
             age_field.hide()
+            proceed_button.deactivate()
+        case 'demo_stimulus':
+            start_button.deactivate()
+            repeat_button.deactivate()
             proceed_button.deactivate()
         case 'familiarization':
             start_button.deactivate()
@@ -1509,24 +1806,62 @@ def draw():
     dev_message = f'stage: {stage["name"]}'
 
     match stage['type']:
+        case 'demo_welcome':
+            screen.fill(WHITE)
+            wrapped_text_on_screen(
+                instructions[stage['name']],
+                (0.5, 0.25, 0.8, 0.3)   # (rcx, rcy, rw, rh) in screen-relative units
+            )
+        case 'demo_thanks':
+            screen.fill(WHITE)
+            wrapped_text_on_screen(
+                instructions[stage['name']],
+                (0.5, 0.25, 0.8, 0.3)   # (rcx, rcy, rw, rh) in screen-relative units
+            )
         case 'welcome':
             screen.fill(WHITE)
-            text_on_screen(instructions[stage['name']], 0.5, 0.1)
+            wrapped_text_on_screen(
+                instructions[stage['name']],
+                (0.5, 0.25, 0.8, 0.3)   # (rcx, rcy, rw, rh) in screen-relative units
+            )
+        case 'screener':
+            screen.fill(WHITE)
+            wrapped_text_on_screen(
+                instructions[stage['name']],
+                (0.5, 0.25, 0.8, 0.3)   # (rcx, rcy, rw, rh) in screen-relative units
+            )
         case 'intro_questionnaire':
             screen.fill(WHITE)
-            text_on_screen(instructions[stage['name']], 0.5, 0.1)
+            wrapped_text_on_screen(
+                instructions[stage['name']],
+                (0.5, 0.25, 0.8, 0.3)
+            )
+        case 'demo_stimulus':
+            match substage:
+                case 'intro':
+                    screen.fill(WHITE)
+                    wrapped_text_on_screen(
+                        instructions[stage['name']],
+                        (0.5, 0.25, 0.8, 0.3)
+                    )
+                case 'stimulus':
+                    screen.fill(LIGHTGRAY)
+                    video_tick()
+                case 'repeat':
+                    screen.fill(WHITE)
+                    text_on_screen('<want repeat?>', 0.5, 0.1)
         case 'familiarization':
             match substage:
                 case 'intro':
                     screen.fill(WHITE)
-                    text_on_screen(instructions[stage['name']], 0.5, 0.1)
+                    wrapped_text_on_screen(
+                        instructions[stage['name']],
+                        (0.5, 0.25, 0.8, 0.3)
+                    )
                 case 'stimulus':
-                    screen.fill(WHITE)
-                    match stage['modifiers']['modality']:
-                        case 'aud':
-                            text_on_screen('<playing sound>', 0.5, 0.1)
-                        case 'vis':
-                            text_on_screen('<showing video>', 0.5, 0.1)
+                    screen.fill(LIGHTGRAY)
+                    text_on_screen('Could you catch that a few of the pauses were longer?', 0.5, 0.1)
+                    video_tick()
                 case 'repeat':
                     screen.fill(WHITE)
                     text_on_screen('<want repeat?>', 0.5, 0.1)
@@ -1534,14 +1869,18 @@ def draw():
             match substage:
                 case 'intro':
                     screen.fill(WHITE)
-                    text_on_screen(instructions[stage['name']], 0.5, 0.1)
+                    wrapped_text_on_screen(
+                        instructions[stage['name']],
+                        (0.5, 0.25, 0.8, 0.3)
+                    )
                 case 'stimulus':
-                    screen.fill(WHITE)
+                    screen.fill(LIGHTGRAY)
                     match stage['modifiers']['modality']:
                         case 'aud':
                             text_on_screen('<playing sound and logging SPACE>', 0.5, 0.1)
                         case 'vis':
                             text_on_screen('<showing video and logging SPACE>', 0.5, 0.1)
+                            video_tick()
                 case 'repeat':
                     screen.fill(WHITE)
                     text_on_screen('<want repeat?>', 0.5, 0.1)
@@ -1549,9 +1888,12 @@ def draw():
             match substage:
                 case 'intro':
                     screen.fill(WHITE)
-                    text_on_screen(instructions[stage['name']], 0.5, 0.1)
+                    wrapped_text_on_screen(
+                        instructions[stage['name']],
+                        (0.5, 0.25, 0.8, 0.3)
+                    )
                 case 'stimulus':
-                    screen.fill(WHITE)
+                    screen.fill(LIGHTGRAY)
                     match stage['modifiers']['modality']:
                         case 'aud':
                             text_on_screen(f'<condition: {stage["conditions"][test_condition_index]}>', 0.5, 0.075)
@@ -1559,6 +1901,7 @@ def draw():
                         case 'vis':
                             text_on_screen(f'<condition: {stage["conditions"][test_condition_index]}>', 0.5, 0.075)
                             text_on_screen('<showing video and logging SPACE>', 0.5, 0.125)
+                            video_tick()
                 case 'repeat':
                     screen.fill(WHITE)
                     if all_test_conditions_done():
@@ -1567,17 +1910,23 @@ def draw():
                         text_on_screen('<next condition?>', 0.5, 0.1)
         case 'outro_questionnaire':
             screen.fill(WHITE)
-            text_on_screen(instructions[stage['name']], 0.5, 0.1)
+            wrapped_text_on_screen(
+                        instructions[stage['name']],
+                        (0.5, 0.15, 0.8, 0.3)
+                    )
         case 'thanks':
             screen.fill(WHITE)
-            text_on_screen(instructions[stage['name']], 0.5, 0.1)
+            wrapped_text_on_screen(
+                        instructions[stage['name']],
+                        (0.5, 0.25, 0.8, 0.3)
+                    )
         case _:
             screen.fill(WHITE)
 
     for u in ui:
         u.draw()
 
-    if dev:
+    if dev or demo:
         text_on_screen(dev_message, 0.025, 0.08, font_size, RED, bg = GREEN, bg_alpha=0.25, align = "left")
 
     # Render to display
@@ -1598,6 +1947,10 @@ def on_key_press(k):
             subject_data['space_presses'][stage['name']][stage['conditions'][test_condition_index]].append(secs_since(stimulus_start))
         else:
             subject_data['space_presses'][stage['name']][f"repeat_{repeat_num}"].append(secs_since(stimulus_start))
+    elif k in (pygame.K_q, pygame.K_q):
+        log(f"Q pressed in stage {stage['name']}.")
+        if is_stimulus_stage() and substage == 'stimulus':
+            stop_stimulus()
     pass
 
 def on_mouse_press(pos, button):
@@ -1610,14 +1963,16 @@ def refresh():
     """
     One per-frame state updater.
     """
-    global stage_completed, stimulus_finished, substage, log_space_press
+    global stage_completed, stimulus_finished
 
     stage = exp_structure[stage_index]
 
     # Stage completion conditionals
     match stage['type']:
         case 'welcome':
-            stage_completed = secs_since(stage_start) > 1 #DEV
+            stage_completed = secs_since(stage_start) > (1 if dev else 10) and consent_radio.get() is not None
+        case 'screener':
+            stage_completed = secs_since(stage_start) > (1 if dev else 10) and screener_radio.get() is not None
         case 'intro_questionnaire':
             stage_completed = (
                 gender_radio.get() not in [None, "", " ", "  "]
@@ -1631,6 +1986,10 @@ def refresh():
                 and strategy_field.get() not in [None, "", " ", "  "]
                 )
         case 'thanks':
+            stage_completed = secs_since(stage_start) > 2 #DEV
+            if stage_completed:
+                finish("End.")
+        case 'demo_thanks':
             stage_completed = secs_since(stage_start) > 2 #DEV
             if stage_completed:
                 finish("End.")
@@ -1651,20 +2010,7 @@ def refresh():
             case 'stimulus':
                 stimulus_finished = compute_stimulus_finished()  # Keep this modular for various finish conditionals
                 if stimulus_finished is True:
-                    log(f"Finished stimulus for {stage['name']}.")
-                    substage = 'repeat'
-
-                    if is_test_stage():
-                        if all_test_conditions_done():
-                            next_button.deactivate()
-                            proceed_button.activate()
-                        else:
-                            next_button.activate()
-                    else:
-                        repeat_button.activate()
-                        proceed_button.activate()
-
-                    log_space_press = False
+                    stop_stimulus()
             case _:
                 pass
 #endregion

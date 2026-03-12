@@ -1,1 +1,12 @@
-<instructions_baseline_familiarization_vis>
+This is the start of a specific part of the experiment: duration of pauses in VISION.
+
+Here, you will be presented with a stream of squares on your screen. Throughout this part you need to pay attention to the duration of the pauses (blank screen) in-between the squares.
+
+
+Press the button 'u' and read the instructions carefully.
+
+You will be presented with a stream of squares on your screen. Some of the pauses in-between them will be longer than the others. Watch this short video excerpt to see an example stream of the stimuli.
+
+Can you catch that some of the pauses in-between the squares are longer than the rest? You can play the excerpt as many times as you would like to.
+
+Click 'Start', and the video begins playing automatically.

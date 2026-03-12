@@ -1,1 +1,12 @@
-<instructions_pattern_practice_aud>
+This is the start of a specific part of the experiment: duration of pauses #2 in AUDITION.
+
+You will be presented with a continuous stream of tones through your headphones. In this part, the tones will be either short or long. But this is not what you need to pay attention to! You need to pay attention again to the duration of the pauses, that is the silence in-between the tones (the tones that can be either short or long in the continuous stream, so it might feel a little tricky at first, to focus on the pauses).
+
+
+Press the button 'u' and read some tips before you start.
+
+This time we will start right with the practice task.
+
+Press the space bar if you hear a pause (silence) in-between the tones longer compared to the typical pause duration. The tones will be either short or long ones, but try to disregard them, and focus on the pauses. In order to make it a little easier, in the beginning, there will be many typical pauses, so that you can have a good sense of it. Hence, it might feel boring in the beginning, or worrisome that you can't hear anything to press the button to, that is perfectly normal. Be patient and don't get discouraged. Do not drum, hum, or sing quietly during the presentation of the stream. It is also normal to feel that you are late with pressing the button, because some of the streams are quite fast, don't worry about this aspect, press the button anyway, regardless of how much later it is than the pause that you felt longer. Try to avoid pressing the button to the longer tones. You need to focus on the pauses!
+
+Proceed by clicking 'Start', and the stream begins playing automatically.

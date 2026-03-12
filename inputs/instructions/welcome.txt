@@ -1,2 +1,7 @@
-<welcome text line 1>
-<welcome text line 2>
+Thank you for participating in this perceptual study at the Vision Lab of the Department of Cognitive Science, Central European University (CEU). The goal of the experiment is to identify and measure differences and similarities in visual and auditory processing at the basic perceptual level. At our lab we use multiple methods, for example behavioral experiments and computational models.
+
+In this experiment you will see simple objects, hear simple tones, and asked to press a button based on some of their perceptual features. You will need headphones, a screen, a keyboard and a mouse to complete the study, that takes about an hour. At the beginning and throughout the experiment you will receive precise information about what to do.
+
+The test is voluntary, and you can withdraw your participation at any time. We treat your personal information confidentially. Only those people who work on this research project have access to your data. Your data will be stored for 10 years. We will work with group level statistics. We will report only the results of the group in scientific publications and conferences. This research was approved by the Psychological Research Ethics Board (PREBO) CEU PU. If you have any further questions about the study, you can contact the experimenter, Dr Linda Garami. Contact: 1051 Nador u. 11. E-mail: garamil at ceu.edu. More information about your rights can be found at https://www.ceu.edu/privacy.
+
+Please indicate below that you read this information, found it sufficent, and you consent to participate in the experiment.
