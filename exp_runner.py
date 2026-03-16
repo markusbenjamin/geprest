@@ -26,7 +26,6 @@ on_grid = reply in ("y", "yes")
 batch = 'dev' if dev else ('demo' if demo else 'test') #DEV: placeholder name here for now
 exp_settings_and_data['batch'] = batch
 
-zoom = 0.8 if dev else 1
 zoom = 1
 exp_settings_and_data['zoom'] = zoom
 font_size = int(22 * zoom)
@@ -415,10 +414,10 @@ if on_grid:
     audio_start()
     #DEV: placeholders follow
     #audio_sample  = load_mono_wav(r"Y:\Beno\hangfalfal\sounds\Linda\tri_channel_output_1.wav", to_sample_rate=audio_settings["sample_rate"])[: int(5 * audio_settings["sample_rate"])]
-    audio_sample  = load_wav(r"Y:\Beno\hangfalfal\sounds\Linda\tri_channel_output_1.wav", audio_settings["sample_rate"])
+    '''audio_sample  = load_wav(r"Y:\Beno\hangfalfal\sounds\Linda\tri_channel_output_1.wav", to_sample_rate=audio_settings["sample_rate"])
     sp = 33 #DEV: placeholder for now
     ch = audio_settings['sp_to_ch'][sp-1] #DEV: placeholder for now
-    speaker_gain = audio_settings['sp_gains'][sp-1] #DEV: placeholder for now
+    speaker_gain = audio_settings['sp_gains'][sp-1] #DEV: placeholder for now'''
 
     """
     mic_blocksize = 128 #DEV: maybe this is a bit too high res
@@ -438,9 +437,12 @@ if on_grid:
 
         routing_spec = {}
         for i in range(len(speaker_routing)):
-            speaker = speaker_routing[i]
-            routing_spec[audio_settings['sp_to_ch'][speaker]] = (
-                samp[i] * audio_settings['speaker_gains'][speaker] * master_gain_exp,
+            sp = speaker_routing[i]
+            ch = audio_settings['sp_to_ch'][sp - 1] # Zero indexed
+            sp_gain = audio_settings['sp_gains'][sp] # Not zero indexed...
+            #print(f"Routing to speaker {sp} through channel {ch} with gain {sp_gain}")
+            routing_spec[ch] = (
+                samp[i] * sp_gain * master_gain_exp,
                 start_in_s
             )
 
@@ -449,9 +451,9 @@ else:
     audio_settings = settings
     audio_settings["device_id"] = get_default_output_device_id()
     audio_start(device_id=audio_settings["device_id"], ch_num=2)
-    audio_sample  = load_wav(f'{exp_root}/inputs/stimuli/tri.wav', to_sample_rate=audio_settings["sample_rate"])
+    '''audio_sample  = load_wav(f'{exp_root}/inputs/stimuli/tri.wav', to_sample_rate=audio_settings["sample_rate"])
     ch = None
-    speaker_gain = 1
+    speaker_gain = 1'''
     def play_auditory_stimulus(speaker_routing, samp, start_in_s):
         global stimulus_start
         stimulus_start = exp_time()
@@ -481,6 +483,8 @@ if demo:
     draw_loading_screen()
     stimuli['demo_vis'] = load_mp4(f"{exp_root}/inputs/stimuli/VIS_demo.mp4")
 else:
+    if on_grid:
+        demo_vid = load_mp4(f"{exp_root}/inputs/stimuli/VIS_demo.mp4") #DEV: need to fix preloading
     for stage in exp_structure:
         draw_loading_screen()
         if 'modifiers' in stage:
@@ -493,17 +497,23 @@ else:
                             load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID11{stimulus_set}"
                             stimuli[stage['name']][condition_name] = load_wav(f"{exp_root}/inputs/stimuli/{load_name}.wav", to_sample_rate = audio_settings["sample_rate"])
                             with open(f"{exp_root}/inputs/stimuli/{load_name}.csv", newline="", encoding="utf-8") as file:
-                                routing[stage['name']] = next(csv.reader(file))
+                                routing[stage['name']] = [int(x) for x in next(csv.reader(file))]
                         else:
-                            load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID11{stimulus_set}.mp4"
-                            stimuli[stage['name']][condition_name] = load_mp4(f"{exp_root}/inputs/stimuli/{load_name}")
+                            if on_grid:
+                                pass #DEV: need to fix preloading
+                            else:
+                                load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID11{stimulus_set}.mp4"
+                                stimuli[stage['name']][condition_name] = load_mp4(f"{exp_root}/inputs/stimuli/{load_name}")
                 else:
                     if stage['modifiers']['modality'] == 'aud':
                         stimuli[stage['name']] = load_wav(f"{exp_root}/inputs/stimuli/{stage['name']}.wav", to_sample_rate = audio_settings["sample_rate"])
                         with open(f"{exp_root}/inputs/stimuli/{stage['name']}.csv", newline="", encoding="utf-8") as file:
-                            routing[stage['name']] = next(csv.reader(file))
+                            routing[stage['name']] = [int(x) for x in next(csv.reader(file))]
                     else:
-                        stimuli[stage['name']] = load_mp4(f"{exp_root}/inputs/stimuli/{stage['name']}.mp4")
+                        if on_grid:
+                            pass #DEV: need to fix preloading
+                        else:
+                            stimuli[stage['name']] = load_mp4(f"{exp_root}/inputs/stimuli/{stage['name']}.mp4")
             except FileNotFoundError:
                 continue
 
@@ -1537,7 +1547,7 @@ def flush_experiment(log_message, cause="Finished."):
     log(log_message)
     exp_settings_and_data['end'] = {'time': exp_time(), 'cause': cause}
 
-    if not dev and on_grid:
+    if not dev and not demo and on_grid:
         try:
             git_commit_and_sync_from_root("outputs",message="Incoming subject data.")
         except Exception as e:
@@ -1798,7 +1808,10 @@ def start_stimulus():
                         start_in_s = 
                         0)
                 case 'vis':
-                    play_visual_stimulus(stimuli[stage['name']])
+                    if on_grid:
+                        play_visual_stimulus(demo_vid) #DEV fix preload
+                    else:
+                        play_visual_stimulus(stimuli[stage['name']])
         case 'practice':
             log(f"Start stimulus for {stage['name']}, repeat {repeat_num}.")
             subject_data['repeat_num'][stage['name']] = repeat_num
@@ -1812,7 +1825,10 @@ def start_stimulus():
                         start_in_s = 0
                         )
                 case 'vis':
-                    play_visual_stimulus(stimuli[stage['name']])
+                    if on_grid:
+                        play_visual_stimulus(demo_vid) #DEV fix preload
+                    else:
+                        play_visual_stimulus(stimuli[stage['name']])
         case 'test':
             log(f"Start stimulus for {stage['name']} in condition {stage['conditions'][test_condition_index]}.")
             log_space_press = True
@@ -1824,7 +1840,10 @@ def start_stimulus():
                         start_in_s = 0
                         )
                 case 'vis':
-                    play_visual_stimulus(stimuli[stage['name']][stage['conditions'][test_condition_index]])
+                    if on_grid:
+                        play_visual_stimulus(demo_vid) #DEV fix preload
+                    else:
+                        play_visual_stimulus(stimuli[stage['name']][stage['conditions'][test_condition_index]])
         case _:
             pass
 
