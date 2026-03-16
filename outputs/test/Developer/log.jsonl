@@ -1,0 +1,19 @@
+{"time": 0.0, "msg": "Start."}
+{"time": 0.0836, "msg": "Set up welcome stage."}
+{"time": 10.4963, "event": "Proceed clicked."}
+{"time": 10.557, "msg": "Shut down welcome stage."}
+{"time": 10.5905, "event": "Consented.", "answer": "I consent to participate in the experiment"}
+{"time": 10.6238, "msg": "Set up screener stage."}
+{"time": 21.0897, "event": "Proceed clicked."}
+{"time": 21.1434, "msg": "Shut down screener stage."}
+{"time": 21.1863, "event": "Screened.", "answer": "I confirm that none of the above listed items applies to me."}
+{"time": 21.2392, "msg": "Set up intro_questionnaire stage."}
+{"time": 23.6511, "event": "Proceed clicked."}
+{"time": 23.6939, "msg": "Shut down intro_questionnaire stage."}
+{"time": 23.7359, "event": "Gender submitted.", "answer": "male"}
+{"time": 23.778, "event": "Age submitted.", "answer": "23"}
+{"time": 23.8197, "msg": "Set up baseline_familiarization_aud stage."}
+{"time": 25.2172, "event": "Start clicked for baseline_familiarization_aud."}
+{"time": 25.2606, "msg": "Start stimulus for baseline_familiarization_aud."}
+{"time": 25.469, "msg": "Data successfully exported."}
+{"time": 25.5288, "msg": "Script reached an error: TypeError(\"unsupported operand type(s) for -: 'str' and 'int'\")"}

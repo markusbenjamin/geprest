@@ -1,25 +1,16 @@
 {"time": 0.0, "msg": "Start."}
-{"time": 0.0557, "msg": "Set up demo_welcome stage."}
-{"time": 4.4425, "event": "Proceed clicked."}
-{"time": 4.4674, "msg": "Shut down demo_welcome stage."}
-{"time": 4.497, "msg": "Set up demo_aud stage."}
-{"time": 5.8875, "event": "Start clicked for demo_aud."}
-{"time": 5.9129, "msg": "Start stimulus for demo_aud."}
-{"time": 6.4157, "msg": "Finished stimulus for demo_aud."}
-{"time": 9.5792, "event": "Proceed clicked."}
-{"time": 9.6045, "msg": "Shut down demo_aud stage."}
-{"time": 9.6292, "msg": "Set up demo_vis stage."}
-{"time": 11.0384, "event": "Start clicked for demo_vis."}
-{"time": 11.0647, "msg": "Start stimulus for demo_vis."}
-{"time": 19.399, "msg": "Finished stimulus for demo_vis."}
-{"time": 20.1037, "event": "Repeat clicked for demo_vis."}
-{"time": 20.1453, "msg": "Start stimulus for demo_vis."}
-{"time": 28.5164, "msg": "Finished stimulus for demo_vis."}
-{"time": 29.0745, "event": "Repeat clicked for demo_vis."}
-{"time": 29.1161, "msg": "Start stimulus for demo_vis."}
-{"time": 37.4958, "msg": "Finished stimulus for demo_vis."}
-{"time": 38.1385, "event": "Proceed clicked."}
-{"time": 38.1806, "msg": "Shut down demo_vis stage."}
-{"time": 38.2223, "msg": "Set up demo_thanks stage."}
-{"time": 40.3584, "msg": "Data successfully exported."}
-{"time": 40.4074, "msg": "End."}
+{"time": 0.0538, "msg": "Set up demo_welcome stage."}
+{"time": 1.487, "event": "Proceed clicked."}
+{"time": 1.5123, "msg": "Shut down demo_welcome stage."}
+{"time": 1.5511, "msg": "Set up demo_aud stage."}
+{"time": 3.0371, "event": "Start clicked for demo_aud."}
+{"time": 3.0628, "msg": "Start stimulus for demo_aud."}
+{"time": 8.4596, "msg": "Finished stimulus for demo_aud."}
+{"time": 9.7129, "event": "Proceed clicked."}
+{"time": 9.7389, "msg": "Shut down demo_aud stage."}
+{"time": 9.7639, "msg": "Set up demo_vis stage."}
+{"time": 11.1271, "event": "Start clicked for demo_vis."}
+{"time": 11.1726, "msg": "Start stimulus for demo_vis."}
+{"time": 19.5527, "msg": "Finished stimulus for demo_vis."}
+{"time": 20.6106, "msg": "Data successfully exported."}
+{"time": 20.6599, "msg": "User interrupt."}

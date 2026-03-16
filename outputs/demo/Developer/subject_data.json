@@ -4,13 +4,11 @@
       "repeat_0": []
     },
     "demo_vis": {
-      "repeat_0": [],
-      "repeat_1": [],
-      "repeat_2": []
+      "repeat_0": []
     }
   },
   "repeat_num": {
     "demo_aud": 0,
-    "demo_vis": 2
+    "demo_vis": 0
   }
 }
