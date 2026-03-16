@@ -21,7 +21,8 @@ reply = input("Demo mode? (y/n): ").strip().lower()
 demo = reply in ("y", "yes")
 if demo:
     dev = False
-on_grid = False
+reply = input("On grid? (y/n): ").strip().lower()
+on_grid = reply in ("y", "yes")
 batch = 'dev' if dev else ('demo' if demo else 'test') #DEV: placeholder name here for now
 exp_settings_and_data['batch'] = batch
 
