@@ -9,8 +9,8 @@
   "stimulus_set": 1,
   "run_label": "demo_Developer",
   "modality_order": [
-    "aud",
-    "vis"
+    "vis",
+    "aud"
   ],
   "exp_structure": [
     {
