@@ -1,0 +1,49 @@
+{
+  "batch": "demo",
+  "zoom": 1,
+  "size": {
+    "w": 2048,
+    "h": 1152
+  },
+  "subject": "Developer",
+  "stimulus_set": 1,
+  "run_label": "demo_Developer",
+  "modality_order": [
+    "aud",
+    "vis"
+  ],
+  "exp_structure": [
+    {
+      "type": "demo_welcome",
+      "name": "demo_welcome"
+    },
+    {
+      "type": "demo_stimulus",
+      "modifiers": {
+        "modality": "aud",
+        "phase": ""
+      },
+      "name": "demo_aud"
+    },
+    {
+      "type": "demo_stimulus",
+      "modifiers": {
+        "modality": "vis",
+        "phase": ""
+      },
+      "name": "demo_vis"
+    },
+    {
+      "type": "demo_thanks",
+      "name": "demo_thanks"
+    }
+  ],
+  "master_gain": 1,
+  "speaker_routing": {
+    "demo_aud": [
+      1,
+      2,
+      3
+    ]
+  }
+}

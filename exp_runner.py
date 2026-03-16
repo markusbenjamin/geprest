@@ -7,18 +7,22 @@ import traceback
 import shutil
 import subprocess
 import cv2
+import random
+import ctypes
+import csv
 #endregion
 
 #region Persistent settings and environmental parameters
 exp_settings_and_data = {}
 exp_root = "./geprest/"
 
-dev = True
-demo = True
+dev = False
+reply = input("Demo mode? (y/n): ").strip().lower()
+demo = reply in ("y", "yes")
 if demo:
     dev = False
 on_grid = False
-batch = 'dev' if dev else 'batch'
+batch = 'dev' if dev else ('demo' if demo else 'test') #DEV: placeholder name here for now
 exp_settings_and_data['batch'] = batch
 
 zoom = 0.8 if dev else 1
@@ -48,39 +52,57 @@ exp_settings_and_data['size'] = {'w':w, 'h':h}
 #region Subject related
 subject_data = {}
 
-#
-# DEV: put subject and else here with input()
-#
-subject = 'Beno'
+if dev or demo:
+    subject = 'Developer'
+    stimulus_set = 1
+else:
+    subject = input("Subject? ")
+    while True:
+        stimulus_set = input("Stimulus set? (number from 1 to 4): ").strip()
+        if stimulus_set in {"1", "2", "3", "4"}:
+            stimulus_set = int(stimulus_set)
+            break
+        print("Please enter 1, 2, 3, or 4.")
 exp_settings_and_data['subject'] = subject
+exp_settings_and_data['stimulus_set'] = stimulus_set
 
 run_label = f"{batch}_{subject}"
 exp_settings_and_data['run_label'] = run_label
 
 output_path = f'{exp_root}/outputs/{batch}/{subject}'
-if os.path.exists(output_path): #DEV: ask confirmation first
+if os.path.exists(output_path):
+    if not (dev or demo):
+        reply = input(f"Data already exists for this batch/subject pair. Do you want to overwrite it? (y/n): ").strip().lower()
+        if reply not in ("y", "yes"):
+            raise RuntimeError("Data overwrite cancel.")
     shutil.rmtree(output_path)
 log_path = f'{output_path}/log.jsonl'
 #endregion
 
 #region Experiment structure
-modality_order = ['aud','vis'] #DEV: randomize
+modality_order = random.sample(['aud', 'vis'], k=2)
 exp_settings_and_data['modality_order'] = modality_order
 phase_order = ['baseline','pattern']
 
-test_conditions = { #DEV: hardcode here, select set based on participant number
-    'baseline_aud':['cond1','cond2','cond3'],
-    'baseline_vis':['cond1','cond2'],
-    'pattern_aud': ['cond1'],
-    'pattern_vis': ['cond1','cond2','cond3']
+test_conditions = { # hardcode here, select set based on stimulus_set
+    'baseline_aud':['1','2'],
+    'baseline_vis':['1','2'],
+    'pattern_aud': ['1','2'],
+    'pattern_vis': ['1','2']
 }
 
-condition_orderings = { #DEV randomized? if yes: list of length based on test_conditions
-    'baseline_aud':[1,0,2],
-    'baseline_vis':[1,0],
-    'pattern_aud':[0],
-    'pattern_vis':[2,0,1]
+condition_orderings = {
+    'baseline_aud': [0, 1],
+    'baseline_vis': [0, 1],
+    'pattern_aud': [0, 1],
+    'pattern_vis': [0, 1]
 }
+
+if not (demo or dev):
+    reply = input("Randomize condition presentation? (y/n): ").strip().lower()
+    if reply in ("y", "yes"):
+        for key in condition_orderings:
+            random.shuffle(condition_orderings[key])
 
 def generate_exp_structure(modality_order, test_conditions, condition_orderings):
     def practice_and_test_block(mod, phase):
@@ -145,23 +167,259 @@ test_condition_index = None
 #endregion
 
 #region Device IO
-#region Video startup
+#region Video startup and wrap
 """
 After input() before UI
 """
 screen = pygame.display.set_mode((w, h), pygame.NOFRAME)
+pygame.display.set_caption("GEPREST window")
+
+_loading_base = "Loading stimuli and instructions, please wait"
+_loading_phase = 0
+_loading_last_update = pygame.time.get_ticks()
+
+user32 = ctypes.windll.user32
+kernel32 = ctypes.windll.kernel32
+
+SW_RESTORE = 9
+SW_SHOW = 5
+
+def focus_pygame_window(window_title = "GEPREST window", delay=0.3):
+    pygame.display.flip()
+    time.sleep(delay)
+
+    hwnd = user32.FindWindowW(None, window_title)
+    if not hwnd:
+        return False
+
+    fg_hwnd = user32.GetForegroundWindow()
+    current_tid = kernel32.GetCurrentThreadId()
+    fg_tid = user32.GetWindowThreadProcessId(fg_hwnd, None) if fg_hwnd else 0
+
+    try:
+        if fg_tid and fg_tid != current_tid:
+            user32.AttachThreadInput(fg_tid, current_tid, True)
+
+        user32.ShowWindow(hwnd, SW_RESTORE)
+        user32.BringWindowToTop(hwnd)
+        user32.ShowWindow(hwnd, SW_SHOW)
+        user32.SetForegroundWindow(hwnd)
+        user32.SetFocus(hwnd)
+        user32.SetActiveWindow(hwnd)
+
+    finally:
+        if fg_tid and fg_tid != current_tid:
+            user32.AttachThreadInput(fg_tid, current_tid, False)
+
+    return user32.GetForegroundWindow() == hwnd
+
+def draw_loading_screen():
+    global _loading_phase, _loading_last_update
+
+    now = pygame.time.get_ticks()
+    if now - _loading_last_update >= 400:   # change every 400 ms
+        _loading_phase = (_loading_phase + 1) % 4
+        _loading_last_update = now
+
+    suffix = ["", ".", "..", "..."][_loading_phase]
+    text = _loading_base + suffix
+
+    screen.fill((255, 255, 255))
+    surf = ui_font.render(text, True, (0, 0, 0))
+    rect = surf.get_rect(center=(w // 2, h // 2))
+    screen.blit(surf, rect)
+    pygame.display.flip()
+
+_video_state = None          # global dict holding the current clip (or None)
+
+def load_mp4(path):
+    """
+    Load an .mp4 fully into memory as pygame surfaces.
+    """
+    p = os.path.expanduser(os.path.expandvars(str(path)))
+    if not os.path.splitext(p)[1]:
+        p += ".mp4"
+
+    p = os.path.normpath(p)
+    root_abs = os.path.normpath(os.path.abspath(exp_root))
+    p_abs = os.path.normpath(os.path.abspath(p))
+
+    if not os.path.isabs(p):
+        try:
+            if os.path.commonpath([p_abs, root_abs]) != root_abs:
+                p = os.path.join(exp_root, p)
+        except ValueError:
+            p = os.path.join(exp_root, p)
+
+    p = os.path.normpath(p)
+
+    if not os.path.exists(p):
+        raise FileNotFoundError(f"video not found: {p}")
+
+    cap = cv2.VideoCapture(p)
+    if not cap.isOpened():
+        raise RuntimeError(f"cannot open video: {p}")
+
+    fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
+    fcnt = cap.get(cv2.CAP_PROP_FRAME_COUNT)
+    dur = fcnt / fps if fcnt > 0 else 0
+
+    frames = []
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        surf = pygame.surfarray.make_surface(frame.swapaxes(0, 1))
+        frames.append(surf)
+
+    cap.release()
+
+    if not frames:
+        raise RuntimeError(f"video contains no readable frames: {p}")
+
+    return {
+        "frames": frames,
+        "fps": fps,
+        "ms_per": 1000.0 / fps,
+        "duration": dur,
+        "size": frames[0].get_size(),
+        "path": p,
+    }
+
+
+def video_start(
+    vid,
+    *,
+    rrect=None,                    # (rcx, rcy, rw, rh) – relative center + relative size
+    pos=(0.5, 0.5),               # (rcx, rcy) – relative center, original video size
+    keep_aspect=True,
+    loop=False,
+    rescale_precompute=False
+):
+    """
+    Begin playing a preloaded video stimulus without blocking.
+
+    placement modes:
+        - if rrect is given: use its center and relative width/height
+        - otherwise: use pos and the original video size
+
+    Returns the clip duration in seconds (float).
+    Call `video_tick()` from your main loop to advance and draw frames.
+    Use `video_is_playing()` to poll its state.
+    """
+    global _video_state
+
+    frames = vid["frames"]
+    if not frames:
+        raise RuntimeError("video stimulus has no frames")
+
+    sw, sh = screen.get_size()
+    vw, vh = vid["size"]
+
+    if rrect is not None:
+        rcx, rcy, rw, rh = rrect
+        tgt_w = int(rw * sw)
+        tgt_h = int(rh * sh)
+
+        if keep_aspect:
+            scale = min(tgt_w / vw, tgt_h / vh)
+            dw, dh = int(vw * scale), int(vh * scale)
+        else:
+            dw, dh = tgt_w, tgt_h
+
+        cx, cy = int(rcx * sw), int(rcy * sh)
+
+    else:
+        rcx, rcy = pos
+        dw, dh = vw, vh
+        cx, cy = int(rcx * sw), int(rcy * sh)
+
+    dest = pygame.Rect(0, 0, dw, dh)
+    dest.center = (cx, cy)
+
+    if rescale_precompute and (dw, dh) != (vw, vh):
+        play_frames = [pygame.transform.smoothscale(f, (dw, dh)) for f in frames]
+    else:
+        play_frames = frames
+
+    _video_state = {
+        "frames": play_frames,
+        "frame_idx": 0,
+        "frame_count": len(play_frames),
+        "fps": vid["fps"],
+        "ms_per": vid["ms_per"],
+        "next_ms": pygame.time.get_ticks(),
+        "dest": dest,
+        "loop": loop,
+        "keep_aspect": keep_aspect,
+        "duration": vid["duration"],
+        "needs_runtime_scale": ((dw, dh) != (vw, vh) and not rescale_precompute),
+    }
+    return vid["duration"]
+
+def play_visual_stimulus(vid, pos = None, rrect = None):
+    video_start(vid)
+
+def video_tick():
+    """
+    Advance the current video by one frame if it is time and blit it.
+    Call this once per iteration of your main loop before the display flip.
+    """
+    global _video_state, stimulus_start
+    if _video_state is None:
+        return
+
+    now = pygame.time.get_ticks()
+    if now < _video_state["next_ms"]:
+        return
+
+    idx = _video_state["frame_idx"]
+
+    if idx >= _video_state["frame_count"]:
+        if _video_state["loop"]:
+            _video_state["frame_idx"] = 0
+            idx = 0
+        else:
+            video_stop()
+            return
+
+    surf = _video_state["frames"][idx]
+    _video_state["next_ms"] += _video_state["ms_per"]
+    _video_state["frame_idx"] += 1
+
+    if _video_state["needs_runtime_scale"]:
+        surf = pygame.transform.smoothscale(surf, _video_state["dest"].size)
+
+    if stimulus_start is None:
+        stimulus_start = exp_time()
+    screen.blit(surf, _video_state["dest"])
+
+
+def video_is_playing():
+    """Return True while a clip started with `video_start` is still active."""
+    return _video_state is not None
+
+
+def video_stop():
+    """Abort the current clip and free playback state."""
+    global _video_state
+    _video_state = None
+
 #endregion
 
 #region Audio startup
 if on_grid:
-    audio_start()
     audio_settings = settings
+    audio_start()
     #DEV: placeholders follow
-    audio_sample  = load_mono_wav(r"Y:\Beno\hangfalfal\sounds\Linda\tri_channel_output_1.wav", to_sample_rate=audio_settings["sample_rate"])[: int(5 * audio_settings["sample_rate"])]
+    #audio_sample  = load_mono_wav(r"Y:\Beno\hangfalfal\sounds\Linda\tri_channel_output_1.wav", to_sample_rate=audio_settings["sample_rate"])[: int(5 * audio_settings["sample_rate"])]
+    audio_sample  = load_wav(r"Y:\Beno\hangfalfal\sounds\Linda\tri_channel_output_1.wav", audio_settings["sample_rate"])
     sp = 33 #DEV: placeholder for now
     ch = audio_settings['sp_to_ch'][sp-1] #DEV: placeholder for now
-    spkeaker_gain = audio_settings['sp_gains'][sp-1] #DEV: placeholder for now
+    speaker_gain = audio_settings['sp_gains'][sp-1] #DEV: placeholder for now
 
+    """
     mic_blocksize = 128 #DEV: maybe this is a bit too high res
     mic_meter_start(blocksize=mic_blocksize, channels=1)   # non-blocking
     mic_measurement_gap = mic_blocksize / settings["sample_rate"]
@@ -171,27 +429,39 @@ if on_grid:
         channel0 = block[:, 0]
         level = float(np.sqrt( np.mean( channel0 * channel0 ) ))
         return level
+    """
     
-    def play_auditory_stimulus(channel_index, samp, start_in_s):
-        channel_play_at(channel_index, samp, start_in_s)
+    def play_auditory_stimulus(speaker_routing, samp, start_in_s):
+        global stimulus_start, master_gain_exp
+        stimulus_start = exp_time()
+
+        routing_spec = {}
+        for i in range(len(speaker_routing)):
+            speaker = speaker_routing[i]
+            routing_spec[audio_settings['sp_to_ch'][speaker]] = (
+                samp[i] * audio_settings['speaker_gains'][speaker] * master_gain_exp,
+                start_in_s
+            )
+
+        channels_play_at(routing_spec)
 else:  
     audio_settings = settings
     audio_settings["device_id"] = get_default_output_device_id()
     audio_start(device_id=audio_settings["device_id"], ch_num=2)
-    audio_sample  = load_wav(f'{exp_root}/inputs/stimuli/tri.wav', to_sample_rate=audio_settings["sample_rate"])[: int(10 * audio_settings["sample_rate"])]
+    audio_sample  = load_wav(f'{exp_root}/inputs/stimuli/tri.wav', to_sample_rate=audio_settings["sample_rate"])
     ch = None
-    spkeaker_gain = 1
-    def play_auditory_stimulus(channel_index, samp, start_in_s):
-        play_wav_lr(samp)
-
-audio_sample_demo  = load_mono_wav(f'{exp_root}/inputs/stimuli/AUD_demo.wav', to_sample_rate=audio_settings["sample_rate"])[: int(5 * audio_settings["sample_rate"])]
+    speaker_gain = 1
+    def play_auditory_stimulus(speaker_routing, samp, start_in_s):
+        global stimulus_start
+        stimulus_start = exp_time()
+        play_wav_lr(samp * master_gain_exp)
 #endregion
 
 #endregion
 
 #region Data IO
 
-#region Load
+#region Load instructions and stimuli
 instructions = {}
 for stage in exp_structure:
     try:
@@ -200,6 +470,43 @@ for stage in exp_structure:
     except FileNotFoundError:
         continue
 
+stimuli = {}
+routing = {}
+print("Loading stimuli and routing, please wait.")
+if demo:
+    draw_loading_screen()
+    stimuli['demo_aud'] = load_wav(f"{exp_root}/inputs/stimuli/AUD_demo.wav", to_sample_rate = audio_settings["sample_rate"])
+    routing['demo_aud'] = [1,2,3]
+    draw_loading_screen()
+    stimuli['demo_vis'] = load_mp4(f"{exp_root}/inputs/stimuli/VIS_demo.mp4")
+else:
+    for stage in exp_structure:
+        draw_loading_screen()
+        if 'modifiers' in stage:
+            try:
+                if stage['type'] == 'test':
+                    stimuli[stage['name']] = {}
+                    routing[stage['name']] = {}
+                    for condition_name in test_conditions[f"{stage['modifiers']['phase']}_{stage['modifiers']['modality']}"]:
+                        if stage['modifiers']['modality'] == 'aud':
+                            load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID11{stimulus_set}"
+                            stimuli[stage['name']][condition_name] = load_wav(f"{exp_root}/inputs/stimuli/{load_name}.wav", to_sample_rate = audio_settings["sample_rate"])
+                            with open(f"{exp_root}/inputs/stimuli/{load_name}.csv", newline="", encoding="utf-8") as file:
+                                routing[stage['name']] = next(csv.reader(file))
+                        else:
+                            load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID11{stimulus_set}.mp4"
+                            stimuli[stage['name']][condition_name] = load_mp4(f"{exp_root}/inputs/stimuli/{load_name}")
+                else:
+                    if stage['modifiers']['modality'] == 'aud':
+                        stimuli[stage['name']] = load_wav(f"{exp_root}/inputs/stimuli/{stage['name']}.wav", to_sample_rate = audio_settings["sample_rate"])
+                        with open(f"{exp_root}/inputs/stimuli/{stage['name']}.csv", newline="", encoding="utf-8") as file:
+                            routing[stage['name']] = next(csv.reader(file))
+                    else:
+                        stimuli[stage['name']] = load_mp4(f"{exp_root}/inputs/stimuli/{stage['name']}.mp4")
+            except FileNotFoundError:
+                continue
+
+exp_settings_and_data['speaker_routing'] = routing
 #endregion
 
 #region Save
@@ -1284,123 +1591,6 @@ def handle_error(e):
 
 #endregion
 
-#region Video
-_video_state = None          # global dict holding the current clip (or None)
-
-def video_start(
-    path,
-    *,
-    rrect=(0.5, 0.5, 1.0, 1.0),    # (rcx, rcy, rw, rh) – 0‥1 screen-relative
-    keep_aspect=True,
-    loop=False,
-):
-    """
-    Begin playing the video track of an .mp4 **without blocking**.
-
-    Returns the clip duration in seconds (float).  Call `video_tick()` from
-    your main loop to advance and draw frames.  Use `video_is_playing()` to
-    poll its state.
-    """
-    import cv2, os
-
-    global _video_state
-
-    # -------- resolve path --------------------------------------------------
-    p = os.path.expanduser(os.path.expandvars(str(path)))
-    if not os.path.splitext(p)[1]:
-        p += ".mp4"
-    if not os.path.isabs(p):
-        p = os.path.join(exp_root, p)
-    if not os.path.exists(p):
-        raise FileNotFoundError(f"video not found: {p}")
-
-    cap = cv2.VideoCapture(p)
-    if not cap.isOpened():
-        raise RuntimeError(f"cannot open video: {p}")
-
-    fps   = cap.get(cv2.CAP_PROP_FPS) or 30.0
-    fcnt  = cap.get(cv2.CAP_PROP_FRAME_COUNT)
-    dur   = fcnt / fps if fcnt > 0 else 0
-
-    sw, sh = screen.get_size()
-    rcx, rcy, rw, rh = rrect
-    tgt_w = int(rw * sw)
-    tgt_h = int(rh * sh)
-
-    vw  = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    vh  = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-
-    if keep_aspect:
-        scale = min(tgt_w / vw, tgt_h / vh)
-        dw, dh = int(vw * scale), int(vh * scale)
-    else:
-        dw, dh = tgt_w, tgt_h
-
-    dest = pygame.Rect(0, 0, dw, dh)
-    dest.center = (int(rcx * sw), int(rcy * sh))
-
-    _video_state = {
-        "cap": cap,
-        "fps": fps,
-        "ms_per": 1000.0 / fps,
-        "next_ms": pygame.time.get_ticks(),
-        "dest": dest,
-        "loop": loop,
-        "keep_aspect": keep_aspect,
-    }
-    return dur
-
-
-def video_tick():
-    """
-    Advance the current video by one frame **if it is time** and blit it.
-    Call this once per iteration of your main loop *before* the display flip.
-    """
-    global _video_state
-    if _video_state is None:
-        return
-
-    now = pygame.time.get_ticks()
-    if now < _video_state["next_ms"]:
-        return  # not time for the next frame yet
-
-    cap = _video_state["cap"]
-    ret, frame = cap.read()
-    if not ret:                                       # clip ended
-        if _video_state["loop"]:
-            cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-            return
-        else:
-            video_stop()
-            return
-
-    _video_state["next_ms"] += _video_state["ms_per"]
-
-    # BGR → RGB and Pygame surface
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    surf  = pygame.surfarray.make_surface(frame.swapaxes(0, 1))
-
-    if surf.get_size() != _video_state["dest"].size:
-        surf = pygame.transform.smoothscale(surf, _video_state["dest"].size)
-
-    screen.blit(surf, _video_state["dest"])
-
-def video_is_playing():
-    """Return True while a clip started with `video_start_mp4` is still active."""
-    return _video_state is not None
-
-def video_stop():
-    """Abort the current clip and free resources."""
-    global _video_state
-    if _video_state is not None:
-        try:
-            _video_state["cap"].release()
-        except Exception:
-            pass
-    _video_state = None
-
-#endregion
-
 #endregion
 
 #region Flow control
@@ -1567,7 +1757,7 @@ def all_test_conditions_done():
         return True
 
 def start_stimulus():
-    global substage, stimulus_start, log_space_press, repeat_num
+    global substage, log_space_press, repeat_num
 
     if repeat_num is None:
         repeat_num = 0
@@ -1575,7 +1765,6 @@ def start_stimulus():
         repeat_num += 1
 
     substage = 'stimulus'
-    stimulus_start = exp_time()
     start_button.deactivate()
     repeat_button.deactivate()
     proceed_button.deactivate()
@@ -1590,17 +1779,25 @@ def start_stimulus():
             log_space_press = True
             match stage['modifiers']['modality']:
                 case 'aud':
-                    play_auditory_stimulus(channel_index=ch, samp=audio_sample_demo*spkeaker_gain*master_gain_exp, start_in_s = 0)
+                    play_auditory_stimulus(
+                        speaker_routing = routing['demo_aud'],
+                        samp = stimuli['demo_aud'],
+                        start_in_s = 0
+                        )
                 case 'vis':
-                    video_start(f'inputs/stimuli/VIS_demo.mp4',rrect=(0.5, 0.5, 0.3, 0.3))
+                    play_visual_stimulus(stimuli['demo_vis'])
         case 'familiarization':
             log(f"Start stimulus for {stage['name']}.")
             subject_data['repeat_num'][stage['name']] = repeat_num
             match stage['modifiers']['modality']:
                 case 'aud':
-                    play_auditory_stimulus(channel_index=ch, samp=audio_sample*spkeaker_gain*master_gain_exp, start_in_s = 0)
+                    play_auditory_stimulus(
+                        speaker_routing = routing[stage['name']],
+                        samp=stimuli[stage['name']], 
+                        start_in_s = 
+                        0)
                 case 'vis':
-                    video_start(f'inputs/stimuli/VIS_demo.mp4',rrect=(0.5, 0.5, 0.3, 0.3))
+                    play_visual_stimulus(stimuli[stage['name']])
         case 'practice':
             log(f"Start stimulus for {stage['name']}, repeat {repeat_num}.")
             subject_data['repeat_num'][stage['name']] = repeat_num
@@ -1608,22 +1805,30 @@ def start_stimulus():
             log_space_press = True
             match stage['modifiers']['modality']:
                 case 'aud':
-                    play_auditory_stimulus(channel_index=ch, samp=audio_sample*spkeaker_gain*master_gain_exp, start_in_s = 0)
+                    play_auditory_stimulus(
+                        speaker_routing = routing[stage['name']],
+                        samp=stimuli[stage['name']],
+                        start_in_s = 0
+                        )
                 case 'vis':
-                    video_start(f'inputs/stimuli/VIS_demo.mp4',rrect=(0.5, 0.5, 0.3, 0.3))
+                    play_visual_stimulus(stimuli[stage['name']])
         case 'test':
             log(f"Start stimulus for {stage['name']} in condition {stage['conditions'][test_condition_index]}.")
             log_space_press = True
             match stage['modifiers']['modality']:
                 case 'aud':
-                    play_auditory_stimulus(channel_index=ch, samp=audio_sample*spkeaker_gain*master_gain_exp, start_in_s = 0)
+                    play_auditory_stimulus(
+                        speaker_routing = routing[stage['name']],
+                        samp=stimuli[stage['name']][stage['conditions'][test_condition_index]],
+                        start_in_s = 0
+                        )
                 case 'vis':
-                    video_start(f'inputs/stimuli/VIS_demo.mp4',rrect=(0.5, 0.5, 0.3, 0.3))
+                    play_visual_stimulus(stimuli[stage['name']][stage['conditions'][test_condition_index]])
         case _:
             pass
 
 def stop_stimulus():
-    global substage, log_space_press
+    global substage, log_space_press, stimulus_start
     audio_stop('immediate')
     video_stop()
     log(f"Finished stimulus for {exp_structure[stage_index]['name']}.")
@@ -1640,6 +1845,7 @@ def stop_stimulus():
         proceed_button.activate()
 
     log_space_press = False
+    stimulus_start = None
 
 def compute_stimulus_finished():
     '''
@@ -1930,6 +2136,8 @@ def draw():
         u.draw()
 
     if dev or demo:
+        if is_stimulus_stage() and stimulus_start:
+            dev_message = f"{dev_message}, secs = {secs_since(stimulus_start)}"
         text_on_screen(dev_message, 0.025, 0.08, font_size, RED, bg = GREEN, bg_alpha=0.25, align = "left")
 
     # Render to display
@@ -1989,11 +2197,11 @@ def refresh():
                 and strategy_field.get() not in [None, "", " ", "  "]
                 )
         case 'thanks':
-            stage_completed = secs_since(stage_start) > 2 #DEV
+            stage_completed = secs_since(stage_start) > 2
             if stage_completed:
                 finish("End.")
         case 'demo_thanks':
-            stage_completed = secs_since(stage_start) > 2 #DEV
+            stage_completed = secs_since(stage_start) > 2
             if stage_completed:
                 finish("End.")
         case _:
@@ -2019,6 +2227,8 @@ def refresh():
 #endregion
 
 #region Main loop
+focus_pygame_window()
+print("Use Alt + Tab to bring experiment window in focus.")
 dev_message = ''
 stage_index = 0
 start_exp_clock()

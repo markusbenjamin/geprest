@@ -1,0 +1,9 @@
+{"time": 0.0, "msg": "Start."}
+{"time": 0.0014, "msg": "Set up demo_welcome stage."}
+{"time": 1.535, "event": "Proceed clicked."}
+{"time": 1.5359, "msg": "Shut down demo_welcome stage."}
+{"time": 1.5363, "msg": "Set up demo_aud stage."}
+{"time": 2.8721, "event": "Start clicked for demo_aud."}
+{"time": 2.8733, "msg": "Start stimulus for demo_aud."}
+{"time": 3.806, "msg": "Data successfully exported."}
+{"time": 3.8067, "msg": "User interrupt."}
