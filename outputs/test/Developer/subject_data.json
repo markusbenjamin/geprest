@@ -1,8 +1,18 @@
 {
-  "space_presses": {},
+  "space_presses": {
+    "baseline_practice_vis": {
+      "repeat_0": []
+    },
+    "baseline_test_vis": {
+      "1": [],
+      "2": []
+    }
+  },
   "repeat_num": {
+    "baseline_familiarization_vis": 0,
+    "baseline_practice_vis": 0,
     "baseline_familiarization_aud": 0
   },
   "gender": "male",
-  "age": "23"
+  "age": "234"
 }

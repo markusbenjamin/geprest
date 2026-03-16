@@ -1,19 +1,47 @@
 {"time": 0.0, "msg": "Start."}
-{"time": 0.0836, "msg": "Set up welcome stage."}
-{"time": 10.4963, "event": "Proceed clicked."}
-{"time": 10.557, "msg": "Shut down welcome stage."}
-{"time": 10.5905, "event": "Consented.", "answer": "I consent to participate in the experiment"}
-{"time": 10.6238, "msg": "Set up screener stage."}
-{"time": 21.0897, "event": "Proceed clicked."}
-{"time": 21.1434, "msg": "Shut down screener stage."}
-{"time": 21.1863, "event": "Screened.", "answer": "I confirm that none of the above listed items applies to me."}
-{"time": 21.2392, "msg": "Set up intro_questionnaire stage."}
-{"time": 23.6511, "event": "Proceed clicked."}
-{"time": 23.6939, "msg": "Shut down intro_questionnaire stage."}
-{"time": 23.7359, "event": "Gender submitted.", "answer": "male"}
-{"time": 23.778, "event": "Age submitted.", "answer": "23"}
-{"time": 23.8197, "msg": "Set up baseline_familiarization_aud stage."}
-{"time": 25.2172, "event": "Start clicked for baseline_familiarization_aud."}
-{"time": 25.2606, "msg": "Start stimulus for baseline_familiarization_aud."}
-{"time": 25.469, "msg": "Data successfully exported."}
-{"time": 25.5288, "msg": "Script reached an error: TypeError(\"unsupported operand type(s) for -: 'str' and 'int'\")"}
+{"time": 0.0619, "msg": "Set up welcome stage."}
+{"time": 10.4281, "event": "Proceed clicked."}
+{"time": 10.481, "msg": "Shut down welcome stage."}
+{"time": 10.5149, "event": "Consented.", "answer": "I consent to participate in the experiment"}
+{"time": 10.5479, "msg": "Set up screener stage."}
+{"time": 20.9366, "event": "Proceed clicked."}
+{"time": 21.0052, "msg": "Shut down screener stage."}
+{"time": 21.0616, "event": "Screened.", "answer": "I confirm that none of the above listed items applies to me."}
+{"time": 21.1045, "msg": "Set up intro_questionnaire stage."}
+{"time": 23.7678, "event": "Proceed clicked."}
+{"time": 23.8106, "msg": "Shut down intro_questionnaire stage."}
+{"time": 23.8524, "event": "Gender submitted.", "answer": "male"}
+{"time": 23.9168, "event": "Age submitted.", "answer": "234"}
+{"time": 23.9587, "msg": "Set up baseline_familiarization_vis stage."}
+{"time": 25.3779, "event": "Start clicked for baseline_familiarization_vis."}
+{"time": 25.4277, "msg": "Start stimulus for baseline_familiarization_vis."}
+{"time": 28.412, "msg": "Q pressed in stage baseline_familiarization_vis."}
+{"time": 28.8163, "msg": "Finished stimulus for baseline_familiarization_vis."}
+{"time": 29.3789, "event": "Proceed clicked."}
+{"time": 29.4207, "msg": "Shut down baseline_familiarization_vis stage."}
+{"time": 29.462, "msg": "Set up baseline_practice_vis stage."}
+{"time": 30.7535, "event": "Start clicked for baseline_practice_vis."}
+{"time": 30.7952, "msg": "Start stimulus for baseline_practice_vis, repeat 0."}
+{"time": 33.0791, "msg": "Q pressed in stage baseline_practice_vis."}
+{"time": 33.1245, "msg": "Finished stimulus for baseline_practice_vis."}
+{"time": 33.5328, "event": "Proceed clicked."}
+{"time": 33.5745, "msg": "Shut down baseline_practice_vis stage."}
+{"time": 33.6147, "msg": "Set up baseline_test_vis stage."}
+{"time": 34.9219, "event": "Start clicked for baseline_test_vis."}
+{"time": 34.9634, "msg": "Start stimulus for baseline_test_vis in condition 1."}
+{"time": 35.6055, "msg": "Q pressed in stage baseline_test_vis."}
+{"time": 35.6471, "msg": "Finished stimulus for baseline_test_vis."}
+{"time": 36.1262, "event": "Next clicked for baseline_test_vis."}
+{"time": 36.1676, "msg": "Test condition changed to 2 in baseline_test_vis."}
+{"time": 36.2087, "msg": "Set up baseline_test_vis stage."}
+{"time": 37.5053, "event": "Start clicked for baseline_test_vis."}
+{"time": 37.5472, "msg": "Start stimulus for baseline_test_vis in condition 2."}
+{"time": 38.057, "msg": "Q pressed in stage baseline_test_vis."}
+{"time": 38.0984, "msg": "Finished stimulus for baseline_test_vis."}
+{"time": 38.5257, "event": "Proceed clicked."}
+{"time": 38.5757, "msg": "Shut down baseline_test_vis stage."}
+{"time": 38.6249, "msg": "Set up baseline_familiarization_aud stage."}
+{"time": 39.9258, "event": "Start clicked for baseline_familiarization_aud."}
+{"time": 39.9674, "msg": "Start stimulus for baseline_familiarization_aud."}
+{"time": 40.146, "msg": "Data successfully exported."}
+{"time": 40.1942, "msg": "Script reached an error: TypeError(\"unsupported operand type(s) for -: 'str' and 'int'\")"}

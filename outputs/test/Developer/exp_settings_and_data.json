@@ -9,8 +9,8 @@
   "stimulus_set": 1,
   "run_label": "test_Developer",
   "modality_order": [
-    "aud",
-    "vis"
+    "vis",
+    "aud"
   ],
   "exp_structure": [
     {
@@ -24,34 +24,6 @@
     {
       "type": "intro_questionnaire",
       "name": "intro_questionnaire"
-    },
-    {
-      "type": "familiarization",
-      "modifiers": {
-        "modality": "aud",
-        "phase": "baseline"
-      },
-      "name": "baseline_familiarization_aud"
-    },
-    {
-      "type": "practice",
-      "modifiers": {
-        "modality": "aud",
-        "phase": "baseline"
-      },
-      "name": "baseline_practice_aud"
-    },
-    {
-      "type": "test",
-      "modifiers": {
-        "modality": "aud",
-        "phase": "baseline"
-      },
-      "conditions": [
-        "2",
-        "1"
-      ],
-      "name": "baseline_test_aud"
     },
     {
       "type": "familiarization",
@@ -76,30 +48,38 @@
         "phase": "baseline"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
       "name": "baseline_test_vis"
+    },
+    {
+      "type": "familiarization",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "baseline"
+      },
+      "name": "baseline_familiarization_aud"
     },
     {
       "type": "practice",
       "modifiers": {
         "modality": "aud",
-        "phase": "pattern"
+        "phase": "baseline"
       },
-      "name": "pattern_practice_aud"
+      "name": "baseline_practice_aud"
     },
     {
       "type": "test",
       "modifiers": {
         "modality": "aud",
-        "phase": "pattern"
+        "phase": "baseline"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
-      "name": "pattern_test_aud"
+      "name": "baseline_test_aud"
     },
     {
       "type": "practice",
@@ -122,6 +102,26 @@
       "name": "pattern_test_vis"
     },
     {
+      "type": "practice",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "pattern"
+      },
+      "name": "pattern_practice_aud"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "pattern"
+      },
+      "conditions": [
+        "1",
+        "2"
+      ],
+      "name": "pattern_test_aud"
+    },
+    {
       "type": "outro_questionnaire",
       "name": "outro_questionnaire"
     },
@@ -132,6 +132,7 @@
   ],
   "master_gain": 1,
   "speaker_routing": {
+    "baseline_test_vis": {},
     "baseline_familiarization_aud": [
       "1",
       "2",
@@ -143,21 +144,20 @@
       "6"
     ],
     "baseline_test_aud": [
-      "19",
-      "20",
-      "21"
+      19,
+      20,
+      21
     ],
-    "baseline_test_vis": {},
+    "pattern_test_vis": {},
     "pattern_practice_aud": [
       "1",
       "2",
       "3"
     ],
     "pattern_test_aud": [
-      "43",
-      "44",
-      "45"
-    ],
-    "pattern_test_vis": {}
+      43,
+      44,
+      45
+    ]
   }
 }
