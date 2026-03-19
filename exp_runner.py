@@ -1,6 +1,7 @@
 #region Setup
 #region Imports
 from utils.codebase import *  # toolbox
+import utils.codebase as cb # for access to privates
 import pygame
 pygame.init()
 import traceback
@@ -10,12 +11,12 @@ import cv2
 import random
 import ctypes
 import csv
+import threading
 #endregion
 
 #region Persistent settings and environmental parameters
 exp_settings_and_data = {}
 exp_root = "./geprest/"
-
 
 dev = False
 reply = input("Demo mode? (y/n): ").strip().lower()
@@ -459,6 +460,178 @@ else:
         global stimulus_start
         stimulus_start = exp_time()
         play_wav_lr(samp * master_gain_exp)
+
+# demo-only buffered audio layer
+_demo_audio_buffer_thread = None
+_demo_audio_buffer_stop = None
+
+def stop_demo_buffered_audio():
+    global _demo_audio_buffer_thread, _demo_audio_buffer_stop
+
+    if _demo_audio_buffer_stop is not None:
+        _demo_audio_buffer_stop.set()
+
+    if _demo_audio_buffer_thread is not None and _demo_audio_buffer_thread.is_alive():
+        _demo_audio_buffer_thread.join(timeout = 1.0)
+
+    _demo_audio_buffer_thread = None
+    _demo_audio_buffer_stop = None
+
+def _resample_chunk_if_needed(frames, sr_in, sr_out):
+    if sr_in == sr_out:
+        return frames.astype(np.float32, copy = False)
+
+    chans = []
+    for k in range(frames.shape[1]):
+        chans.append(cb._resample_to(frames[:, k], sr_in, sr_out))
+
+    if len(chans) == 0:
+        return np.zeros((0, 0), dtype = np.float32)
+
+    n_min = min(len(ch) for ch in chans)
+    if n_min == 0:
+        return np.zeros((0, frames.shape[1]), dtype = np.float32)
+
+    return np.column_stack([ch[:n_min] for ch in chans]).astype(np.float32, copy = False)
+
+def _buffered_audio_backlog_s(target_channels):
+    with cb._lock:
+        if cb._chan_bufs is None:
+            return 0.0
+        if len(target_channels) == 0:
+            return 0.0
+        available = []
+        for ch in target_channels:
+            if ch < 0:
+                continue
+            available.append(cb._chan_bufs[ch].size)
+        if len(available) == 0:
+            return 0.0
+        return min(available) / float(audio_settings["sample_rate"])
+
+def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
+    global stimulus_start, master_gain_exp, _demo_audio_buffer_thread, _demo_audio_buffer_stop
+
+    import soundfile as sf
+
+    stimulus_start = exp_time()
+    stop_demo_buffered_audio()
+
+    path = buffered_spec['path']
+    chunk_s = buffered_spec.get('chunk_s', 0.35)
+    prefill_s = buffered_spec.get('prefill_s', 1.0)
+    topup_s = buffered_spec.get('topup_s', 0.5)
+
+    stop_evt = threading.Event()
+    _demo_audio_buffer_stop = stop_evt
+
+    if on_grid:
+        route_pairs = []
+        for i in range(len(speaker_routing)):
+            sp = speaker_routing[i]
+            ch = audio_settings['sp_to_ch'][sp - 1] # Zero indexed
+            sp_gain = audio_settings['sp_gains'][sp] # Not zero indexed...
+            if ch >= 0:
+                route_pairs.append((i, ch, sp_gain * master_gain_exp))
+        target_channels = [pair[1] for pair in route_pairs]
+    else:
+        route_pairs = None
+        target_channels = [0, 1]
+
+    with sf.SoundFile(path, 'r') as f:
+        sr_in = int(f.samplerate)
+        chunk_frames_in = max(1, int(round(chunk_s * sr_in)))
+
+        first_chunk = f.read(chunk_frames_in, dtype = 'float32', always_2d = True)
+
+    if first_chunk.size == 0:
+        return
+
+    first_chunk = _resample_chunk_if_needed(first_chunk, sr_in, audio_settings["sample_rate"])
+
+    if first_chunk.size == 0:
+        return
+
+    if on_grid:
+        routing_spec = {}
+        for wav_ch_i, out_ch, gain in route_pairs:
+            if wav_ch_i >= first_chunk.shape[1]:
+                continue
+            routing_spec[out_ch] = (
+                first_chunk[:, wav_ch_i] * gain,
+                start_in_s
+            )
+        if len(routing_spec) == 0:
+            return
+        channels_play_at(routing_spec)
+    else:
+        play_wav_lr(first_chunk * master_gain_exp, start_in_s = start_in_s)
+
+    def run_buffer():
+        try:
+            with sf.SoundFile(path, 'r') as f:
+                f.seek(chunk_frames_in)
+
+                while not stop_evt.is_set():
+                    backlog_s = _buffered_audio_backlog_s(target_channels)
+
+                    if backlog_s >= prefill_s:
+                        break
+
+                    frames = f.read(chunk_frames_in, dtype = 'float32', always_2d = True)
+                    if frames.size == 0:
+                        break
+
+                    frames = _resample_chunk_if_needed(frames, sr_in, audio_settings["sample_rate"])
+                    if frames.size == 0:
+                        break
+
+                    if on_grid:
+                        for wav_ch_i, out_ch, gain in route_pairs:
+                            if wav_ch_i >= frames.shape[1]:
+                                continue
+                            channel_append(out_ch, frames[:, wav_ch_i] * gain)
+                    else:
+                        left = frames[:, 0]
+                        right = frames[:, 1] if frames.shape[1] >= 2 else frames[:, 0]
+                        channel_append(0, left * master_gain_exp)
+                        channel_append(1, right * master_gain_exp)
+
+                while not stop_evt.is_set():
+                    backlog_s = _buffered_audio_backlog_s(target_channels)
+
+                    if backlog_s <= topup_s:
+                        frames = f.read(chunk_frames_in, dtype = 'float32', always_2d = True)
+
+                        if frames.size == 0:
+                            break
+
+                        frames = _resample_chunk_if_needed(frames, sr_in, audio_settings["sample_rate"])
+                        if frames.size == 0:
+                            break
+
+                        if on_grid:
+                            for wav_ch_i, out_ch, gain in route_pairs:
+                                if wav_ch_i >= frames.shape[1]:
+                                    continue
+                                channel_append(out_ch, frames[:, wav_ch_i] * gain)
+                        else:
+                            left = frames[:, 0]
+                            right = frames[:, 1] if frames.shape[1] >= 2 else frames[:, 0]
+                            channel_append(0, left * master_gain_exp)
+                            channel_append(1, right * master_gain_exp)
+                    else:
+                        time.sleep(0.01)
+
+        except Exception as e:
+            print(f"Buffered audio playback failed for {path}: {e}")
+
+    _demo_audio_buffer_thread = threading.Thread(
+        target = run_buffer,
+        name = "demo-audio-buffer",
+        daemon = True
+    )
+    _demo_audio_buffer_thread.start()
 #endregion
 
 #endregion
@@ -474,16 +647,30 @@ for stage in exp_structure:
     except FileNotFoundError:
         continue
 
+preload_audio = False
+preload_video = False
 stimuli = {}
 routing = {}
-print("Loading stimuli and routing, please wait.")
+print(f"{'Loading' if preload_audio or preload_video else 'Looking up'} stimuli and {'' if preload_audio or preload_video else 'loading'} routing, please wait.")
 if demo:
     draw_loading_screen()
-    stimuli['demo_aud'] = load_wav(f"{exp_root}/inputs/stimuli/AUD_demo.wav", to_sample_rate = audio_settings["sample_rate"])
+    if preload_audio:
+        stimuli['demo_aud'] = load_wav(f"{exp_root}/inputs/stimuli/AUD_demo.wav", to_sample_rate = audio_settings["sample_rate"])
+    else:
+        stimuli['demo_aud'] = {
+            'path': f"{exp_root}/inputs/stimuli/AUD_demo.wav",
+            'chunk_s': 0.35,
+            'prefill_s': 1.0,
+            'topup_s': 0.5
+        }
     with open(f"{exp_root}/inputs/stimuli/AUD_demo.csv", newline="", encoding="utf-8") as file:
         routing['demo_aud'] = [int(x) for x in next(csv.reader(file))]
     draw_loading_screen()
-    stimuli['demo_vis'] = load_mp4(f"{exp_root}/inputs/stimuli/VIS_demo.mp4")
+    if preload_video:
+        stimuli['demo_vis'] = load_mp4(f"{exp_root}/inputs/stimuli/VIS_demo.mp4")
+    else:
+        #PLACEHOLDER: store access path
+        pass
 else:
     if on_grid:
         demo_vid = load_mp4(f"{exp_root}/inputs/stimuli/VIS_demo.mp4") #DEV: need to fix preloading
@@ -502,7 +689,7 @@ else:
                                 routing[stage['name']] = [int(x) for x in next(csv.reader(file))]
                         else:
                             if on_grid:
-                                pass #DEV: need to fix preloading
+                                pass #DEV: need to fix preloading (but not in this round)
                             else:
                                 load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID11{stimulus_set}.mp4"
                                 stimuli[stage['name']][condition_name] = load_mp4(f"{exp_root}/inputs/stimuli/{load_name}")
@@ -513,7 +700,7 @@ else:
                             routing[stage['name']] = [int(x) for x in next(csv.reader(file))]
                     else:
                         if on_grid:
-                            pass #DEV: need to fix preloading
+                            pass #DEV: need to fix preloading (but not in this round)
                         else:
                             stimuli[stage['name']] = load_mp4(f"{exp_root}/inputs/stimuli/{stage['name']}.mp4")
             except FileNotFoundError:
@@ -1792,13 +1979,24 @@ def start_stimulus():
             log_space_press = True
             match stage['modifiers']['modality']:
                 case 'aud':
-                    play_auditory_stimulus(
-                        speaker_routing = routing['demo_aud'],
-                        samp = stimuli['demo_aud'],
-                        start_in_s = 0
-                        )
+                    if preload_audio:
+                        play_auditory_stimulus(
+                            speaker_routing = routing['demo_aud'],
+                            samp = stimuli['demo_aud'],
+                            start_in_s = 0
+                            )
+                    else:
+                        play_auditory_stimulus_buffered(
+                            speaker_routing = routing['demo_aud'],
+                            buffered_spec = stimuli['demo_aud'],
+                            start_in_s = 0
+                            )
                 case 'vis':
-                    play_visual_stimulus(stimuli['demo_vis'])
+                    if preload_video:
+                        play_visual_stimulus(stimuli['demo_vis'])
+                    else:
+                        #PLACEHOLDER FOR BUFFERED VIDEO PLAYBACK BASED ON STORED ACCESS PATH
+                        pass
         case 'familiarization':
             log(f"Start stimulus for {stage['name']}.")
             subject_data['repeat_num'][stage['name']] = repeat_num
@@ -1851,6 +2049,7 @@ def start_stimulus():
 
 def stop_stimulus():
     global substage, log_space_press, stimulus_start
+    stop_demo_buffered_audio()
     audio_stop('immediate')
     video_stop()
     log(f"Finished stimulus for {exp_structure[stage_index]['name']}.")
