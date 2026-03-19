@@ -120,3 +120,5 @@
 {"time": 73.0407, "msg": "Set up thanks stage."}
 {"time": 75.2722, "msg": "Data successfully exported."}
 {"time": 75.3346, "msg": "End."}
+{"time": 87.0596, "msg": "Data successfully exported."}
+{"time": 87.1127, "msg": "Script reached an error: error('display Surface quit')"}

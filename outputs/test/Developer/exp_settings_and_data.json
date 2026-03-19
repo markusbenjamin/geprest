@@ -159,5 +159,9 @@
       48
     ],
     "pattern_test_vis": {}
+  },
+  "end": {
+    "time": 75.3783,
+    "cause": "End."
   }
 }
