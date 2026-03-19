@@ -326,7 +326,6 @@ def video_start_buffered(
 ):
     """
     Begin playing a video stimulus from disk with a small prefetch queue.
-    Demo-mode buffered path only.
     """
     global _video_state, _video_buffer_thread, _video_buffer_stop
 
@@ -660,20 +659,20 @@ else:
         else:
             play_auditory_stimulus_buffered(speaker_routing,samp,start_in_s)
 
-_demo_audio_buffer_thread = None
-_demo_audio_buffer_stop = None
+_audio_buffer_thread = None
+_audio_buffer_stop = None
 
-def stop_demo_buffered_audio():
-    global _demo_audio_buffer_thread, _demo_audio_buffer_stop
+def stop_buffered_audio():
+    global _audio_buffer_thread, _audio_buffer_stop
 
-    if _demo_audio_buffer_stop is not None:
-        _demo_audio_buffer_stop.set()
+    if _audio_buffer_stop is not None:
+        _audio_buffer_stop.set()
 
-    if _demo_audio_buffer_thread is not None and _demo_audio_buffer_thread.is_alive():
-        _demo_audio_buffer_thread.join(timeout = 1.0)
+    if _audio_buffer_thread is not None and _audio_buffer_thread.is_alive():
+        _audio_buffer_thread.join(timeout = 1.0)
 
-    _demo_audio_buffer_thread = None
-    _demo_audio_buffer_stop = None
+    _audio_buffer_thread = None
+    _audio_buffer_stop = None
 
 def _resample_chunk_if_needed(frames, sr_in, sr_out):
     if sr_in == sr_out:
@@ -708,11 +707,11 @@ def _buffered_audio_backlog_s(target_channels):
         return min(available) / float(audio_settings["sample_rate"])
 
 def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
-    global stimulus_start, master_gain_exp, _demo_audio_buffer_thread, _demo_audio_buffer_stop
+    global stimulus_start, master_gain_exp, _audio_buffer_thread, _audio_buffer_stop
 
     import soundfile as sf
 
-    stop_demo_buffered_audio()
+    stop_buffered_audio()
 
     path = buffered_spec['path']
     chunk_s = buffered_spec.get('chunk_s', 0.35)
@@ -720,7 +719,7 @@ def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
     topup_s = buffered_spec.get('topup_s', 0.5)
 
     stop_evt = threading.Event()
-    _demo_audio_buffer_stop = stop_evt
+    _audio_buffer_stop = stop_evt
 
     if on_grid:
         route_pairs = []
@@ -825,12 +824,12 @@ def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
         except Exception as e:
             print(f"Buffered audio playback failed for {path}: {e}")
 
-    _demo_audio_buffer_thread = threading.Thread(
+    _audio_buffer_thread = threading.Thread(
         target = run_buffer,
-        name = "demo-audio-buffer",
+        name = "audio-buffer",
         daemon = True
     )
-    _demo_audio_buffer_thread.start()
+    _audio_buffer_thread.start()
 #endregion
 
 #endregion
@@ -2284,7 +2283,7 @@ def start_stimulus():
 
 def stop_stimulus():
     global substage, log_space_press, stimulus_start
-    stop_demo_buffered_audio()
+    stop_buffered_audio()
     audio_stop('drain')
     video_stop()
     log(f"Finished stimulus for {exp_structure[stage_index]['name']}.")
