@@ -2284,7 +2284,7 @@ def start_stimulus():
 def stop_stimulus():
     global substage, log_space_press, stimulus_start
     stop_buffered_audio()
-    audio_stop('drain')
+    audio_stop('fade',fade_ms = 120)
     video_stop()
     log(f"Finished stimulus for {exp_structure[stage_index]['name']}.")
     substage = 'repeat'
