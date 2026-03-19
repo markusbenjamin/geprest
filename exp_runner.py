@@ -660,7 +660,6 @@ else:
         else:
             play_auditory_stimulus_buffered(speaker_routing,samp,start_in_s)
 
-# demo-only buffered audio layer
 _demo_audio_buffer_thread = None
 _demo_audio_buffer_stop = None
 
@@ -1953,6 +1952,9 @@ def export_table(rows, name, header=None):
     return full_path
 
 def flush_experiment(log_message, cause="Finished."):
+    global screen
+    pygame.display.quit()
+    screen = None
     try:
         for data_element in data_to_save:
             content = data_element.get("content", None)
@@ -1988,10 +1990,13 @@ def flush_experiment(log_message, cause="Finished."):
 
     if not dev and not demo and on_grid:
         try:
+            print("Uploading new data to GitHub, please wait.")
             git_commit_and_sync_from_root("outputs",message="Incoming subject data.")
+            print("Success.")
         except Exception as e:
             origin = _error_origin(e)
             log(f"Could not upload data: {origin['file']}:{origin['line']} {repr(e)}")
+            print("GitHub data upload failed.")
     
 #endregion
 
@@ -2450,6 +2455,7 @@ def finish(cause):
     Set flag so that script will finish the current cycle then quit.
     End experiment, do cleanup, export and save what needs to be, etc.
     '''
+    print("Exit main experimental loop.\n")
     global running
     running = False
     flush_experiment(cause, cause)
@@ -2458,6 +2464,8 @@ def draw():
     '''
     Draw new frame.
     '''
+    if not screen:
+        return
     global dev_message
 
     stage = exp_structure[stage_index]
@@ -2580,8 +2588,6 @@ def draw():
                         instructions[stage['name']],
                         (0.5, 0.25, 0.8, 0.3)
                     )
-        case _:
-            screen.fill(WHITE)
 
     for u in ui:
         u.draw()
@@ -2678,6 +2684,7 @@ def refresh():
 #endregion
 
 #region Main loop
+print("\nEnter main experimental loop.")
 focus_pygame_window()
 print("Use Alt + Tab to bring experiment window in focus.")
 dev_message = ''
