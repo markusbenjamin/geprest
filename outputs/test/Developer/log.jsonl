@@ -1,14 +1,122 @@
 {"time": 0.0, "msg": "Start."}
-{"time": 0.0537, "msg": "Set up welcome stage."}
-{"time": 13.2903, "event": "Proceed clicked."}
-{"time": 13.3524, "msg": "Shut down welcome stage."}
-{"time": 13.394, "event": "Consented.", "answer": "I consent to participate in the experiment"}
-{"time": 13.4351, "msg": "Set up screener stage."}
-{"time": 23.921, "event": "Proceed clicked."}
-{"time": 24.0101, "msg": "Shut down screener stage."}
-{"time": 24.0639, "event": "Screened.", "answer": "I confirm that none of the above listed items applies to me."}
-{"time": 24.1056, "msg": "Set up intro_questionnaire stage."}
-{"time": 26.5678, "msg": "Data successfully exported."}
-{"time": 26.625, "msg": "User interrupt."}
-{"time": 38.8756, "msg": "Data successfully exported."}
-{"time": 39.2368, "msg": "Script reached an error: error('display Surface quit')"}
+{"time": 0.0543, "msg": "Set up welcome stage."}
+{"time": 10.7364, "event": "Proceed clicked."}
+{"time": 10.7812, "msg": "Shut down welcome stage."}
+{"time": 10.8355, "event": "Consented.", "answer": "I consent to participate in the experiment"}
+{"time": 10.8764, "msg": "Set up screener stage."}
+{"time": 21.2602, "event": "Proceed clicked."}
+{"time": 21.3132, "msg": "Shut down screener stage."}
+{"time": 21.3828, "event": "Screened.", "answer": "I confirm that none of the above listed items applies to me."}
+{"time": 21.451, "msg": "Set up intro_questionnaire stage."}
+{"time": 23.9323, "event": "Proceed clicked."}
+{"time": 23.9734, "msg": "Shut down intro_questionnaire stage."}
+{"time": 24.029, "event": "Gender submitted.", "answer": "male"}
+{"time": 24.0799, "event": "Age submitted.", "answer": "23"}
+{"time": 24.121, "msg": "Set up baseline_familiarization_aud stage."}
+{"time": 25.4857, "event": "Start clicked for baseline_familiarization_aud."}
+{"time": 25.677, "msg": "Start stimulus for baseline_familiarization_aud."}
+{"time": 26.7364, "msg": "Q pressed in stage baseline_familiarization_aud."}
+{"time": 27.3612, "msg": "Finished stimulus for baseline_familiarization_aud."}
+{"time": 27.7433, "event": "Proceed clicked."}
+{"time": 27.7842, "msg": "Shut down baseline_familiarization_aud stage."}
+{"time": 27.8328, "msg": "Set up baseline_practice_aud stage."}
+{"time": 29.1349, "event": "Start clicked for baseline_practice_aud."}
+{"time": 29.2556, "msg": "Start stimulus for baseline_practice_aud, repeat 0."}
+{"time": 29.7859, "msg": "Q pressed in stage baseline_practice_aud."}
+{"time": 30.3292, "msg": "Finished stimulus for baseline_practice_aud."}
+{"time": 30.7283, "event": "Proceed clicked."}
+{"time": 30.7698, "msg": "Shut down baseline_practice_aud stage."}
+{"time": 30.8107, "msg": "Set up baseline_test_aud stage."}
+{"time": 32.1705, "event": "Start clicked for baseline_test_aud."}
+{"time": 32.3012, "msg": "Start stimulus for baseline_test_aud in condition 1."}
+{"time": 32.965, "msg": "Q pressed in stage baseline_test_aud."}
+{"time": 33.5608, "msg": "Finished stimulus for baseline_test_aud."}
+{"time": 34.0161, "event": "Next clicked for baseline_test_aud."}
+{"time": 34.0581, "msg": "Test condition changed to 2 in baseline_test_aud."}
+{"time": 34.1028, "msg": "Set up baseline_test_aud stage."}
+{"time": 35.4074, "event": "Start clicked for baseline_test_aud."}
+{"time": 35.537, "msg": "Start stimulus for baseline_test_aud in condition 2."}
+{"time": 36.2304, "msg": "Q pressed in stage baseline_test_aud."}
+{"time": 36.8887, "msg": "Finished stimulus for baseline_test_aud."}
+{"time": 37.2808, "event": "Proceed clicked."}
+{"time": 37.3221, "msg": "Shut down baseline_test_aud stage."}
+{"time": 37.3633, "msg": "Set up baseline_familiarization_vis stage."}
+{"time": 38.6969, "event": "Start clicked for baseline_familiarization_vis."}
+{"time": 38.8191, "msg": "Start stimulus for baseline_familiarization_vis."}
+{"time": 39.9217, "msg": "Q pressed in stage baseline_familiarization_vis."}
+{"time": 39.9683, "msg": "Finished stimulus for baseline_familiarization_vis."}
+{"time": 40.3344, "event": "Proceed clicked."}
+{"time": 40.3899, "msg": "Shut down baseline_familiarization_vis stage."}
+{"time": 40.4311, "msg": "Set up baseline_practice_vis stage."}
+{"time": 41.7685, "event": "Start clicked for baseline_practice_vis."}
+{"time": 41.9004, "msg": "Start stimulus for baseline_practice_vis, repeat 0."}
+{"time": 42.5473, "msg": "Q pressed in stage baseline_practice_vis."}
+{"time": 42.614, "msg": "Finished stimulus for baseline_practice_vis."}
+{"time": 43.0377, "event": "Proceed clicked."}
+{"time": 43.1016, "msg": "Shut down baseline_practice_vis stage."}
+{"time": 43.1424, "msg": "Set up baseline_test_vis stage."}
+{"time": 44.4713, "event": "Start clicked for baseline_test_vis."}
+{"time": 44.5914, "msg": "Start stimulus for baseline_test_vis in condition 2."}
+{"time": 45.1297, "msg": "Q pressed in stage baseline_test_vis."}
+{"time": 45.1804, "msg": "Finished stimulus for baseline_test_vis."}
+{"time": 45.5707, "event": "Next clicked for baseline_test_vis."}
+{"time": 45.6123, "msg": "Test condition changed to 1 in baseline_test_vis."}
+{"time": 45.6617, "msg": "Set up baseline_test_vis stage."}
+{"time": 46.9706, "event": "Start clicked for baseline_test_vis."}
+{"time": 47.0834, "msg": "Start stimulus for baseline_test_vis in condition 1."}
+{"time": 47.5384, "msg": "Q pressed in stage baseline_test_vis."}
+{"time": 47.6039, "msg": "Finished stimulus for baseline_test_vis."}
+{"time": 48.0618, "event": "Proceed clicked."}
+{"time": 48.1033, "msg": "Shut down baseline_test_vis stage."}
+{"time": 48.1778, "msg": "Set up pattern_practice_aud stage."}
+{"time": 49.4741, "event": "Start clicked for pattern_practice_aud."}
+{"time": 49.6066, "msg": "Start stimulus for pattern_practice_aud, repeat 0."}
+{"time": 50.1468, "msg": "Q pressed in stage pattern_practice_aud."}
+{"time": 50.7726, "msg": "Finished stimulus for pattern_practice_aud."}
+{"time": 51.1178, "event": "Proceed clicked."}
+{"time": 51.1688, "msg": "Shut down pattern_practice_aud stage."}
+{"time": 51.2277, "msg": "Set up pattern_test_aud stage."}
+{"time": 52.4949, "event": "Start clicked for pattern_test_aud."}
+{"time": 52.6193, "msg": "Start stimulus for pattern_test_aud in condition 1."}
+{"time": 53.0145, "msg": "Q pressed in stage pattern_test_aud."}
+{"time": 53.6002, "msg": "Finished stimulus for pattern_test_aud."}
+{"time": 53.9733, "event": "Next clicked for pattern_test_aud."}
+{"time": 54.015, "msg": "Test condition changed to 2 in pattern_test_aud."}
+{"time": 54.056, "msg": "Set up pattern_test_aud stage."}
+{"time": 55.3607, "event": "Start clicked for pattern_test_aud."}
+{"time": 55.4806, "msg": "Start stimulus for pattern_test_aud in condition 2."}
+{"time": 55.8899, "msg": "Q pressed in stage pattern_test_aud."}
+{"time": 56.4617, "msg": "Finished stimulus for pattern_test_aud."}
+{"time": 56.8058, "event": "Proceed clicked."}
+{"time": 56.8476, "msg": "Shut down pattern_test_aud stage."}
+{"time": 56.9037, "msg": "Set up pattern_practice_vis stage."}
+{"time": 58.077, "event": "Start clicked for pattern_practice_vis."}
+{"time": 58.2096, "msg": "Start stimulus for pattern_practice_vis, repeat 0."}
+{"time": 58.8165, "msg": "Q pressed in stage pattern_practice_vis."}
+{"time": 58.8659, "msg": "Finished stimulus for pattern_practice_vis."}
+{"time": 59.326, "event": "Proceed clicked."}
+{"time": 59.3763, "msg": "Shut down pattern_practice_vis stage."}
+{"time": 59.4206, "msg": "Set up pattern_test_vis stage."}
+{"time": 60.7901, "event": "Start clicked for pattern_test_vis."}
+{"time": 60.9279, "msg": "Start stimulus for pattern_test_vis in condition 2."}
+{"time": 61.7464, "msg": "Q pressed in stage pattern_test_vis."}
+{"time": 61.8117, "msg": "Finished stimulus for pattern_test_vis."}
+{"time": 62.1578, "event": "Next clicked for pattern_test_vis."}
+{"time": 62.2041, "msg": "Test condition changed to 1 in pattern_test_vis."}
+{"time": 62.2468, "msg": "Set up pattern_test_vis stage."}
+{"time": 63.5649, "event": "Start clicked for pattern_test_vis."}
+{"time": 63.6879, "msg": "Start stimulus for pattern_test_vis in condition 1."}
+{"time": 64.2298, "msg": "Q pressed in stage pattern_test_vis."}
+{"time": 64.3076, "msg": "Finished stimulus for pattern_test_vis."}
+{"time": 64.7899, "event": "Proceed clicked."}
+{"time": 64.8317, "msg": "Shut down pattern_test_vis stage."}
+{"time": 64.9088, "msg": "Set up outro_questionnaire stage."}
+{"time": 72.7638, "event": "Proceed clicked."}
+{"time": 72.8186, "msg": "Shut down outro_questionnaire stage."}
+{"time": 72.8601, "event": "Strategy submitted.", "answer": "Strategy."}
+{"time": 72.9035, "event": "Auditory likert submitted.", "answer": "3"}
+{"time": 72.9456, "event": "Visual likert submitted.", "answer": "3"}
+{"time": 72.9997, "event": "Pattern reply submitted.", "answer": "no"}
+{"time": 73.0407, "msg": "Set up thanks stage."}
+{"time": 75.2722, "msg": "Data successfully exported."}
+{"time": 75.3346, "msg": "End."}
