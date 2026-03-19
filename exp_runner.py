@@ -435,7 +435,6 @@ if on_grid:
     
     def play_auditory_stimulus(speaker_routing, samp, start_in_s):
         global stimulus_start, master_gain_exp
-        stimulus_start = exp_time()
 
         routing_spec = {}
         for i in range(len(speaker_routing)):
@@ -449,6 +448,7 @@ if on_grid:
             )
 
         channels_play_at(routing_spec)
+        stimulus_start = exp_time()
 else:  
     audio_settings = settings
     audio_settings["device_id"] = get_default_output_device_id()
@@ -458,8 +458,8 @@ else:
     speaker_gain = 1'''
     def play_auditory_stimulus(speaker_routing, samp, start_in_s):
         global stimulus_start
-        stimulus_start = exp_time()
         play_wav_lr(samp * master_gain_exp)
+        stimulus_start = exp_time()
 
 # demo-only buffered audio layer
 _demo_audio_buffer_thread = None
@@ -514,7 +514,6 @@ def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
 
     import soundfile as sf
 
-    stimulus_start = exp_time()
     stop_demo_buffered_audio()
 
     path = buffered_spec['path']
@@ -564,6 +563,7 @@ def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
         if len(routing_spec) == 0:
             return
         channels_play_at(routing_spec)
+        stimulus_start = exp_time()
     else:
         play_wav_lr(first_chunk * master_gain_exp, start_in_s = start_in_s)
 
