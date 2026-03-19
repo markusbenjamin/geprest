@@ -2,11 +2,11 @@
   "batch": "test",
   "zoom": 1,
   "size": {
-    "w": 1920,
-    "h": 1080
+    "w": 1536,
+    "h": 864
   },
   "subject": "Developer",
-  "stimulus_set": 2,
+  "stimulus_set": 1,
   "run_label": "test_Developer",
   "modality_order": [
     "vis",
@@ -76,8 +76,8 @@
         "phase": "baseline"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
       "name": "baseline_test_aud"
     },
@@ -116,8 +116,8 @@
         "phase": "pattern"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
       "name": "pattern_test_aud"
     },
@@ -144,9 +144,9 @@
       6
     ],
     "baseline_test_aud": [
-      22,
-      23,
-      24
+      19,
+      20,
+      21
     ],
     "pattern_test_vis": {},
     "pattern_practice_aud": [
@@ -155,9 +155,9 @@
       3
     ],
     "pattern_test_aud": [
-      46,
-      47,
-      48
+      43,
+      44,
+      45
     ]
   }
 }
