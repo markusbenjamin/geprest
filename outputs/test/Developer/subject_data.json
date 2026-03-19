@@ -1,12 +1,5 @@
 {
   "space_presses": {
-    "baseline_practice_vis": {
-      "repeat_0": []
-    },
-    "baseline_test_vis": {
-      "2": [],
-      "1": []
-    },
     "baseline_practice_aud": {
       "repeat_0": []
     },
@@ -14,33 +7,40 @@
       "2": [],
       "1": []
     },
-    "pattern_practice_vis": {
+    "baseline_practice_vis": {
       "repeat_0": []
     },
-    "pattern_test_vis": {
-      "2": [],
-      "1": []
+    "baseline_test_vis": {
+      "1": [],
+      "2": []
     },
     "pattern_practice_aud": {
       "repeat_0": []
     },
     "pattern_test_aud": {
+      "2": [],
+      "1": []
+    },
+    "pattern_practice_vis": {
+      "repeat_0": []
+    },
+    "pattern_test_vis": {
       "1": [],
       "2": []
     }
   },
   "repeat_num": {
-    "baseline_familiarization_vis": 0,
-    "baseline_practice_vis": 0,
     "baseline_familiarization_aud": 0,
     "baseline_practice_aud": 0,
-    "pattern_practice_vis": 0,
-    "pattern_practice_aud": 0
+    "baseline_familiarization_vis": 0,
+    "baseline_practice_vis": 0,
+    "pattern_practice_aud": 0,
+    "pattern_practice_vis": 0
   },
   "gender": "male",
-  "age": "123",
-  "strategy": "asdasd",
+  "age": "12",
+  "strategy": "Strategy",
   "likert_aud": "4",
-  "likert_vis": "3",
-  "patterns_saw": "no"
+  "likert_vis": "2",
+  "patterns_saw": "yes"
 }
