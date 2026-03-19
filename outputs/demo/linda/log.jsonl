@@ -1,0 +1,32 @@
+{"time": 0.0, "msg": "Start."}
+{"time": 0.069, "msg": "Set up demo_welcome stage."}
+{"time": 14.4735, "event": "Proceed clicked."}
+{"time": 14.5404, "msg": "Shut down demo_welcome stage."}
+{"time": 14.5901, "msg": "Set up demo_aud stage."}
+{"time": 54.8013, "event": "Start clicked for demo_aud."}
+{"time": 54.8547, "msg": "Start stimulus for demo_aud."}
+{"time": 59.4705, "msg": "Space pressed in stage demo_aud."}
+{"time": 63.5953, "msg": "Space pressed in stage demo_aud."}
+{"time": 69.0483, "msg": "Space pressed in stage demo_aud."}
+{"time": 76.331, "msg": "Space pressed in stage demo_aud."}
+{"time": 79.644, "msg": "Space pressed in stage demo_aud."}
+{"time": 85.1857, "msg": "Space pressed in stage demo_aud."}
+{"time": 90.0238, "msg": "Space pressed in stage demo_aud."}
+{"time": 97.3574, "msg": "Space pressed in stage demo_aud."}
+{"time": 108.7033, "msg": "Space pressed in stage demo_aud."}
+{"time": 111.5616, "msg": "Space pressed in stage demo_aud."}
+{"time": 119.6092, "msg": "Space pressed in stage demo_aud."}
+{"time": 125.1237, "msg": "Space pressed in stage demo_aud."}
+{"time": 127.3079, "msg": "Space pressed in stage demo_aud."}
+{"time": 139.6119, "msg": "Space pressed in stage demo_aud."}
+{"time": 156.3304, "msg": "Space pressed in stage demo_aud."}
+{"time": 170.9777, "msg": "Space pressed in stage demo_aud."}
+{"time": 174.4395, "msg": "Space pressed in stage demo_aud."}
+{"time": 181.2496, "msg": "Finished stimulus for demo_aud."}
+{"time": 184.5701, "event": "Proceed clicked."}
+{"time": 184.6134, "msg": "Shut down demo_aud stage."}
+{"time": 184.6552, "msg": "Set up demo_vis stage."}
+{"time": 186.3155, "event": "Start clicked for demo_vis."}
+{"time": 186.3706, "msg": "Start stimulus for demo_vis."}
+{"time": 186.6233, "msg": "Data successfully exported."}
+{"time": 186.6686, "msg": "Script reached an error: KeyError('demo_vis')"}

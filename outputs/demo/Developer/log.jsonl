@@ -1,16 +1,12 @@
 {"time": 0.0, "msg": "Start."}
-{"time": 0.0538, "msg": "Set up demo_welcome stage."}
-{"time": 1.487, "event": "Proceed clicked."}
-{"time": 1.5123, "msg": "Shut down demo_welcome stage."}
-{"time": 1.5511, "msg": "Set up demo_aud stage."}
-{"time": 3.0371, "event": "Start clicked for demo_aud."}
-{"time": 3.0628, "msg": "Start stimulus for demo_aud."}
-{"time": 8.4596, "msg": "Finished stimulus for demo_aud."}
-{"time": 9.7129, "event": "Proceed clicked."}
-{"time": 9.7389, "msg": "Shut down demo_aud stage."}
-{"time": 9.7639, "msg": "Set up demo_vis stage."}
-{"time": 11.1271, "event": "Start clicked for demo_vis."}
-{"time": 11.1726, "msg": "Start stimulus for demo_vis."}
-{"time": 19.5527, "msg": "Finished stimulus for demo_vis."}
-{"time": 20.6106, "msg": "Data successfully exported."}
-{"time": 20.6599, "msg": "User interrupt."}
+{"time": 0.048, "msg": "Set up demo_welcome stage."}
+{"time": 2.5578, "event": "Proceed clicked."}
+{"time": 2.5948, "msg": "Shut down demo_welcome stage."}
+{"time": 2.6215, "msg": "Set up demo_aud stage."}
+{"time": 4.4645, "event": "Start clicked for demo_aud."}
+{"time": 4.4979, "msg": "Start stimulus for demo_aud."}
+{"time": 10.9794, "msg": "Space pressed in stage demo_aud."}
+{"time": 11.9471, "msg": "Space pressed in stage demo_aud."}
+{"time": 12.9932, "msg": "Space pressed in stage demo_aud."}
+{"time": 14.0112, "msg": "Data successfully exported."}
+{"time": 14.0598, "msg": "User interrupt."}
