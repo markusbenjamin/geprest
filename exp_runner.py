@@ -12,6 +12,7 @@ import random
 import ctypes
 import csv
 import threading
+from collections import deque
 #endregion
 
 #region Persistent settings and environmental parameters
@@ -289,6 +290,160 @@ def load_mp4(path):
         "path": p,
     }
 
+_video_buffer_thread = None
+_video_buffer_stop = None
+
+def _resolve_video_path(path):
+    p = os.path.expanduser(os.path.expandvars(str(path)))
+    if not os.path.splitext(p)[1]:
+        p += ".mp4"
+
+    p = os.path.normpath(p)
+    root_abs = os.path.normpath(os.path.abspath(exp_root))
+    p_abs = os.path.normpath(os.path.abspath(p))
+
+    if not os.path.isabs(p):
+        try:
+            if os.path.commonpath([p_abs, root_abs]) != root_abs:
+                p = os.path.join(exp_root, p)
+        except ValueError:
+            p = os.path.join(exp_root, p)
+
+    p = os.path.normpath(p)
+
+    if not os.path.exists(p):
+        raise FileNotFoundError(f"video not found: {p}")
+
+    return p
+
+def video_start_buffered(
+    video_spec,
+    *,
+    rrect=None,
+    pos=(0.5, 0.5),
+    keep_aspect=True,
+    loop=False
+):
+    """
+    Begin playing a video stimulus from disk with a small prefetch queue.
+    Demo-mode buffered path only.
+    """
+    global _video_state, _video_buffer_thread, _video_buffer_stop
+
+    video_stop()
+
+    p = _resolve_video_path(video_spec["path"])
+    prefetch_n = int(video_spec.get("prefetch_n", 8))
+
+    cap = cv2.VideoCapture(p)
+    if not cap.isOpened():
+        raise RuntimeError(f"cannot open video: {p}")
+
+    fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
+    fcnt = cap.get(cv2.CAP_PROP_FRAME_COUNT)
+    dur = fcnt / fps if fcnt > 0 else 0
+
+    ret, frame = cap.read()
+    if not ret:
+        cap.release()
+        raise RuntimeError(f"video contains no readable frames: {p}")
+
+    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    first_surf = pygame.surfarray.make_surface(frame.swapaxes(0, 1))
+    vw, vh = first_surf.get_size()
+
+    sw, sh = screen.get_size()
+
+    if rrect is not None:
+        rcx, rcy, rw, rh = rrect
+        tgt_w = int(rw * sw)
+        tgt_h = int(rh * sh)
+
+        if keep_aspect:
+            scale = min(tgt_w / vw, tgt_h / vh)
+            dw, dh = int(vw * scale), int(vh * scale)
+        else:
+            dw, dh = tgt_w, tgt_h
+
+        cx, cy = int(rcx * sw), int(rcy * sh)
+    else:
+        rcx, rcy = pos
+        dw, dh = vw, vh
+        cx, cy = int(rcx * sw), int(rcy * sh)
+
+    dest = pygame.Rect(0, 0, dw, dh)
+    dest.center = (cx, cy)
+
+    stop_evt = threading.Event()
+    queue_lock = threading.Lock()
+    frame_queue = deque([first_surf])
+
+    _video_buffer_stop = stop_evt
+
+    _video_state = {
+        "mode": "buffered",
+        "frame_queue": frame_queue,
+        "queue_lock": queue_lock,
+        "prefetch_n": prefetch_n,
+        "fps": fps,
+        "ms_per": 1000.0 / fps,
+        "next_ms": pygame.time.get_ticks(),
+        "dest": dest,
+        "loop": loop,
+        "keep_aspect": keep_aspect,
+        "duration": dur,
+        "needs_runtime_scale": ((dw, dh) != (vw, vh)),
+        "path": p,
+        "cap": cap,
+        "eof": False,
+    }
+
+    def reader_loop():
+        global _video_state
+        try:
+            while not stop_evt.is_set():
+                if _video_state is None:
+                    break
+                if _video_state.get("cap") is None:
+                    break
+
+                with queue_lock:
+                    qlen = len(frame_queue)
+
+                if qlen >= prefetch_n:
+                    time.sleep(0.005)
+                    continue
+
+                ret, frame = cap.read()
+                if not ret:
+                    _video_state["eof"] = True
+                    break
+
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                surf = pygame.surfarray.make_surface(frame.swapaxes(0, 1))
+
+                with queue_lock:
+                    frame_queue.append(surf)
+
+        finally:
+            try:
+                cap.release()
+            except Exception:
+                pass
+            if _video_state is not None:
+                _video_state["cap"] = None
+
+    _video_buffer_thread = threading.Thread(
+        target = reader_loop,
+        name = "video-buffer",
+        daemon = True
+    )
+    _video_buffer_thread.start()
+
+    return dur
+
+def play_visual_stimulus_buffered(video_spec, pos = None, rrect = None):
+    video_start_buffered(video_spec)
 
 def video_start(
     vid,
@@ -376,6 +531,29 @@ def video_tick():
     if now < _video_state["next_ms"]:
         return
 
+    if _video_state.get("mode") == "buffered":
+        with _video_state["queue_lock"]:
+            if len(_video_state["frame_queue"]) > 0:
+                surf = _video_state["frame_queue"].popleft()
+            else:
+                surf = None
+
+        if surf is None:
+            if _video_state.get("eof", False):
+                video_stop()
+            return
+
+        _video_state["next_ms"] += _video_state["ms_per"]
+
+        if _video_state["needs_runtime_scale"]:
+            surf = pygame.transform.smoothscale(surf, _video_state["dest"].size)
+
+        if stimulus_start is None:
+            stimulus_start = exp_time()
+
+        screen.blit(surf, _video_state["dest"])
+        return
+
     idx = _video_state["frame_idx"]
 
     if idx >= _video_state["frame_count"]:
@@ -397,7 +575,6 @@ def video_tick():
         stimulus_start = exp_time()
     screen.blit(surf, _video_state["dest"])
 
-
 def video_is_playing():
     """Return True while a clip started with `video_start` is still active."""
     return _video_state is not None
@@ -405,8 +582,25 @@ def video_is_playing():
 
 def video_stop():
     """Abort the current clip and free playback state."""
-    global _video_state
+    global _video_state, _video_buffer_thread, _video_buffer_stop
+
+    if _video_buffer_stop is not None:
+        _video_buffer_stop.set()
+
+    if _video_buffer_thread is not None and _video_buffer_thread.is_alive():
+        _video_buffer_thread.join(timeout = 1.0)
+
+    if _video_state is not None:
+        try:
+            cap = _video_state.get("cap")
+            if cap is not None:
+                cap.release()
+        except Exception:
+            pass
+
     _video_state = None
+    _video_buffer_thread = None
+    _video_buffer_stop = None
 
 #endregion
 
@@ -563,9 +757,10 @@ def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
         if len(routing_spec) == 0:
             return
         channels_play_at(routing_spec)
-        stimulus_start = exp_time()
     else:
         play_wav_lr(first_chunk * master_gain_exp, start_in_s = start_in_s)
+    
+    stimulus_start = exp_time()
 
     def run_buffer():
         try:
@@ -669,8 +864,10 @@ if demo:
     if preload_video:
         stimuli['demo_vis'] = load_mp4(f"{exp_root}/inputs/stimuli/VIS_demo.mp4")
     else:
-        #PLACEHOLDER: store access path
-        pass
+        stimuli['demo_vis'] = {
+            'path': f"{exp_root}/inputs/stimuli/VIS_demo.mp4",
+            'prefetch_n': 8
+        }
 else:
     if on_grid:
         demo_vid = load_mp4(f"{exp_root}/inputs/stimuli/VIS_demo.mp4") #DEV: need to fix preloading
@@ -1994,8 +2191,7 @@ def start_stimulus():
                     if preload_video:
                         play_visual_stimulus(stimuli['demo_vis'])
                     else:
-                        #PLACEHOLDER FOR BUFFERED VIDEO PLAYBACK BASED ON STORED ACCESS PATH
-                        pass
+                        play_visual_stimulus_buffered(stimuli['demo_vis'])
             log(f"Start stimulus for {stage['name']}.")
         case 'familiarization':
             subject_data['repeat_num'][stage['name']] = repeat_num
