@@ -10,3 +10,5 @@
 {"time": 24.1056, "msg": "Set up intro_questionnaire stage."}
 {"time": 26.5678, "msg": "Data successfully exported."}
 {"time": 26.625, "msg": "User interrupt."}
+{"time": 38.8756, "msg": "Data successfully exported."}
+{"time": 39.2368, "msg": "Script reached an error: error('display Surface quit')"}

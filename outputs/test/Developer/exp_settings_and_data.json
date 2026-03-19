@@ -159,5 +159,9 @@
       47,
       48
     ]
+  },
+  "end": {
+    "time": 26.6793,
+    "cause": "User interrupt."
   }
 }
