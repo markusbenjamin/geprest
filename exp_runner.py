@@ -480,7 +480,8 @@ print("Loading stimuli and routing, please wait.")
 if demo:
     draw_loading_screen()
     stimuli['demo_aud'] = load_wav(f"{exp_root}/inputs/stimuli/AUD_demo.wav", to_sample_rate = audio_settings["sample_rate"])
-    routing['demo_aud'] = [1,2,3]
+    with open(f"{exp_root}/inputs/stimuli/AUD_demo.csv", newline="", encoding="utf-8") as file:
+        routing['demo_aud'] = [int(x) for x in next(csv.reader(file))]
     draw_loading_screen()
     stimuli['demo_vis'] = load_mp4(f"{exp_root}/inputs/stimuli/VIS_demo.mp4")
 else:

@@ -2,8 +2,8 @@
   "batch": "demo",
   "zoom": 1,
   "size": {
-    "w": 1920,
-    "h": 1200
+    "w": 1536,
+    "h": 864
   },
   "subject": "Developer",
   "stimulus_set": 1,

@@ -1,12 +1,9 @@
 {"time": 0.0, "msg": "Start."}
-{"time": 0.048, "msg": "Set up demo_welcome stage."}
-{"time": 2.5578, "event": "Proceed clicked."}
-{"time": 2.5948, "msg": "Shut down demo_welcome stage."}
-{"time": 2.6215, "msg": "Set up demo_aud stage."}
-{"time": 4.4645, "event": "Start clicked for demo_aud."}
-{"time": 4.4979, "msg": "Start stimulus for demo_aud."}
-{"time": 10.9794, "msg": "Space pressed in stage demo_aud."}
-{"time": 11.9471, "msg": "Space pressed in stage demo_aud."}
-{"time": 12.9932, "msg": "Space pressed in stage demo_aud."}
-{"time": 14.0112, "msg": "Data successfully exported."}
-{"time": 14.0598, "msg": "User interrupt."}
+{"time": 0.0039, "msg": "Set up demo_welcome stage."}
+{"time": 1.6705, "event": "Proceed clicked."}
+{"time": 1.6714, "msg": "Shut down demo_welcome stage."}
+{"time": 1.6721, "msg": "Set up demo_aud stage."}
+{"time": 3.1871, "event": "Start clicked for demo_aud."}
+{"time": 3.1879, "msg": "Start stimulus for demo_aud."}
+{"time": 9.9337, "msg": "Data successfully exported."}
+{"time": 9.9345, "msg": "User interrupt."}
