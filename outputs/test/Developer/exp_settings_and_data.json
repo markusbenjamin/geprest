@@ -48,8 +48,8 @@
         "phase": "baseline"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
       "name": "baseline_test_aud"
     },
@@ -116,8 +116,8 @@
         "phase": "pattern"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
       "name": "pattern_test_vis"
     },
@@ -159,9 +159,5 @@
       48
     ],
     "pattern_test_vis": {}
-  },
-  "end": {
-    "time": 67.0745,
-    "cause": "End."
   }
 }
