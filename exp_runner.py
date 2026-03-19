@@ -1973,7 +1973,6 @@ def start_stimulus():
     
     match stage['type']:
         case 'demo_stimulus':
-            log(f"Start stimulus for {stage['name']}.")
             subject_data['repeat_num'][stage['name']] = repeat_num
             subject_data['space_presses'][stage['name']][f"repeat_{repeat_num}"] = []
             log_space_press = True
@@ -1997,8 +1996,8 @@ def start_stimulus():
                     else:
                         #PLACEHOLDER FOR BUFFERED VIDEO PLAYBACK BASED ON STORED ACCESS PATH
                         pass
-        case 'familiarization':
             log(f"Start stimulus for {stage['name']}.")
+        case 'familiarization':
             subject_data['repeat_num'][stage['name']] = repeat_num
             match stage['modifiers']['modality']:
                 case 'aud':
@@ -2012,8 +2011,8 @@ def start_stimulus():
                         play_visual_stimulus(demo_vid) #DEV fix preload
                     else:
                         play_visual_stimulus(stimuli[stage['name']])
+            log(f"Start stimulus for {stage['name']}.")
         case 'practice':
-            log(f"Start stimulus for {stage['name']}, repeat {repeat_num}.")
             subject_data['repeat_num'][stage['name']] = repeat_num
             subject_data['space_presses'][stage['name']][f"repeat_{repeat_num}"] = []
             log_space_press = True
@@ -2029,8 +2028,8 @@ def start_stimulus():
                         play_visual_stimulus(demo_vid) #DEV fix preload
                     else:
                         play_visual_stimulus(stimuli[stage['name']])
+            log(f"Start stimulus for {stage['name']}, repeat {repeat_num}.")
         case 'test':
-            log(f"Start stimulus for {stage['name']} in condition {stage['conditions'][test_condition_index]}.")
             log_space_press = True
             match stage['modifiers']['modality']:
                 case 'aud':
@@ -2044,6 +2043,7 @@ def start_stimulus():
                         play_visual_stimulus(demo_vid) #DEV fix preload
                     else:
                         play_visual_stimulus(stimuli[stage['name']][stage['conditions'][test_condition_index]])
+            log(f"Start stimulus for {stage['name']} in condition {stage['conditions'][test_condition_index]}.")
         case _:
             pass
 
