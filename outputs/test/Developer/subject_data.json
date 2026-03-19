@@ -16,6 +16,17 @@
     },
     "pattern_practice_vis": {
       "repeat_0": []
+    },
+    "pattern_test_vis": {
+      "1": [],
+      "2": []
+    },
+    "pattern_practice_aud": {
+      "repeat_0": []
+    },
+    "pattern_test_aud": {
+      "1": [],
+      "2": []
     }
   },
   "repeat_num": {
@@ -23,8 +34,13 @@
     "baseline_practice_vis": 0,
     "baseline_familiarization_aud": 0,
     "baseline_practice_aud": 0,
-    "pattern_practice_vis": 0
+    "pattern_practice_vis": 0,
+    "pattern_practice_aud": 0
   },
   "gender": "male",
-  "age": "32"
+  "age": "234",
+  "strategy": "Strategy.",
+  "likert_aud": "3",
+  "likert_vis": "3",
+  "patterns_saw": "no"
 }
