@@ -6,7 +6,7 @@
     "h": 1080
   },
   "subject": "Developer",
-  "stimulus_set": 3,
+  "stimulus_set": 1,
   "run_label": "test_Developer",
   "modality_order": [
     "aud",
@@ -48,8 +48,8 @@
         "phase": "baseline"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
       "name": "baseline_test_aud"
     },
@@ -76,8 +76,8 @@
         "phase": "baseline"
       },
       "conditions": [
-        "1",
-        "2"
+        "2",
+        "1"
       ],
       "name": "baseline_test_vis"
     },
@@ -143,9 +143,9 @@
       6
     ],
     "baseline_test_aud": [
-      25,
-      26,
-      27
+      19,
+      20,
+      21
     ],
     "baseline_test_vis": {},
     "pattern_practice_aud": [
@@ -154,9 +154,9 @@
       3
     ],
     "pattern_test_aud": [
-      49,
-      50,
-      51
+      43,
+      44,
+      45
     ],
     "pattern_test_vis": {}
   }
