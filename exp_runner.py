@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import cv2
 import random
+import pprint
 import ctypes
 import csv
 import threading
@@ -16,18 +17,10 @@ from collections import deque
 #endregion
 
 #region Persistent settings and environmental parameters
+dev = True #DEV
+
 exp_settings_and_data = {}
 exp_root = "./geprest/"
-
-dev = False
-reply = input("Demo mode? (y/n): ").strip().lower()
-demo = reply in ("y", "yes")
-if demo:
-    dev = False
-reply = input("On grid? (y/n): ").strip().lower()
-on_grid = reply in ("y", "yes")
-batch = 'dev' if dev else ('demo' if demo else 'test') #DEV: placeholder name here for now
-exp_settings_and_data['batch'] = batch
 
 zoom = 1
 exp_settings_and_data['zoom'] = zoom
@@ -52,22 +45,30 @@ exp_settings_and_data['size'] = {'w':w, 'h':h}
 
 #region Run specific parameters & flags
 
-#region Subject related
+#region Arguments
+demo = False
+on_grid = False #DEV: auto-detect
+batch = 'dev' if dev else ('demo' if demo else 'test')
+pattern_phase_length = 4
+randomize_pattern_phase_presentation = True
+randomize_condition_orderings = True
+stimulus_set = 0
+stimulus_id = ['201','202','203'][stimulus_set]
+aud_stimulus_freq = 315 # for using the correct eq spec file
+
+exp_settings_and_data['batch'] = batch
+exp_settings_and_data['pattern_phase_length'] = pattern_phase_length
+exp_settings_and_data['randomize_pattern_phase_presentation'] = randomize_pattern_phase_presentation
+exp_settings_and_data['randomize_condition_orderings'] = randomize_condition_orderings
+exp_settings_and_data['stimulus_id'] = stimulus_id
+
 subject_data = {}
 
 if dev or demo:
     subject = 'Developer'
-    stimulus_set = 1
 else:
     subject = input("Subject? ")
-    while True:
-        stimulus_set = input("Stimulus set? (number from 1 to 4): ").strip()
-        if stimulus_set in {"1", "2", "3", "4"}:
-            stimulus_set = int(stimulus_set)
-            break
-        print("Please enter 1, 2, 3, or 4.")
 exp_settings_and_data['subject'] = subject
-exp_settings_and_data['stimulus_set'] = stimulus_set
 
 run_label = f"{batch}_{subject}"
 exp_settings_and_data['run_label'] = run_label
@@ -83,65 +84,84 @@ log_path = f'{output_path}/log.jsonl'
 #endregion
 
 #region Experiment structure
+print('Generating experiment structure.')
 modality_order = random.sample(['aud', 'vis'], k=2)
 exp_settings_and_data['modality_order'] = modality_order
-phase_order = ['baseline','pattern']
 
-test_conditions = { # hardcode here, select set based on stimulus_set
-    'baseline_aud':['1','2'],
-    'baseline_vis':['1','2'],
-    'pattern_aud': ['1','2'],
-    'pattern_vis': ['1','2']
-}
+pattern_phases = [f'pattern{i}' for i in range(1, pattern_phase_length + 1)]
+baseline_phases = [f'baseline{i}' for i in range(1, 3)]
 
-condition_orderings = {
-    'baseline_aud': [0, 1],
-    'baseline_vis': [0, 1],
-    'pattern_aud': [0, 1],
-    'pattern_vis': [0, 1]
-}
+if randomize_pattern_phase_presentation:
+    random.shuffle(pattern_phases)
 
-if not (demo or dev):
-    reply = input("Randomize condition presentation? (y/n): ").strip().lower()
-    if reply in ("y", "yes"):
-        for key in condition_orderings:
-            random.shuffle(condition_orderings[key])
+phase_order = pattern_phases + baseline_phases
 
-def generate_exp_structure(modality_order, test_conditions, condition_orderings):
-    def practice_and_test_block(mod, phase):
-        return [
-            {
-                'type': s,
-                'modifiers': {'modality': mod, 'phase': phase},
-                **(
-                    {'conditions': [test_conditions[f'{phase}_{mod}'][i] for i in condition_orderings[f'{phase}_{mod}']]}
-                    if s == 'test' else {}
-                )
-            }
-            for s in ['practice', 'test']
+test_conditions = {}
+condition_orderings = {}
+for phase in phase_order:
+    test_conditions[f"{phase}_aud"]  = ['1','2']
+    test_conditions[f"{phase}_vis"]  = ['1','2']
+    condition_orderings[f"{phase}_aud"] = [0, 1]
+    condition_orderings[f"{phase}_vis"] = [0, 1]
+    if phase == "baseline2":
+        test_conditions[f"{phase}_aud"]  = ['1','2','3']
+        test_conditions[f"{phase}_vis"]  = []
+        condition_orderings[f"{phase}_aud"] = [0, 1, 2]
+        condition_orderings[f"{phase}_vis"] = []
+
+if randomize_condition_orderings:
+    for key in condition_orderings:
+        random.shuffle(condition_orderings[key])
+
+def generate_exp_structure(modality_order, phase_order, test_conditions, condition_orderings):
+    def practice_test_questionnaire_block(mod, phase):
+            return (
+                [
+                {
+                    'type': s,
+                    'modifiers': {'modality': mod, 'phase': phase},
+                    **(
+                        {'conditions': [test_conditions[f'{phase}_{mod}'][i] for i in condition_orderings[f'{phase}_{mod}']]}
+                        if s == 'test' else {}
+                    )
+                }
+                for s in ['practice', 'test']
+            ] + [
+                {
+                    'type':'test_questionnaire'
+                }
+            ]
+            )
+
+    exp_structure = (
+        [
+            {'type': 'welcome'},
+            {'type': 'screener'},
+            {'type': 'intro_questionnaire'}
         ]
-
-    exp_structure = [
-        {'type': 'welcome'},
-        {'type': 'screener'},
-        {'type': 'intro_questionnaire'},
-        {'type': 'familiarization', 'modifiers': {'modality': modality_order[0], 'phase': phase_order[0]}}
-    ] + practice_and_test_block(modality_order[0], phase_order[0]) + [
-        {'type': 'familiarization', 'modifiers': {'modality': modality_order[1], 'phase': phase_order[0]}}
-    ] + [
-        block for mod, phase in [
-            (modality_order[1], phase_order[0]), 
-            (modality_order[0], phase_order[1]), 
-            (modality_order[1], phase_order[1])
-        ] for block in practice_and_test_block(mod, phase)
-    ] + [
-        {'type': 'outro_questionnaire'},
-        {'type': 'thanks'}
-    ]
+        + [
+            block
+            for phase in phase_order
+            for modality in modality_order
+            if not (phase == 'baseline2' and modality == 'vis')
+            for block in (
+                (
+                    [{'type': 'familiarization', 'modifiers': {'modality': modality, 'phase': phase}}]
+                    if phase == phase_order[0]
+                    else []
+                )
+                + practice_test_questionnaire_block(modality, phase)
+            )
+        ]
+        + [
+            {'type': 'outro_questionnaire'},
+            {'type': 'thanks'}
+        ]
+    )
 
     for stage in exp_structure:
         stage['name'] = ((stage['modifiers']['phase'] +'_') if 'modifiers' in stage else '') + stage['type'] + (('_'+ stage['modifiers']['modality'])if 'modifiers' in stage else '')
-    
+
     return exp_structure
 
 demo_exp = [
@@ -151,11 +171,63 @@ demo_exp = [
     {'type': 'demo_thanks','name':'demo_thanks'}
 ]
 
-exp_structure = demo_exp if demo else generate_exp_structure(modality_order,test_conditions,condition_orderings)
+exp_structure = demo_exp if demo else generate_exp_structure(modality_order, phase_order, test_conditions, condition_orderings)
 exp_settings_and_data['exp_structure'] = exp_structure
 
-master_gain_exp = 1
-exp_settings_and_data['master_gain'] = master_gain_exp #DEV: define usage
+#pprint.pprint(exp_structure)
+#exit()
+
+print('Checking existence of required input files.')
+
+input_file_ok = {}
+
+for stage in exp_structure:
+    stage_name = stage['name']
+
+    if demo:
+        input_file_ok[stage["name"]] = True
+        continue
+
+    input_file_requirements = {
+        'instruction': [f"{exp_root}inputs/instructions/{stage_name}.txt"],
+        'stimulus': [],
+        'routing': []
+    }
+
+    if 'modifiers' in stage:
+        modality = stage['modifiers']['modality']
+        phase = stage['modifiers']['phase']
+
+        for condition_name in test_conditions[f"{phase}_{modality}"]:
+            load_name = f"{phase}_test{condition_name}_{modality}_sID{stimulus_id}"
+
+            if modality == 'vis':
+                input_file_requirements['stimulus'].append(
+                    f"{exp_root}inputs/stimuli/{load_name}.mp4"
+                )
+            else:
+                input_file_requirements['stimulus'].append(
+                    f"{exp_root}inputs/stimuli/{load_name}.wav"
+                )
+                input_file_requirements['routing'].append(
+                    f"{exp_root}inputs/stimuli/{load_name}.csv"
+                )
+
+    input_file_ok[stage_name] = True
+
+    for kind, files in input_file_requirements.items():
+        for file_path in files:
+            if not os.path.exists(file_path):
+                input_file_ok[stage_name] = False
+
+                print(f"Missing {kind} file: {file_path}")
+                if dev:
+                    print(f"\tUsing placeholder {kind}.")
+                else:
+                    print(f"\tCannot continue, quitting. Switch to 'dev = True' to use placeholders or supply file.")
+                    exit()
+
+master_gain_exp = 1 #DEV likely no real usage, rather rely on eq spec
 #endregion
 
 #region Declare flags
@@ -607,24 +679,6 @@ def video_stop():
 if on_grid:
     audio_settings = settings
     audio_start()
-    #DEV: placeholders follow
-    #audio_sample  = load_mono_wav(r"Y:\Beno\hangfalfal\sounds\Linda\tri_channel_output_1.wav", to_sample_rate=audio_settings["sample_rate"])[: int(5 * audio_settings["sample_rate"])]
-    '''audio_sample  = load_wav(r"Y:\Beno\hangfalfal\sounds\Linda\tri_channel_output_1.wav", to_sample_rate=audio_settings["sample_rate"])
-    sp = 33 #DEV: placeholder for now
-    ch = audio_settings['sp_to_ch'][sp-1] #DEV: placeholder for now
-    speaker_gain = audio_settings['sp_gains'][sp-1] #DEV: placeholder for now'''
-
-    """
-    mic_blocksize = 128 #DEV: maybe this is a bit too high res
-    mic_meter_start(blocksize=mic_blocksize, channels=1)   # non-blocking
-    mic_measurement_gap = mic_blocksize / settings["sample_rate"]
-
-    def mic_level():
-        block, sr = mic_raw_block()
-        channel0 = block[:, 0]
-        level = float(np.sqrt( np.mean( channel0 * channel0 ) ))
-        return level
-    """
     
     def play_auditory_stimulus(speaker_routing, samp, start_in_s):
         global stimulus_start, master_gain_exp
@@ -843,7 +897,11 @@ for stage in exp_structure:
         with open(f'{exp_root}/inputs/instructions/{stage["name"]}.txt', 'r') as file:
             instructions[stage['name']] = file.read().splitlines()
     except FileNotFoundError:
-        continue
+        if dev:
+            with open(f'{exp_root}/inputs/instructions/placeholder.txt', 'r') as file:
+                instructions[stage['name']] = file.read().splitlines()
+        else:
+            continue
 
 preload_audio = False
 preload_video = False
@@ -881,9 +939,9 @@ if demo:
 else:
     for stage in exp_structure:
         draw_loading_screen()
-        if 'modifiers' in stage:
+        if 'modifiers' in stage: # test for familiarization, practice or test stage
             try:
-                if stage['type'] == 'test':
+                if stage['type'] == 'test':  # test stage
                     if preload_audio or preload_video:
                         stimuli[stage['name']] = {}
                     else:
@@ -893,7 +951,7 @@ else:
 
                     for condition_name in test_conditions[f"{stage['modifiers']['phase']}_{stage['modifiers']['modality']}"]:
                         if stage['modifiers']['modality'] == 'aud':
-                            load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID11{stimulus_set}" #DEV: "sID11{stimulus_set}" helyett vmi argument string
+                            load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID{stimulus_id}" if input_file_ok[stage["name"]] else "placeholder"
 
                             if preload_audio:
                                 stimuli[stage['name']][condition_name] = load_wav(
@@ -912,7 +970,7 @@ else:
                                 routing[stage['name']] = [int(x) for x in next(csv.reader(file))]
 
                         else:
-                            load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID11{stimulus_set}.mp4"
+                            load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID{stimulus_id}.mp4" if input_file_ok[stage["name"]] else "placeholder.mp4"
 
                             if preload_video:
                                 stimuli[stage['name']][condition_name] = load_mp4(
@@ -924,30 +982,31 @@ else:
                                     'prefetch_n': 8
                                 }
 
-                else:
+                else:  # familiarization or practice stage
+                    load_name = stage['name']  if input_file_ok[stage["name"]] else "placeholder"
                     if stage['modifiers']['modality'] == 'aud':
                         if preload_audio:
                             stimuli[stage['name']] = load_wav(
-                                f"{exp_root}/inputs/stimuli/{stage['name']}.wav",
+                                f"{exp_root}/inputs/stimuli/{load_name}.wav",
                                 to_sample_rate = audio_settings["sample_rate"]
                             )
                         else:
                             stimuli[stage['name']] = {
-                                'path': f"{exp_root}/inputs/stimuli/{stage['name']}.wav",
+                                'path': f"{exp_root}/inputs/stimuli/{load_name}.wav",
                                 'chunk_s': 0.35,
                                 'prefill_s': 1.0,
                                 'topup_s': 0.5
                             }
 
-                        with open(f"{exp_root}/inputs/stimuli/{stage['name']}.csv", newline="", encoding="utf-8") as file:
+                        with open(f"{exp_root}/inputs/stimuli/{load_name}.csv", newline="", encoding="utf-8") as file:
                             routing[stage['name']] = [int(x) for x in next(csv.reader(file))]
 
                     else:
                         if preload_video:
-                            stimuli[stage['name']] = load_mp4(f"{exp_root}/inputs/stimuli/{stage['name']}.mp4")
+                            stimuli[stage['name']] = load_mp4(f"{exp_root}/inputs/stimuli/{load_name}.mp4")
                         else:
                             stimuli[stage['name']] = {
-                                'path': f"{exp_root}/inputs/stimuli/{stage['name']}.mp4",
+                                'path': f"{exp_root}/inputs/stimuli/{load_name}.mp4",
                                 'prefetch_n': 8
                             }
 
@@ -2140,31 +2199,55 @@ next_button = Button( # Used to proceed to next test condition
     )
 )
 
-likert_radio_aud = RadioButtons(
+likert_radio_test = RadioButtons(
+    ui,
+    header="How difficult was the previous part? (1 - easy, 5 - hard)",
+    options=["1", "2", "3", "4", "5"],
+    rrect=(0.5, 0.3,  0.35, 0.1),
+    on_submit=lambda ans: (
+        log({"event": f"Likert submitted for {last_test_stage_name}.", "answer": ans}),
+        subject_data.update({f"likert_{last_test_stage_name}": ans}),
+    ),
+    layout="horizontal"
+)
+
+instructions_clear_radio = RadioButtons(
+    ui,
+    header="Did you find the instructions clear?",
+    options=["yes", "no"],
+    rrect=(0.5, 0.34,  0.35, 0.08),
+    on_submit=lambda ans: (
+        log({"event": "Instructions clear submitted.", "answer": ans}),
+        subject_data.update({"instructions_clear": ans}),
+    ),
+    layout="horizontal"
+)
+
+likert_radio_aud = RadioButtons( #DEV likely remove
     ui,
     header="How difficult was the auditory part? (1 - easy, 5 - hard)",
     options=["1", "2", "3", "4", "5"],
     rrect=(0.5, 0.3,  0.35, 0.1),
     on_submit=lambda ans: (
-        log({"event": "Auditory likert submitted.", "answer": ans}),
-        subject_data.update({"likert_aud": ans}),
+        log({"event": "Overall auditory likert submitted.", "answer": ans}),
+        subject_data.update({"likert_aud_overall": ans}),
     ),
     layout="horizontal"
 )
 
-likert_radio_vis = RadioButtons(
+likert_radio_vis = RadioButtons( #DEV likely remove
     ui,
     header="How difficult was the visual part? (1 - easy, 5 - hard)",
     options=["1", "2", "3", "4", "5"],
     rrect=(0.5, 0.3+0.25/2,  0.35, 0.1),
     on_submit=lambda ans: (
-        log({"event": "Visual likert submitted.", "answer": ans}),
-        subject_data.update({"likert_vis": ans}),
+        log({"event": "Overall visual likert submitted.", "answer": ans}),
+        subject_data.update({"likert_vis_overall": ans}),
     ),
     layout="horizontal"
 )
 
-pattern_radio = RadioButtons(
+pattern_radio = RadioButtons( #DEV likely remove
     ui,
     header="Did you see any patterns?",
     options=["yes", "no"],
@@ -2176,11 +2259,33 @@ pattern_radio = RadioButtons(
     layout="horizontal"
 )
 
+aud_pattern_field = TextField(
+    ui,
+    (0.5, 0.47, 0.7, 0.13),
+    header="Did you notice any repeating patterns in the AUDITORY test with location changes?",
+    placeholder="If yes, can you remember and describe them?",
+    on_submit=lambda ans: (
+        log({"event": "Auditory patterns description submitted.", "answer": ans}),
+        subject_data.update({"auditory_patterns_notice": ans})
+    )
+)
+
+vis_pattern_field = TextField(
+    ui,
+    (0.5, 0.62, 0.7, 0.13),
+    header="Did you notice any repeating patterns in the VISUAL tests with location changes?",
+    placeholder="If yes, can you remember and describe them?",
+    on_submit=lambda ans: (
+        log({"event": "Visual patterns description submitted.", "answer": ans}),
+        subject_data.update({"visual_patterns_notice": ans})
+    )
+)
+
 strategy_field = TextField(
     ui,
-    (0.5, 0.725, 0.65, 0.2),
-    header="Explain your strategy:",
-    placeholder="Full sentence reply please...",
+    (0.5, 0.77, 0.7, 0.13),
+    header="Did you use any strategy in any of the tests?",
+    placeholder="Explain your strategy...",
     on_submit=lambda ans: (
         log({"event": "Strategy submitted.", "answer": ans}),
         subject_data.update({"strategy": ans})
@@ -2322,7 +2427,7 @@ def is_stimulus_stage():
     return 'modifiers' in exp_structure[stage_index]
 
 def set_up_stage():
-    global stage_start, substage, test_condition_index
+    global stage_start, substage, test_condition_index, last_test_stage_name
     
     stage = exp_structure[stage_index]
     
@@ -2362,12 +2467,19 @@ def set_up_stage():
             subject_data['space_presses'][stage['name']][stage['conditions'][test_condition_index]] = []
             substage = 'intro'
             start_button.show()
+            last_test_stage_name = stage['name']
+        case 'test_questionnaire':
+            proceed_button.show()
+            likert_radio_test.show()
         case 'outro_questionnaire':
             proceed_button.show()
-            likert_radio_aud.show()
-            likert_radio_vis.show()
-            pattern_radio.show()
+            instructions_clear_radio.show()
+            aud_pattern_field.show()
+            vis_pattern_field.show()
             strategy_field.show()
+            #likert_radio_aud.show() #DEV
+            #likert_radio_vis.show()
+            #pattern_radio.show()
         case 'thanks':
             pass
         case _:
@@ -2425,16 +2537,26 @@ def shutdown_stage():
             repeat_button.deactivate()
             proceed_button.deactivate()
             next_button.deactivate()
+        case 'test_questionnaire':
+            proceed_button.deactivate()
+            likert_radio_test.submit()
+            likert_radio_test.hide()
         case 'outro_questionnaire':
             proceed_button.deactivate()
+            instructions_clear_radio.submit()
+            instructions_clear_radio.hide()
+            aud_pattern_field.submit()
+            aud_pattern_field.hide()
+            vis_pattern_field.submit()
+            vis_pattern_field.hide()
             strategy_field.submit()
             strategy_field.hide()
-            likert_radio_aud.submit()
-            likert_radio_aud.hide()
-            likert_radio_vis.submit()
-            likert_radio_vis.hide()
-            pattern_radio.submit()
-            pattern_radio.hide()
+            #likert_radio_aud.submit() #DEV
+            #likert_radio_aud.hide()
+            #likert_radio_vis.submit()
+            #likert_radio_vis.hide()
+            #pattern_radio.submit()
+            #pattern_radio.hide()
         case _:
             pass
 
@@ -2576,6 +2698,12 @@ def draw():
                         text_on_screen('<test stage finished>', 0.5, 0.1)
                     else:
                         text_on_screen('<next condition?>', 0.5, 0.1)
+        case 'test_questionnaire':
+            screen.fill(WHITE)
+            wrapped_text_on_screen(
+                        instructions[stage['name']],
+                        (0.5, 0.15, 0.8, 0.3)
+                    )
         case 'outro_questionnaire':
             screen.fill(WHITE)
             wrapped_text_on_screen(
@@ -2646,11 +2774,19 @@ def refresh():
                 gender_radio.get() not in [None, "", " ", "  "]
                 and age_field.get() not in [None, "", " ", "  "]
             )
+        case 'test_questionnaire':
+            stage_completed = likert_radio_test.get() is not None
         case 'outro_questionnaire':
+            #stage_completed = (
+            #    likert_radio_aud.get() is not None
+            #    and likert_radio_vis.get() is not None
+            #    and pattern_radio.get() is not None
+            #    and strategy_field.get() not in [None, "", " ", "  "]
+            #    )
             stage_completed = (
-                likert_radio_aud.get() is not None
-                and likert_radio_vis.get() is not None
-                and pattern_radio.get() is not None
+                instructions_clear_radio.get() is not None
+                and aud_pattern_field.get() not in [None, "", " ", "  "]
+                and vis_pattern_field.get() not in [None, "", " ", "  "]
                 and strategy_field.get() not in [None, "", " ", "  "]
                 )
         case 'thanks':
@@ -2689,6 +2825,7 @@ focus_pygame_window()
 print("Use Alt + Tab to bring experiment window in focus.")
 dev_message = ''
 stage_index = 0
+last_test_stage_name = None
 start_exp_clock()
 running = True
 log("Start.")

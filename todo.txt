@@ -1,3 +1,51 @@
-- mic level checker script -- illesztés
+május:
+- arguments rész szétbontva hardcode és CLI szerint -- megvan
+- dizájn változtatások: -- megvan
+
+    welcome
+    screener
+    intro_questionnaire
+    baseline_familiarization_vis
+    baseline_practice_vis
+    baseline_test_vis
+    baseline_familiarization_aud
+    baseline_practice_aud
+    baseline_test_aud
+    pattern_practice_vis
+    pattern_test_vis
+    pattern_practice_aud
+    pattern_test_aud
+    outro_questionnaire
+    thanks
+
+    helyett:
+
+    welcome
+    screener
+    intro_questionnaire
+    pattern[1]_familiarization_mod1
+    pattern[1]_practice_mod1
+    pattern[1]_test_mod1
+    pattern[1]_familiarization_mod2
+    pattern[1]_practice_mod2
+    pattern[1]_test_mod2
+    ...
+    pattern[i]_test_mod1
+    pattern[i]_test_mod2  
+    ...
+    baseline[1]_practice_mod1
+    baseline[1]_test_mod1
+    baseline[1]_practice_mod2
+    baseline[1]_test_mod2
+    baseline[2]_practice_aud
+    baseline[2]_test_aud
+    outro_questionnaire
+    thanks
+
+- outro_questionnaire-be új kérdések -- megvan
+- glossary + readme a futtatáshoz az argumentekről -- csütörtök
+- lejátszásnál eq-t beépíteni -- csütörtök
+
+korábbiak:
 - wav exporter
 - pattern_practice_aud.csv hiányzik!
