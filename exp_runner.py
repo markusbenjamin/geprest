@@ -893,7 +893,7 @@ else:
 
                     for condition_name in test_conditions[f"{stage['modifiers']['phase']}_{stage['modifiers']['modality']}"]:
                         if stage['modifiers']['modality'] == 'aud':
-                            load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID11{stimulus_set}"
+                            load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID11{stimulus_set}" #DEV: "sID11{stimulus_set}" helyett vmi argument string
 
                             if preload_audio:
                                 stimuli[stage['name']][condition_name] = load_wav(
@@ -1064,6 +1064,7 @@ BLACK   = (0,   0,   0)
 WHITE   = (255, 255, 255)
 MIDDLEGRAY    = (128, 128, 128)
 LIGHTGRAY    = (220, 220, 220)
+TESTGRAY = (214, 216, 213)
 RED     = (255, 0,   0)
 GREEN   = (0,   255, 0)
 BLUE    = (0,   0,   255)
@@ -2512,7 +2513,7 @@ def draw():
                         (0.5, 0.25, 0.8, 0.3)
                     )
                 case 'stimulus':
-                    screen.fill(LIGHTGRAY)
+                    screen.fill(TESTGRAY)
                     video_tick()
                 case 'repeat':
                     screen.fill(WHITE)
@@ -2526,7 +2527,7 @@ def draw():
                         (0.5, 0.25, 0.8, 0.3)
                     )
                 case 'stimulus':
-                    screen.fill(LIGHTGRAY)
+                    screen.fill(TESTGRAY)
                     text_on_screen('Could you catch that a few of the pauses were longer?', 0.5, 0.1)
                     video_tick()
                 case 'repeat':
@@ -2541,7 +2542,7 @@ def draw():
                         (0.5, 0.25, 0.8, 0.3)
                     )
                 case 'stimulus':
-                    screen.fill(LIGHTGRAY)
+                    screen.fill(TESTGRAY)
                     match stage['modifiers']['modality']:
                         case 'aud':
                             text_on_screen('<playing sound and logging SPACE>', 0.5, 0.1)
@@ -2560,7 +2561,7 @@ def draw():
                         (0.5, 0.25, 0.8, 0.3)
                     )
                 case 'stimulus':
-                    screen.fill(LIGHTGRAY)
+                    screen.fill(TESTGRAY)
                     match stage['modifiers']['modality']:
                         case 'aud':
                             text_on_screen(f'<condition: {stage["conditions"][test_condition_index]}>', 0.5, 0.075)
