@@ -1,0 +1,15 @@
+instruction
+-----------
+pattern1_familiarization_aud: ./geprest/inputs/instructions/pattern1_familiarization_aud.txt
+pattern1_familiarization_vis: ./geprest/inputs/instructions/pattern1_familiarization_vis.txt
+pattern5_test_aud: ./geprest/inputs/instructions/pattern5_test_aud.txt
+pattern5_test_vis: ./geprest/inputs/instructions/pattern5_test_vis.txt
+
+stimulus
+--------
+none
+
+routing
+-------
+none
+

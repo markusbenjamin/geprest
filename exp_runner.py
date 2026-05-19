@@ -46,21 +46,37 @@ exp_settings_and_data['size'] = {'w':w, 'h':h}
 #region Run specific parameters & flags
 
 #region Arguments
-demo = False
-on_grid = False #DEV: auto-detect
-batch = 'dev' if dev else ('demo' if demo else 'test')
-pattern_phase_length = 4
-randomize_pattern_phase_presentation = True
-randomize_condition_orderings = True
-stimulus_set = 0
-stimulus_id = ['201','202','203'][stimulus_set]
-aud_stimulus_freq = 315 # for using the correct eq spec file
+demo = False # demo mode on off
+on_grid = True # set to True if in lab and on grid || DEV: auto-detect
+batch = 'dev' if dev else ('demo' if demo else 'test') # set by experimenter
+
+pattern_phases = [2,3,4,5] # list used pattern phases except 1 which has the familiarization stim files
+randomize_pattern_phase_presentation = True # randomize pattern phase order
+pattern_phase_order = [1] + random.sample(pattern_phases, k=len(pattern_phases)) if randomize_pattern_phase_presentation else pattern_phases # order of pattern phases
+
+randomize_pattern_test_condition_orderings = True # randomize condition presentation in tests in pattern phases?
+randomize_baseline_test_condition_orderings = True # randomize condition presentation in tests in baseline phases?
+default_test_structure = {'aud': ['1', '2'], 'vis': ['1', '2']}
+special_test_structures = {
+    'pattern4': {'aud':[], 'vis': ['1','2']},
+    'baseline1': {'aud': ['1'], 'vis': ['1']},
+    'baseline2': {'aud': ['1', '2', '3'], 'vis': []},
+}
+
+stimulus_set = 0 # select which stimulus set to use
+stimulus_id = ['201','202','203'][stimulus_set] # list usable stimulus sets
+stimulus_id = '327'
+aud_stimulus_freq = 315 # for using the correct eq spec file || DEV implement eq spec
+randomize_modality_order = True
+modality_order = random.sample(['aud', 'vis'], k=2) if randomize_modality_order else ['aud','vis'] # modality order
 
 exp_settings_and_data['batch'] = batch
-exp_settings_and_data['pattern_phase_length'] = pattern_phase_length
 exp_settings_and_data['randomize_pattern_phase_presentation'] = randomize_pattern_phase_presentation
-exp_settings_and_data['randomize_condition_orderings'] = randomize_condition_orderings
+exp_settings_and_data['pattern_phase_order'] = pattern_phase_order
+exp_settings_and_data['randomize_pattern_test_condition_orderings'] = randomize_pattern_test_condition_orderings
+exp_settings_and_data['randomize_baseline_test_condition_orderings'] = randomize_baseline_test_condition_orderings
 exp_settings_and_data['stimulus_id'] = stimulus_id
+exp_settings_and_data['modality_order'] = modality_order
 
 subject_data = {}
 
@@ -85,33 +101,37 @@ log_path = f'{output_path}/log.jsonl'
 
 #region Experiment structure
 print('Generating experiment structure.')
-modality_order = random.sample(['aud', 'vis'], k=2)
-exp_settings_and_data['modality_order'] = modality_order
-
-pattern_phases = [f'pattern{i}' for i in range(1, pattern_phase_length + 1)]
+pattern_phases = [f'pattern{phase}' for phase in pattern_phase_order]
 baseline_phases = [f'baseline{i}' for i in range(1, 3)]
-
-if randomize_pattern_phase_presentation:
-    random.shuffle(pattern_phases)
 
 phase_order = pattern_phases + baseline_phases
 
 test_conditions = {}
 condition_orderings = {}
-for phase in phase_order:
-    test_conditions[f"{phase}_aud"]  = ['1','2']
-    test_conditions[f"{phase}_vis"]  = ['1','2']
-    condition_orderings[f"{phase}_aud"] = [0, 1]
-    condition_orderings[f"{phase}_vis"] = [0, 1]
-    if phase == "baseline2":
-        test_conditions[f"{phase}_aud"]  = ['1','2','3']
-        test_conditions[f"{phase}_vis"]  = []
-        condition_orderings[f"{phase}_aud"] = [0, 1, 2]
-        condition_orderings[f"{phase}_vis"] = []
 
-if randomize_condition_orderings:
-    for key in condition_orderings:
-        random.shuffle(condition_orderings[key])
+def condition_order(conditions, randomize):
+    return (
+        random.sample(range(len(conditions)), k=len(conditions))
+        if randomize
+        else list(range(len(conditions)))
+    )
+
+for phase in phase_order:
+    by_modality = special_test_structures.get(
+        phase,
+        default_test_structure
+    )
+
+    randomize_conditions = (
+        randomize_pattern_test_condition_orderings
+        if phase.startswith('pattern')
+        else randomize_baseline_test_condition_orderings
+    )
+
+    for modality, conditions in by_modality.items():
+        key = f"{phase}_{modality}"
+        test_conditions[key] = conditions
+        condition_orderings[key] = condition_order(conditions, randomize_conditions)
 
 def generate_exp_structure(modality_order, phase_order, test_conditions, condition_orderings):
     def practice_test_questionnaire_block(mod, phase):
@@ -133,6 +153,21 @@ def generate_exp_structure(modality_order, phase_order, test_conditions, conditi
             ]
             )
 
+    def test_and_questionnaire_block(mod, phase):
+        return [
+            {
+                'type': 'test',
+                'modifiers': {'modality': mod, 'phase': phase},
+                'conditions': [
+                    test_conditions[f'{phase}_{mod}'][i]
+                    for i in condition_orderings[f'{phase}_{mod}']
+                ]
+            },
+            {
+                'type': 'test_questionnaire'
+            }
+        ] if len(test_conditions[f'{phase}_{mod}']) > 0 else []
+    
     exp_structure = (
         [
             {'type': 'welcome'},
@@ -147,10 +182,14 @@ def generate_exp_structure(modality_order, phase_order, test_conditions, conditi
             for block in (
                 (
                     [{'type': 'familiarization', 'modifiers': {'modality': modality, 'phase': phase}}]
-                    if phase == phase_order[0]
-                    else []
+                    + practice_test_questionnaire_block(modality, phase)
                 )
-                + practice_test_questionnaire_block(modality, phase)
+                if phase == 'pattern1'
+                else (
+                    test_and_questionnaire_block(modality, phase)
+                    if phase.startswith('pattern')
+                    else practice_test_questionnaire_block(modality, phase)
+                )
             )
         ]
         + [
@@ -174,18 +213,32 @@ demo_exp = [
 exp_structure = demo_exp if demo else generate_exp_structure(modality_order, phase_order, test_conditions, condition_orderings)
 exp_settings_and_data['exp_structure'] = exp_structure
 
-#pprint.pprint(exp_structure)
-#exit()
+if False: # print exp structure and quit
+    for i, stage in enumerate(exp_structure, start=1):
+        name = stage.get('name', '<unnamed>')
+
+        if 'conditions' in stage:
+            conditions = stage['conditions']
+            print(f"{i:02d}. {name}: {len(conditions)} conditions -> {conditions}")
+        else:
+            print(f"{i:02d}. {name}")
+
+    exit()
 
 print('Checking existence of required input files.')
 
 input_file_ok = {}
+missing_files_by_kind = {
+    'instruction': [],
+    'stimulus': [],
+    'routing': [],
+}
 
 for stage in exp_structure:
     stage_name = stage['name']
 
     if demo:
-        input_file_ok[stage["name"]] = True
+        input_file_ok[stage_name] = True
         continue
 
     input_file_requirements = {
@@ -219,6 +272,7 @@ for stage in exp_structure:
         for file_path in files:
             if not os.path.exists(file_path):
                 input_file_ok[stage_name] = False
+                missing_files_by_kind[kind].append((stage_name, file_path))
 
                 print(f"Missing {kind} file: {file_path}")
                 if dev:
@@ -226,6 +280,28 @@ for stage in exp_structure:
                 else:
                     print(f"\tCannot continue, quitting. Switch to 'dev = True' to use placeholders or supply file.")
                     exit()
+
+warnings_path = f"{exp_root}outputs/warnings/missing_files.txt"
+os.makedirs(os.path.dirname(warnings_path), exist_ok=True)
+
+with open(warnings_path, "w", encoding="utf-8") as file:
+    any_missing = False
+
+    for kind, missing_files in missing_files_by_kind.items():
+        file.write(f"{kind}\n")
+        file.write("-" * len(kind) + "\n")
+
+        if missing_files:
+            any_missing = True
+            for stage_name, file_path in missing_files:
+                file.write(f"{stage_name}: {file_path}\n")
+        else:
+            file.write("none\n")
+
+        file.write("\n")
+
+    if not any_missing:
+        file.write("No missing files.\n")
 
 master_gain_exp = 1 #DEV likely no real usage, rather rely on eq spec
 #endregion
@@ -1693,6 +1769,14 @@ class RadioButtons:
         self.active = False
         if self.other_field:
             self.other_field.hide()
+    
+    def reset(self):
+        self.selected = None
+
+        if self.other_field:
+            self.other_field.text = ""
+            self.other_field.cursor = 0
+            self.other_field.blur()
 
     def relayout(self):
         sw, sh = screen.get_size()
@@ -2541,6 +2625,7 @@ def shutdown_stage():
             proceed_button.deactivate()
             likert_radio_test.submit()
             likert_radio_test.hide()
+            likert_radio_test.reset()
         case 'outro_questionnaire':
             proceed_button.deactivate()
             instructions_clear_radio.submit()
@@ -2721,6 +2806,8 @@ def draw():
         u.draw()
 
     if dev or demo:
+        if not input_file_ok[stage["name"]]:
+            dev_message = f"{dev_message}, using placeholder"
         if is_stimulus_stage() and stimulus_start:
             dev_message = f"{dev_message}, secs = {secs_since(stimulus_start)}"
         text_on_screen(dev_message, 0.025, 0.08, font_size, RED, bg = GREEN, bg_alpha=0.25, align = "left")
