@@ -46,8 +46,8 @@ exp_settings_and_data['size'] = {'w':w, 'h':h}
 #region Run specific parameters & flags
 
 #region Arguments
-demo = False # demo mode on off
-on_grid = False # set to True if in lab and on grid || DEV: auto-detect
+demo = True # demo mode on off
+on_grid = True # set to True if in lab and on grid || DEV: auto-detect
 batch = 'dev' if dev else ('demo' if demo else 'test') # set by experimenter
 
 pattern_phases = [2,3,4,5] # list used pattern phases except 1 which has the familiarization stim files
