@@ -41,12 +41,15 @@ else:
     h = window_h
 
 exp_settings_and_data['size'] = {'w':w, 'h':h}
+
+equalize_audio = True
+equalization_path = f"{exp_root}/inputs/stimuli/equalization.json"
 #endregion
 
 #region Run specific parameters & flags
 
 #region Arguments
-demo = True # demo mode on off
+demo = False # demo mode on off
 on_grid = True # set to True if in lab and on grid || DEV: auto-detect
 batch = 'dev' if dev else ('demo' if demo else 'test') # set by experimenter
 
@@ -303,7 +306,167 @@ with open(warnings_path, "w", encoding="utf-8") as file:
     if not any_missing:
         file.write("No missing files.\n")
 
-master_gain_exp = 1 #DEV likely no real usage, rather rely on eq spec
+master_gain_exp = 1 #DEV likely no real usage, rather rely on eq specmaster_gain_exp = 1 # nominal gain passed into eq spec
+
+#region Audio EQ
+
+def load_audio_eq_spec(path):
+    if not equalize_audio:
+        return None
+
+    if not on_grid:
+        return None
+
+    with open(path, "r", encoding="utf-8") as file:
+        spec = json.load(file)
+
+    if spec.get("kind") != "speaker_eq_curve_spec":
+        raise ValueError(
+            "audio eq curve JSON must have kind == 'speaker_eq_curve_spec'"
+        )
+
+    return spec
+
+
+def get_eq_curve(eq_spec, speaker_num, freq_hz):
+    freq_key = str(int(round(float(freq_hz))))
+    speaker_key = str(int(speaker_num))
+
+    try:
+        return eq_spec["frequencies"][freq_key]["speakers"][speaker_key]
+    except KeyError:
+        raise KeyError(
+            f"missing eq curve for speaker {speaker_num}, frequency {freq_hz} Hz"
+        )
+
+
+def interp_corrected_gain(eq_spec, speaker_num, freq_hz, nominal_gain):
+    curve = get_eq_curve(eq_spec, speaker_num, freq_hz)
+
+    xs = np.asarray(curve["nominal_gains"], dtype=float)
+    ys = np.asarray(curve["corrected_gains"], dtype=float)
+
+    ok = np.isfinite(xs) & np.isfinite(ys)
+    xs = xs[ok]
+    ys = ys[ok]
+
+    if xs.size < 2:
+        raise ValueError(
+            f"eq curve too short for speaker {speaker_num}, frequency {freq_hz} Hz"
+        )
+
+    order = np.argsort(xs)
+    xs = xs[order]
+    ys = ys[order]
+
+    xs_unique, unique_idx = np.unique(xs, return_index=True)
+    ys_unique = ys[unique_idx]
+
+    g = float(nominal_gain)
+
+    if g < float(xs_unique[0]) or g > float(xs_unique[-1]):
+        raise ValueError(
+            f"nominal gain {g} outside eq curve range "
+            f"{xs_unique[0]}..{xs_unique[-1]} "
+            f"for speaker {speaker_num}, frequency {freq_hz} Hz"
+        )
+
+    corrected_gain = float(np.interp(g, xs_unique, ys_unique))
+
+    if not np.isfinite(corrected_gain):
+        raise ValueError(
+            f"non-finite corrected gain for speaker {speaker_num}, "
+            f"frequency {freq_hz} Hz, nominal gain {g}"
+        )
+
+    if corrected_gain < -1e-9 or corrected_gain > 1.0 + 1e-9:
+        raise ValueError(
+            f"corrected gain {corrected_gain} outside 0..1 for speaker {speaker_num}, "
+            f"frequency {freq_hz} Hz, nominal gain {g}"
+        )
+
+    return float(np.clip(corrected_gain, 0.0, 1.0))
+
+
+audio_eq_spec = load_audio_eq_spec(equalization_path)
+
+
+def speaker_playback_gain(sp):
+    """
+    Final playback amplitude for a normalized WAV channel routed to speaker sp.
+
+    If EQ is active:
+        master_gain_exp is treated as the nominal gain requested from the eq curve.
+        returned gain is the corrected speaker-specific gain.
+
+    If EQ is inactive / off-grid:
+        fallback is plain master_gain_exp.
+    """
+    if audio_eq_spec is None:
+        return float(master_gain_exp)
+
+    return interp_corrected_gain(
+        eq_spec=audio_eq_spec,
+        speaker_num=int(sp),
+        freq_hz=float(aud_stimulus_freq),
+        nominal_gain=float(master_gain_exp),
+    )
+
+
+def collect_routed_speakers(routing_obj):
+    speakers = set()
+
+    def walk(x):
+        if isinstance(x, dict):
+            for v in x.values():
+                walk(v)
+        elif isinstance(x, (list, tuple)):
+            for v in x:
+                try:
+                    sp = int(v)
+                except Exception:
+                    continue
+                if sp > 0:
+                    speakers.add(sp)
+
+    walk(routing_obj)
+    return sorted(speakers)
+
+
+def preflight_audio_eq(routing_obj):
+    if audio_eq_spec is None:
+        return
+
+    if not on_grid:
+        return
+
+    routed_speakers = collect_routed_speakers(routing_obj)
+
+    missing_channels = []
+    for sp in routed_speakers:
+        if sp < 1 or sp > len(audio_settings["sp_to_ch"]):
+            missing_channels.append(sp)
+            continue
+
+        ch = audio_settings["sp_to_ch"][sp - 1]
+        if ch < 0:
+            missing_channels.append(sp)
+
+    if missing_channels:
+        raise ValueError(
+            f"speakers without mapped output channels: {missing_channels}"
+        )
+
+    for sp in routed_speakers:
+        speaker_playback_gain(sp)
+
+    print(
+        f"audio eq preflight ok: {len(routed_speakers)} speakers, "
+        f"{aud_stimulus_freq} Hz, nominal gain {master_gain_exp}"
+    )
+
+#endregion
+
 #endregion
 
 #region Declare flags
@@ -780,6 +943,44 @@ if on_grid:
                 if ch < 0:
                     continue
 
+                gain = speaker_playback_gain(sp)
+
+                routing_spec[ch] = (
+                    samp[:, wav_ch_i] * float(gain),
+                    start_in_s
+                )
+
+            if len(routing_spec) == 0:
+                return
+
+            channels_play_at(routing_spec)
+            stimulus_start = exp_time()
+
+        else:
+            play_auditory_stimulus_buffered(speaker_routing, samp, start_in_s)
+        global stimulus_start, master_gain_exp
+
+        if preload_audio:
+            samp = np.asarray(samp, dtype=np.float32)
+
+            if samp.ndim == 1:
+                samp = samp[:, None]
+
+            routing_spec = {}
+
+            for wav_ch_i, sp in enumerate(speaker_routing):
+                sp = int(sp)
+
+                if wav_ch_i >= samp.shape[1]:
+                    continue
+
+                if sp < 1 or sp > len(audio_settings["sp_to_ch"]):
+                    continue
+
+                ch = audio_settings["sp_to_ch"][sp - 1]  # speaker numbers are 1-based
+                if ch < 0:
+                    continue
+
                 sp_gain = audio_settings["sp_gains"][sp]  # intentionally not zero-indexed
 
                 routing_spec[ch] = (
@@ -857,21 +1058,6 @@ def _buffered_audio_backlog_s(target_channels):
             return 0.0
         return min(available) / float(audio_settings["sample_rate"])
 
-def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
-    global stimulus_start, master_gain_exp, _audio_buffer_thread, _audio_buffer_stop
-
-    import soundfile as sf
-
-    stop_buffered_audio()
-
-    path = buffered_spec['path']
-    chunk_s = buffered_spec.get('chunk_s', 0.35)
-    prefill_s = buffered_spec.get('prefill_s', 1.0)
-    topup_s = buffered_spec.get('topup_s', 0.5)
-
-    stop_evt = threading.Event()
-    _audio_buffer_stop = stop_evt
-
     if on_grid:
         route_pairs = []
 
@@ -885,16 +1071,17 @@ def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
             if ch < 0:
                 continue
 
-            sp_gain = float(audio_settings["sp_gains"][sp])  # intentionally not zero-indexed
             norm_gain = channel_norm_gain(buffered_spec, wav_ch_i)
+            gain = float(norm_gain) * float(speaker_playback_gain(sp))
 
             route_pairs.append((
                 int(wav_ch_i),
                 int(ch),
-                float(norm_gain) * sp_gain * float(master_gain_exp)
+                float(gain)
             ))
 
         target_channels = [pair[1] for pair in route_pairs]
+
     else:
         route_pairs = None
         target_channels = [0, 1]
@@ -1337,6 +1524,8 @@ else:
                 continue
 
 exp_settings_and_data['speaker_routing'] = routing
+
+preflight_audio_eq(routing)
 #endregion
 
 #region Save
