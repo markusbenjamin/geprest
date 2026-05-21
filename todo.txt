@@ -43,7 +43,7 @@ május:
     thanks
 
 - outro_questionnaire-be új kérdések -- megvan
-- glossary + readme a futtatáshoz az argumentekről -- csütörtök
+- glossary + readme a futtatáshoz az argumentekről -- megvan
 - lejátszásnál eq-t beépíteni -- csütörtök
 
 korábbiak:

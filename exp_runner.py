@@ -47,7 +47,7 @@ exp_settings_and_data['size'] = {'w':w, 'h':h}
 
 #region Arguments
 demo = False # demo mode on off
-on_grid = True # set to True if in lab and on grid || DEV: auto-detect
+on_grid = False # set to True if in lab and on grid || DEV: auto-detect
 batch = 'dev' if dev else ('demo' if demo else 'test') # set by experimenter
 
 pattern_phases = [2,3,4,5] # list used pattern phases except 1 which has the familiarization stim files
@@ -758,22 +758,43 @@ if on_grid:
     
     def play_auditory_stimulus(speaker_routing, samp, start_in_s):
         global stimulus_start, master_gain_exp
+
         if preload_audio:
+            samp = np.asarray(samp, dtype=np.float32)
+
+            if samp.ndim == 1:
+                samp = samp[:, None]
+
             routing_spec = {}
-            for i in range(len(speaker_routing)):
-                sp = speaker_routing[i]
-                ch = audio_settings['sp_to_ch'][sp - 1] # Zero indexed
-                sp_gain = audio_settings['sp_gains'][sp] # Not zero indexed...
-                #print(f"Routing to speaker {sp} through channel {ch} with gain {sp_gain}")
+
+            for wav_ch_i, sp in enumerate(speaker_routing):
+                sp = int(sp)
+
+                if wav_ch_i >= samp.shape[1]:
+                    continue
+
+                if sp < 1 or sp > len(audio_settings["sp_to_ch"]):
+                    continue
+
+                ch = audio_settings["sp_to_ch"][sp - 1]  # speaker numbers are 1-based
+                if ch < 0:
+                    continue
+
+                sp_gain = audio_settings["sp_gains"][sp]  # intentionally not zero-indexed
+
                 routing_spec[ch] = (
-                    samp[i] * sp_gain * master_gain_exp,
+                    samp[:, wav_ch_i] * float(sp_gain) * float(master_gain_exp),
                     start_in_s
                 )
 
+            if len(routing_spec) == 0:
+                return
+
             channels_play_at(routing_spec)
             stimulus_start = exp_time()
+
         else:
-            play_auditory_stimulus_buffered(speaker_routing,samp,start_in_s)
+            play_auditory_stimulus_buffered(speaker_routing, samp, start_in_s)
 else:  
     audio_settings = settings
     audio_settings["device_id"] = get_default_output_device_id()
@@ -853,12 +874,26 @@ def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
 
     if on_grid:
         route_pairs = []
-        for i in range(len(speaker_routing)):
-            sp = speaker_routing[i]
-            ch = audio_settings['sp_to_ch'][sp - 1] # Zero indexed
-            sp_gain = audio_settings['sp_gains'][sp] # Not zero indexed...
-            if ch >= 0:
-                route_pairs.append((i, ch, sp_gain * master_gain_exp))
+
+        for wav_ch_i, sp in enumerate(speaker_routing):
+            sp = int(sp)
+
+            if sp < 1 or sp > len(audio_settings["sp_to_ch"]):
+                continue
+
+            ch = audio_settings["sp_to_ch"][sp - 1]  # speaker numbers are 1-based
+            if ch < 0:
+                continue
+
+            sp_gain = float(audio_settings["sp_gains"][sp])  # intentionally not zero-indexed
+            norm_gain = channel_norm_gain(buffered_spec, wav_ch_i)
+
+            route_pairs.append((
+                int(wav_ch_i),
+                int(ch),
+                float(norm_gain) * sp_gain * float(master_gain_exp)
+            ))
+
         target_channels = [pair[1] for pair in route_pairs]
     else:
         route_pairs = None
@@ -891,7 +926,8 @@ def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
             return
         channels_play_at(routing_spec)
     else:
-        play_wav_lr(first_chunk * master_gain_exp, start_in_s = start_in_s)
+        first_chunk = apply_buffered_frame_normalization(first_chunk, buffered_spec)
+        play_wav_lr(first_chunk * master_gain_exp, start_in_s=start_in_s)
     
     stimulus_start = exp_time()
 
@@ -920,6 +956,7 @@ def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
                                 continue
                             channel_append(out_ch, frames[:, wav_ch_i] * gain)
                     else:
+                        frames = apply_buffered_frame_normalization(frames, buffered_spec)
                         left = frames[:, 0]
                         right = frames[:, 1] if frames.shape[1] >= 2 else frames[:, 0]
                         channel_append(0, left * master_gain_exp)
@@ -944,6 +981,7 @@ def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
                                     continue
                                 channel_append(out_ch, frames[:, wav_ch_i] * gain)
                         else:
+                            frames = apply_buffered_frame_normalization(frames, buffered_spec)
                             left = frames[:, 0]
                             right = frames[:, 1] if frames.shape[1] >= 2 else frames[:, 0]
                             channel_append(0, left * master_gain_exp)
@@ -983,22 +1021,234 @@ preload_audio = False
 preload_video = False
 stimuli = {}
 routing = {}
+
+#region Auditory stimulus normalization
+
+NORMALIZE_AUDIO_WAVS = True
+AUDIO_NORMALIZE_TARGET_PEAK = 1.0
+AUDIO_PEAK_SCAN_CHUNK_S = 1.0
+AUDIO_PEAK_CACHE_PATH = f"{exp_root}/inputs/stimuli/audio_peak_cache.json"
+
+
+def audio_peak_cache_load(path):
+    if not os.path.exists(path):
+        return {"files": {}}
+
+    try:
+        with open(path, "r", encoding="utf-8") as file:
+            cache = json.load(file)
+    except Exception:
+        return {"files": {}}
+
+    if not isinstance(cache, dict):
+        return {"files": {}}
+
+    files = cache.get("files", {})
+    if not isinstance(files, dict):
+        files = {}
+
+    return {"files": files}
+
+
+def audio_peak_cache_save(path, cache):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+
+    out = {
+        "files": cache.get("files", {})
+    }
+
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w", encoding="utf-8") as file:
+        json.dump(out, file, indent=2)
+
+    os.replace(tmp_path, path)
+
+
+def wav_abs_path(path):
+    return os.path.abspath(os.path.normpath(path))
+
+
+def wav_filename(path):
+    return os.path.basename(os.path.normpath(path))
+
+
+def wav_cache_key(path):
+    return wav_filename(path)
+
+
+def wav_file_meta(path):
+    p_abs = wav_abs_path(path)
+    stat = os.stat(p_abs)
+
+    return {
+        "size_bytes": int(stat.st_size),
+        "modified_ns": int(stat.st_mtime_ns),
+    }
+
+def scan_wav_peaks_per_channel(path, chunk_s=AUDIO_PEAK_SCAN_CHUNK_S):
+    import soundfile as sf
+
+    p = os.path.abspath(os.path.normpath(path))
+
+    with sf.SoundFile(p, "r") as file:
+        sr = int(file.samplerate)
+        channels = int(file.channels)
+        frames_total = int(file.frames)
+        chunk_frames = max(1, int(round(float(chunk_s) * sr)))
+
+        peaks = np.zeros(channels, dtype=np.float32)
+
+        while True:
+            frames = file.read(
+                chunk_frames,
+                dtype="float32",
+                always_2d=True
+            )
+
+            if frames.size == 0:
+                break
+
+            chunk_peaks = np.max(np.abs(frames), axis=0)
+
+            n = min(peaks.size, chunk_peaks.size)
+            peaks[:n] = np.maximum(peaks[:n], chunk_peaks[:n])
+
+    return {
+        "samplerate": sr,
+        "channels": channels,
+        "frames": frames_total,
+        "duration_s": float(frames_total / sr) if sr > 0 else None,
+        "peaks_per_channel": [float(x) for x in peaks],
+        "global_peak": float(np.max(peaks)) if peaks.size else 0.0,
+    }
+
+
+def get_cached_wav_peak_entry(path, cache):
+    key = wav_cache_key(path)
+    meta = wav_file_meta(path)
+
+    entry = cache["files"].get(key)
+
+    cache_ok = (
+        isinstance(entry, dict)
+        and entry.get("size_bytes") == meta["size_bytes"]
+        and entry.get("modified_ns") == meta["modified_ns"]
+        and "peaks_per_channel" in entry
+    )
+
+    if cache_ok:
+        return entry
+
+    print(f"Scanning WAV peaks: {key}")
+
+    scan = scan_wav_peaks_per_channel(path)
+
+    entry = {
+        **meta,
+        **scan,
+        "scanned_at": datetime.now().isoformat(timespec="seconds"),
+    }
+
+    cache["files"][key] = entry
+    audio_peak_cache_save(AUDIO_PEAK_CACHE_PATH, cache)
+
+    return entry
+
+
+def norm_gains_from_peaks(peaks, target_peak=AUDIO_NORMALIZE_TARGET_PEAK):
+    target_peak = float(target_peak)
+    target_peak = max(0.0, min(1.0, target_peak))
+
+    gains = []
+    for peak in peaks:
+        peak = float(peak)
+        gains.append(float(target_peak / peak) if peak > 1e-12 else 0.0)
+
+    return gains
+
+
+audio_peak_cache = audio_peak_cache_load(AUDIO_PEAK_CACHE_PATH)
+
+
+def make_buffered_audio_spec(path):
+    spec = {
+        "path": path,
+        "chunk_s": 0.35,
+        "prefill_s": 1.0,
+        "topup_s": 0.5,
+    }
+
+    if NORMALIZE_AUDIO_WAVS:
+        entry = get_cached_wav_peak_entry(path, audio_peak_cache)
+        peaks = entry["peaks_per_channel"]
+        gains = norm_gains_from_peaks(
+            peaks,
+            target_peak=AUDIO_NORMALIZE_TARGET_PEAK
+        )
+
+        spec["normalization"] = "per_channel"
+        spec["norm_target_peak"] = float(AUDIO_NORMALIZE_TARGET_PEAK)
+        spec["peaks_per_channel"] = peaks
+        spec["norm_gains_per_channel"] = gains
+        spec["peak_cache_key"] = wav_cache_key(path)
+
+    else:
+        spec["normalization"] = "none"
+
+    return spec
+
+
+def channel_norm_gain(audio_spec, wav_ch_i):
+    if not isinstance(audio_spec, dict):
+        return 1.0
+
+    gains = audio_spec.get("norm_gains_per_channel")
+    if not gains:
+        return 1.0
+
+    wav_ch_i = int(wav_ch_i)
+
+    if wav_ch_i < 0 or wav_ch_i >= len(gains):
+        return 1.0
+
+    return float(gains[wav_ch_i])
+
+
+def apply_buffered_frame_normalization(frames, audio_spec):
+    if not isinstance(audio_spec, dict):
+        return frames
+
+    gains = audio_spec.get("norm_gains_per_channel")
+    if not gains:
+        return frames
+
+    gains = np.asarray(gains, dtype=np.float32)
+
+    if gains.size < frames.shape[1]:
+        padded = np.ones(frames.shape[1], dtype=np.float32)
+        padded[:gains.size] = gains
+        gains = padded
+    else:
+        gains = gains[:frames.shape[1]]
+
+    return (frames * gains[None, :]).astype(np.float32, copy=False)
+
+#endregion
+
 print(f"{'Loading' if preload_audio or preload_video else 'Looking up'} stimuli and {'' if preload_audio or preload_video else 'loading'} routing, please wait.")
 
 if demo:
     draw_loading_screen()
+    wav_path = f"{exp_root}/inputs/stimuli/AUD_demo.wav"
     if preload_audio:
-        stimuli['demo_aud'] = load_wav(
-            f"{exp_root}/inputs/stimuli/AUD_demo.wav",
-            to_sample_rate = audio_settings["sample_rate"]
+        stimuli["demo_aud"] = load_wav(
+            wav_path,
+            to_sample_rate=audio_settings["sample_rate"],
+            normalize="per_channel",
+            normalize_target_peak=AUDIO_NORMALIZE_TARGET_PEAK
         )
     else:
-        stimuli['demo_aud'] = {
-            'path': f"{exp_root}/inputs/stimuli/AUD_demo.wav",
-            'chunk_s': 0.35,
-            'prefill_s': 1.0,
-            'topup_s': 0.5
-        }
+        stimuli["demo_aud"] = make_buffered_audio_spec(wav_path)
 
     with open(f"{exp_root}/inputs/stimuli/AUD_demo.csv", newline="", encoding="utf-8") as file:
         routing['demo_aud'] = [int(x) for x in next(csv.reader(file))]
@@ -1028,19 +1278,17 @@ else:
                     for condition_name in test_conditions[f"{stage['modifiers']['phase']}_{stage['modifiers']['modality']}"]:
                         if stage['modifiers']['modality'] == 'aud':
                             load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID{stimulus_id}" if input_file_ok[stage["name"]] else "placeholder"
+                            wav_path = f"{exp_root}/inputs/stimuli/{load_name}.wav"
 
                             if preload_audio:
-                                stimuli[stage['name']][condition_name] = load_wav(
-                                    f"{exp_root}/inputs/stimuli/{load_name}.wav",
-                                    to_sample_rate = audio_settings["sample_rate"]
+                                stimuli[stage["name"]][condition_name] = load_wav(
+                                    wav_path,
+                                    to_sample_rate=audio_settings["sample_rate"],
+                                    normalize="per_channel",
+                                    normalize_target_peak=AUDIO_NORMALIZE_TARGET_PEAK
                                 )
                             else:
-                                stimuli[stage['name']][condition_name] = {
-                                    'path': f"{exp_root}/inputs/stimuli/{load_name}.wav",
-                                    'chunk_s': 0.35,
-                                    'prefill_s': 1.0,
-                                    'topup_s': 0.5
-                                }
+                                stimuli[stage["name"]][condition_name] = make_buffered_audio_spec(wav_path)
 
                             with open(f"{exp_root}/inputs/stimuli/{load_name}.csv", newline="", encoding="utf-8") as file:
                                 routing[stage['name']] = [int(x) for x in next(csv.reader(file))]
@@ -1061,18 +1309,17 @@ else:
                 else:  # familiarization or practice stage
                     load_name = stage['name']  if input_file_ok[stage["name"]] else "placeholder"
                     if stage['modifiers']['modality'] == 'aud':
+                        wav_path = f"{exp_root}/inputs/stimuli/{load_name}.wav"
+
                         if preload_audio:
-                            stimuli[stage['name']] = load_wav(
-                                f"{exp_root}/inputs/stimuli/{load_name}.wav",
-                                to_sample_rate = audio_settings["sample_rate"]
+                            stimuli[stage["name"]] = load_wav(
+                                wav_path,
+                                to_sample_rate=audio_settings["sample_rate"],
+                                normalize="per_channel",
+                                normalize_target_peak=AUDIO_NORMALIZE_TARGET_PEAK
                             )
                         else:
-                            stimuli[stage['name']] = {
-                                'path': f"{exp_root}/inputs/stimuli/{load_name}.wav",
-                                'chunk_s': 0.35,
-                                'prefill_s': 1.0,
-                                'topup_s': 0.5
-                            }
+                            stimuli[stage["name"]] = make_buffered_audio_spec(wav_path)
 
                         with open(f"{exp_root}/inputs/stimuli/{load_name}.csv", newline="", encoding="utf-8") as file:
                             routing[stage['name']] = [int(x) for x in next(csv.reader(file))]
