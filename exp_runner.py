@@ -306,7 +306,7 @@ with open(warnings_path, "w", encoding="utf-8") as file:
     if not any_missing:
         file.write("No missing files.\n")
 
-master_gain_exp = 1 #DEV likely no real usage, rather rely on eq specmaster_gain_exp = 1 # nominal gain passed into eq spec
+master_gain_exp = 1  # nominal gain passed into eq spec
 
 #region Audio EQ
 
@@ -939,7 +939,7 @@ if on_grid:
                 if sp < 1 or sp > len(audio_settings["sp_to_ch"]):
                     continue
 
-                ch = audio_settings["sp_to_ch"][sp - 1]  # speaker numbers are 1-based
+                ch = audio_settings["sp_to_ch"][sp - 1]
                 if ch < 0:
                     continue
 
@@ -947,44 +947,6 @@ if on_grid:
 
                 routing_spec[ch] = (
                     samp[:, wav_ch_i] * float(gain),
-                    start_in_s
-                )
-
-            if len(routing_spec) == 0:
-                return
-
-            channels_play_at(routing_spec)
-            stimulus_start = exp_time()
-
-        else:
-            play_auditory_stimulus_buffered(speaker_routing, samp, start_in_s)
-        global stimulus_start, master_gain_exp
-
-        if preload_audio:
-            samp = np.asarray(samp, dtype=np.float32)
-
-            if samp.ndim == 1:
-                samp = samp[:, None]
-
-            routing_spec = {}
-
-            for wav_ch_i, sp in enumerate(speaker_routing):
-                sp = int(sp)
-
-                if wav_ch_i >= samp.shape[1]:
-                    continue
-
-                if sp < 1 or sp > len(audio_settings["sp_to_ch"]):
-                    continue
-
-                ch = audio_settings["sp_to_ch"][sp - 1]  # speaker numbers are 1-based
-                if ch < 0:
-                    continue
-
-                sp_gain = audio_settings["sp_gains"][sp]  # intentionally not zero-indexed
-
-                routing_spec[ch] = (
-                    samp[:, wav_ch_i] * float(sp_gain) * float(master_gain_exp),
                     start_in_s
                 )
 
@@ -1049,14 +1011,33 @@ def _buffered_audio_backlog_s(target_channels):
             return 0.0
         if len(target_channels) == 0:
             return 0.0
+
         available = []
         for ch in target_channels:
             if ch < 0:
                 continue
             available.append(cb._chan_bufs[ch].size)
+
         if len(available) == 0:
             return 0.0
+
         return min(available) / float(audio_settings["sample_rate"])
+
+
+def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
+    global stimulus_start, master_gain_exp, _audio_buffer_thread, _audio_buffer_stop
+
+    import soundfile as sf
+
+    stop_buffered_audio()
+
+    path = buffered_spec["path"]
+    chunk_s = buffered_spec.get("chunk_s", 0.35)
+    prefill_s = buffered_spec.get("prefill_s", 1.0)
+    topup_s = buffered_spec.get("topup_s", 0.5)
+
+    stop_evt = threading.Event()
+    _audio_buffer_stop = stop_evt
 
     if on_grid:
         route_pairs = []
@@ -1067,7 +1048,7 @@ def _buffered_audio_backlog_s(target_channels):
             if sp < 1 or sp > len(audio_settings["sp_to_ch"]):
                 continue
 
-            ch = audio_settings["sp_to_ch"][sp - 1]  # speaker numbers are 1-based
+            ch = audio_settings["sp_to_ch"][sp - 1]
             if ch < 0:
                 continue
 
@@ -1086,41 +1067,49 @@ def _buffered_audio_backlog_s(target_channels):
         route_pairs = None
         target_channels = [0, 1]
 
-    with sf.SoundFile(path, 'r') as f:
+    with sf.SoundFile(path, "r") as f:
         sr_in = int(f.samplerate)
         chunk_frames_in = max(1, int(round(chunk_s * sr_in)))
-
-        first_chunk = f.read(chunk_frames_in, dtype = 'float32', always_2d = True)
+        first_chunk = f.read(chunk_frames_in, dtype="float32", always_2d=True)
 
     if first_chunk.size == 0:
         return
 
-    first_chunk = _resample_chunk_if_needed(first_chunk, sr_in, audio_settings["sample_rate"])
+    first_chunk = _resample_chunk_if_needed(
+        first_chunk,
+        sr_in,
+        audio_settings["sample_rate"]
+    )
 
     if first_chunk.size == 0:
         return
 
     if on_grid:
         routing_spec = {}
+
         for wav_ch_i, out_ch, gain in route_pairs:
             if wav_ch_i >= first_chunk.shape[1]:
                 continue
+
             routing_spec[out_ch] = (
                 first_chunk[:, wav_ch_i] * gain,
                 start_in_s
             )
+
         if len(routing_spec) == 0:
             return
+
         channels_play_at(routing_spec)
+
     else:
         first_chunk = apply_buffered_frame_normalization(first_chunk, buffered_spec)
         play_wav_lr(first_chunk * master_gain_exp, start_in_s=start_in_s)
-    
+
     stimulus_start = exp_time()
 
     def run_buffer():
         try:
-            with sf.SoundFile(path, 'r') as f:
+            with sf.SoundFile(path, "r") as f:
                 f.seek(chunk_frames_in)
 
                 while not stop_evt.is_set():
@@ -1129,11 +1118,15 @@ def _buffered_audio_backlog_s(target_channels):
                     if backlog_s >= prefill_s:
                         break
 
-                    frames = f.read(chunk_frames_in, dtype = 'float32', always_2d = True)
+                    frames = f.read(chunk_frames_in, dtype="float32", always_2d=True)
                     if frames.size == 0:
                         break
 
-                    frames = _resample_chunk_if_needed(frames, sr_in, audio_settings["sample_rate"])
+                    frames = _resample_chunk_if_needed(
+                        frames,
+                        sr_in,
+                        audio_settings["sample_rate"]
+                    )
                     if frames.size == 0:
                         break
 
@@ -1153,12 +1146,16 @@ def _buffered_audio_backlog_s(target_channels):
                     backlog_s = _buffered_audio_backlog_s(target_channels)
 
                     if backlog_s <= topup_s:
-                        frames = f.read(chunk_frames_in, dtype = 'float32', always_2d = True)
+                        frames = f.read(chunk_frames_in, dtype="float32", always_2d=True)
 
                         if frames.size == 0:
                             break
 
-                        frames = _resample_chunk_if_needed(frames, sr_in, audio_settings["sample_rate"])
+                        frames = _resample_chunk_if_needed(
+                            frames,
+                            sr_in,
+                            audio_settings["sample_rate"]
+                        )
                         if frames.size == 0:
                             break
 
@@ -1180,13 +1177,12 @@ def _buffered_audio_backlog_s(target_channels):
             print(f"Buffered audio playback failed for {path}: {e}")
 
     _audio_buffer_thread = threading.Thread(
-        target = run_buffer,
-        name = "audio-buffer",
-        daemon = True
+        target=run_buffer,
+        name="audio-buffer",
+        daemon=True
     )
     _audio_buffer_thread.start()
 #endregion
-
 #endregion
 
 #region Data IO
@@ -1478,7 +1474,7 @@ else:
                                 stimuli[stage["name"]][condition_name] = make_buffered_audio_spec(wav_path)
 
                             with open(f"{exp_root}/inputs/stimuli/{load_name}.csv", newline="", encoding="utf-8") as file:
-                                routing[stage['name']] = [int(x) for x in next(csv.reader(file))]
+                                routing[stage['name']][condition_name] = [int(x) for x in next(csv.reader(file))]
 
                         else:
                             load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID{stimulus_id}.mp4" if input_file_ok[stage["name"]] else "placeholder.mp4"
@@ -2893,17 +2889,20 @@ def start_stimulus():
                     play_visual_stimulus(stimuli[stage['name']])
             log(f"Start stimulus for {stage['name']}, repeat {repeat_num}.")
         case 'test':
+            condition_name = stage["conditions"][test_condition_index]
             log_space_press = True
+
             match stage['modifiers']['modality']:
                 case 'aud':
+                    
                     play_auditory_stimulus(
-                        speaker_routing = routing[stage['name']],
-                        samp=stimuli[stage['name']][stage['conditions'][test_condition_index]],
+                        speaker_routing = routing[stage['name']][condition_name],
+                        samp=stimuli[stage['name']][condition_name],
                         start_in_s = 0
                         )
                 case 'vis':
-                    play_visual_stimulus(stimuli[stage['name']][stage['conditions'][test_condition_index]])
-            log(f"Start stimulus for {stage['name']} in condition {stage['conditions'][test_condition_index]}.")
+                    play_visual_stimulus(stimuli[stage['name']][condition_name])
+            log(f"Start stimulus for {stage['name']} in condition {condition_name}.")
         case _:
             pass
 
