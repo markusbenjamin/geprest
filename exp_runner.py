@@ -339,6 +339,24 @@ def get_eq_curve(eq_spec, speaker_num, freq_hz):
             f"missing eq curve for speaker {speaker_num}, frequency {freq_hz} Hz"
         )
 
+def is_identity_eq_curve(sp):
+    curve = get_eq_curve(
+        eq_spec=audio_eq_spec,
+        speaker_num=int(sp),
+        freq_hz=float(aud_stimulus_freq),
+    )
+
+    xs = np.asarray(curve["nominal_gains"], dtype=float)
+    ys = np.asarray(curve["corrected_gains"], dtype=float)
+
+    ok = np.isfinite(xs) & np.isfinite(ys)
+    xs = xs[ok]
+    ys = ys[ok]
+
+    if xs.size == 0 or xs.size != ys.size:
+        return False
+
+    return bool(np.allclose(xs, ys, rtol=1e-9, atol=1e-12))
 
 def interp_corrected_gain(eq_spec, speaker_num, freq_hz, nominal_gain):
     curve = get_eq_curve(eq_spec, speaker_num, freq_hz)
@@ -432,6 +450,26 @@ def collect_routed_speakers(routing_obj):
     walk(routing_obj)
     return sorted(speakers)
 
+def write_non_equalized_speakers_warning(speakers):
+    eq_warning_path = f"{exp_root}/outputs/warnings/non_equalized_speakers.txt"
+    os.makedirs(os.path.dirname(eq_warning_path), exist_ok=True)
+
+    speakers = sorted(set(int(sp) for sp in speakers))
+
+    with open(eq_warning_path, "w", encoding="utf-8") as file:
+        file.write("non_equalized_speakers\n")
+        file.write("======================\n\n")
+        file.write(f"demo: {demo}\n")
+        file.write(f"eq_path: {equalization_path}\n")
+        file.write(f"freq_hz: {aud_stimulus_freq}\n")
+        file.write(f"nominal_gain: {master_gain_exp}\n\n")
+
+        if speakers:
+            file.write("routed speakers using identity eq:\n")
+            for sp in speakers:
+                file.write(f"- {sp}\n")
+        else:
+            file.write("routed speakers using identity eq: none\n")
 
 def preflight_audio_eq(routing_obj):
     if audio_eq_spec is None:
@@ -453,12 +491,39 @@ def preflight_audio_eq(routing_obj):
             missing_channels.append(sp)
 
     if missing_channels:
-        raise ValueError(
-            f"speakers without mapped output channels: {missing_channels}"
-        )
+        print(f"Speakers without mapped output channels: {missing_channels}")
+        print("Cannot continue, quitting.")
+        exit()
+
+    identity_speakers = []
 
     for sp in routed_speakers:
-        speaker_playback_gain(sp)
+        # strict validation: missing / invalid eq curves still fail here
+        try:
+            speaker_playback_gain(sp)
+        except Exception as e:
+            print(f"Audio equalization preflight failed for speaker {sp}.")
+            print(e)
+            print("Cannot continue, quitting.")
+            exit()
+
+        if is_identity_eq_curve(sp):
+            identity_speakers.append(sp)
+
+    write_non_equalized_speakers_warning(identity_speakers)
+
+    if identity_speakers:
+        print(f"Routed speakers using identity eq: {identity_speakers}")
+        print(f"\tExported warning list to {f'{exp_root}/outputs/warnings/non_equalized_speakers.txt'}")
+
+        if demo or dev:
+            print(
+                f"\t{' and '.join([name for name, active in [('demo', demo), ('dev', dev)] if active])} "
+                "mode is on, continuing with identity eq for these speakers."
+            )
+        else:
+            print("\tCannot continue outside demo mode, quitting.")
+            exit()
 
     print(
         f"audio eq preflight ok: {len(routed_speakers)} speakers, "
