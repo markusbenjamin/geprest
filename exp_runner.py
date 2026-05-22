@@ -522,7 +522,7 @@ def preflight_audio_eq(routing_obj):
                 "mode is on, continuing with identity eq for these speakers."
             )
         else:
-            print("\tCannot continue outside demo mode, quitting.")
+            print("\tCannot continue outside demo or dev mode, quitting.")
             exit()
 
     print(
