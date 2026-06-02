@@ -1,0 +1,9 @@
+non_equalized_speakers
+======================
+
+demo: False
+eq_path: ./geprest//inputs/stimuli/equalization.json
+freq_hz: 315
+nominal_gain: 1
+
+routed speakers using identity eq: none

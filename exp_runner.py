@@ -50,7 +50,7 @@ equalization_path = f"{exp_root}/inputs/stimuli/equalization.json"
 
 #region Arguments
 demo = False # demo mode on off
-on_grid = False # set to True if in lab and on grid || DEV: auto-detect
+on_grid = True # set to True if in lab and on grid || DEV: auto-detect
 batch = 'dev' if dev else ('demo' if demo else 'test') # set by experimenter
 
 pattern_phases = [2,3,4,5] # list used pattern phases except 1 which has the familiarization stim files
@@ -68,7 +68,7 @@ special_test_structures = {
 
 stimulus_set = 0 # select which stimulus set to use
 stimulus_id = ['201','202','203'][stimulus_set] # list usable stimulus sets
-stimulus_id = '327'
+stimulus_id = '325'
 aud_stimulus_freq = 315 # for using the correct eq spec file || DEV implement eq spec
 randomize_modality_order = True
 modality_order = random.sample(['aud', 'vis'], k=2) if randomize_modality_order else ['aud','vis'] # modality order
