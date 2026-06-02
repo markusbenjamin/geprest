@@ -3419,16 +3419,16 @@ def refresh():
     # Stage completion conditionals
     match stage['type']:
         case 'welcome':
-            stage_completed = secs_since(stage_start) > (1 if dev else 10) and consent_radio.get() is not None
+            stage_completed = (secs_since(stage_start) > (1 if dev else 10) and consent_radio.get() is not None) or dev
         case 'screener':
-            stage_completed = secs_since(stage_start) > (1 if dev else 10) and screener_radio.get() is not None
+            stage_completed = (secs_since(stage_start) > (1 if dev else 10) and screener_radio.get() is not None) or dev
         case 'intro_questionnaire':
             stage_completed = (
                 gender_radio.get() not in [None, "", " ", "  "]
                 and age_field.get() not in [None, "", " ", "  "]
-            )
+            ) or dev
         case 'test_questionnaire':
-            stage_completed = likert_radio_test.get() is not None
+            stage_completed = (likert_radio_test.get() is not None)  or dev
         case 'outro_questionnaire':
             #stage_completed = (
             #    likert_radio_aud.get() is not None
@@ -3441,7 +3441,7 @@ def refresh():
                 and aud_pattern_field.get() not in [None, "", " ", "  "]
                 and vis_pattern_field.get() not in [None, "", " ", "  "]
                 and strategy_field.get() not in [None, "", " ", "  "]
-                )
+                ) or dev
         case 'thanks':
             stage_completed = secs_since(stage_start) > 2
             if stage_completed:
