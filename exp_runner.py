@@ -50,7 +50,7 @@ equalization_path = f"{exp_root}/inputs/stimuli/equalization.json"
 
 #region Arguments
 demo = False # demo mode on off
-on_grid = True # set to True if in lab and on grid || DEV: auto-detect
+on_grid = False # set to True if in lab and on grid || DEV: auto-detect
 batch = 'dev' if dev else ('demo' if demo else 'test') # set by experimenter
 
 pattern_phases = [2,3,4,5] # list used pattern phases except 1 which has the familiarization stim files
@@ -240,49 +240,91 @@ missing_files_by_kind = {
 for stage in exp_structure:
     stage_name = stage['name']
 
-    if demo:
-        input_file_ok[stage_name] = True
-        continue
-
-    input_file_requirements = {
-        'instruction': [f"{exp_root}inputs/instructions/{stage_name}.txt"],
-        'stimulus': [],
-        'routing': []
+    input_file_ok[stage_name] = {
+        'instruction': True,
+        'stimulus': {}
     }
 
-    if 'modifiers' in stage:
-        modality = stage['modifiers']['modality']
-        phase = stage['modifiers']['phase']
+    if demo:
+        continue
 
-        for condition_name in test_conditions[f"{phase}_{modality}"]:
+    # instruction is checked separately
+    instruction_path = f"{exp_root}inputs/instructions/{stage_name}.txt"
+
+    if not os.path.exists(instruction_path):
+        input_file_ok[stage_name]['instruction'] = False
+        missing_files_by_kind['instruction'].append((stage_name, instruction_path))
+
+        print(f"Missing instruction file: {instruction_path}")
+        if dev:
+            print("\tUsing placeholder instruction.")
+        else:
+            print("\tCannot continue, quitting. Switch to 'dev = True' to use placeholders or supply file.")
+            exit()
+
+    # no stimulus for non-modifier stages
+    if 'modifiers' not in stage:
+        continue
+
+    modality = stage['modifiers']['modality']
+    phase = stage['modifiers']['phase']
+
+    if stage['type'] == 'test':
+        condition_names = test_conditions[f"{phase}_{modality}"]
+    else:
+        condition_names = [None]
+
+    for condition_name in condition_names:
+        if stage['type'] == 'test':
             load_name = f"{phase}_test{condition_name}_{modality}_sID{stimulus_id}"
+            missing_label = f"{stage_name}:{condition_name}"
+        else:
+            load_name = stage_name
+            missing_label = stage_name
 
-            if modality == 'vis':
-                input_file_requirements['stimulus'].append(
-                    f"{exp_root}inputs/stimuli/{load_name}.mp4"
-                )
-            else:
-                input_file_requirements['stimulus'].append(
-                    f"{exp_root}inputs/stimuli/{load_name}.wav"
-                )
-                input_file_requirements['routing'].append(
-                    f"{exp_root}inputs/stimuli/{load_name}.csv"
-                )
+        stimulus_ok = True
 
-    input_file_ok[stage_name] = True
+        if modality == 'vis':
+            stimulus_path = f"{exp_root}inputs/stimuli/{load_name}.mp4"
 
-    for kind, files in input_file_requirements.items():
-        for file_path in files:
-            if not os.path.exists(file_path):
-                input_file_ok[stage_name] = False
-                missing_files_by_kind[kind].append((stage_name, file_path))
+            if not os.path.exists(stimulus_path):
+                stimulus_ok = False
+                missing_files_by_kind['stimulus'].append((missing_label, stimulus_path))
 
-                print(f"Missing {kind} file: {file_path}")
+                print(f"Missing stimulus file: {stimulus_path}")
                 if dev:
-                    print(f"\tUsing placeholder {kind}.")
+                    print("\tUsing placeholder stimulus.")
                 else:
-                    print(f"\tCannot continue, quitting. Switch to 'dev = True' to use placeholders or supply file.")
+                    print("\tCannot continue, quitting. Switch to 'dev = True' to use placeholders or supply file.")
                     exit()
+
+        else:
+            stimulus_path = f"{exp_root}inputs/stimuli/{load_name}.wav"
+            routing_path = f"{exp_root}inputs/stimuli/{load_name}.csv"
+
+            if not os.path.exists(stimulus_path):
+                stimulus_ok = False
+                missing_files_by_kind['stimulus'].append((missing_label, stimulus_path))
+
+                print(f"Missing stimulus file: {stimulus_path}")
+                if dev:
+                    print("\tUsing placeholder stimulus.")
+                else:
+                    print("\tCannot continue, quitting. Switch to 'dev = True' to use placeholders or supply file.")
+                    exit()
+
+            if not os.path.exists(routing_path):
+                stimulus_ok = False
+                missing_files_by_kind['routing'].append((missing_label, routing_path))
+
+                print(f"Missing routing file: {routing_path}")
+                if dev:
+                    print("\tUsing placeholder routing.")
+                else:
+                    print("\tCannot continue, quitting. Switch to 'dev = True' to use placeholders or supply file.")
+                    exit()
+
+        input_file_ok[stage_name]['stimulus'][condition_name] = stimulus_ok
 
 warnings_path = f"{exp_root}outputs/warnings/missing_files.txt"
 os.makedirs(os.path.dirname(warnings_path), exist_ok=True)
@@ -1255,15 +1297,15 @@ def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
 #region Load instructions and stimuli
 instructions = {}
 for stage in exp_structure:
-    try:
-        with open(f'{exp_root}/inputs/instructions/{stage["name"]}.txt', 'r') as file:
-            instructions[stage['name']] = file.read().splitlines()
-    except FileNotFoundError:
-        if dev:
-            with open(f'{exp_root}/inputs/instructions/placeholder.txt', 'r') as file:
-                instructions[stage['name']] = file.read().splitlines()
-        else:
-            continue
+    stage_name = stage['name']
+
+    if input_file_ok[stage_name]['instruction']:
+        instruction_path = f'{exp_root}/inputs/instructions/{stage_name}.txt'
+    else:
+        instruction_path = f'{exp_root}/inputs/instructions/placeholder.txt'
+
+    with open(instruction_path, 'r') as file:
+        instructions[stage_name] = file.read().splitlines()
 
 preload_audio = False
 preload_video = False
@@ -1525,7 +1567,13 @@ else:
 
                     for condition_name in test_conditions[f"{stage['modifiers']['phase']}_{stage['modifiers']['modality']}"]:
                         if stage['modifiers']['modality'] == 'aud':
-                            load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID{stimulus_id}" if input_file_ok[stage["name"]] else "placeholder"
+                            requested_load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID{stimulus_id}"
+                            load_name = (
+                                requested_load_name
+                                if input_file_ok[stage["name"]]['stimulus'][condition_name]
+                                else "placeholder"
+                            )
+
                             wav_path = f"{exp_root}/inputs/stimuli/{load_name}.wav"
 
                             if preload_audio:
@@ -1542,8 +1590,13 @@ else:
                                 routing[stage['name']][condition_name] = [int(x) for x in next(csv.reader(file))]
 
                         else:
-                            load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID{stimulus_id}.mp4" if input_file_ok[stage["name"]] else "placeholder.mp4"
+                            requested_load_name = f"{stage['modifiers']['phase']}_test{condition_name}_{stage['modifiers']['modality']}_sID{stimulus_id}.mp4"
 
+                            load_name = (
+                                requested_load_name
+                                if input_file_ok[stage["name"]]['stimulus'][condition_name]
+                                else "placeholder.mp4"
+                            )
                             if preload_video:
                                 stimuli[stage['name']][condition_name] = load_mp4(
                                     f"{exp_root}/inputs/stimuli/{load_name}"
@@ -1555,7 +1608,11 @@ else:
                                 }
 
                 else:  # familiarization or practice stage
-                    load_name = stage['name']  if input_file_ok[stage["name"]] else "placeholder"
+                    load_name = (
+                        stage['name']
+                        if input_file_ok[stage["name"]]['stimulus'][None]
+                        else "placeholder"
+                    )
                     if stage['modifiers']['modality'] == 'aud':
                         wav_path = f"{exp_root}/inputs/stimuli/{load_name}.wav"
 
@@ -3306,11 +3363,20 @@ def draw():
         u.draw()
 
     if dev or demo:
-        if not input_file_ok[stage["name"]]:
+        stage_file_ok = input_file_ok[stage["name"]]
+
+        using_placeholder = (
+            not stage_file_ok['instruction']
+            or any(not ok for ok in stage_file_ok['stimulus'].values())
+        )
+
+        if using_placeholder:
             dev_message = f"{dev_message}, using placeholder"
+
         if is_stimulus_stage() and stimulus_start:
             dev_message = f"{dev_message}, secs = {secs_since(stimulus_start)}"
-        text_on_screen(dev_message, 0.025, 0.08, font_size, RED, bg = GREEN, bg_alpha=0.25, align = "left")
+
+        text_on_screen(dev_message, 0.025, 0.08, font_size, RED, bg=GREEN, bg_alpha=0.25, align="left")
 
     # Render to display
     pygame.display.flip()
