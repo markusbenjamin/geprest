@@ -1,0 +1,10 @@
+This is the start of a specific part of the experiment: duration of pauses in VISION.
+
+This time we will start right with the practice task.
+
+You will be presented with a continuous stream of circles. But in this part, the circles might change their locations. However, your task remains the same. You need to pay attention again to the duration of the pauses , that is the blank screens in-between the circles.
+
+Press the space bar if you see a pause (blank screen) in-between the circles longer compared to the typical pause duration. In order to make it a little easier, in the beginning, there will be many typical pauses, so that you can have a good sense of it. Hence, it might feel boring in the beginning, or worrisome that you can't see anything to press the button to, that is perfectly normal. Be patient and don't get discouraged. Do not drum, hum, or sing quietly during the presentation of the stream. It is also normal to feel that you are late with pressing the button, because some of the streams are quite fast, don't worry about this aspect, press the button anyway, regardless of how much later it is than the pause that you felt longer.
+
+
+After clicking 'Start', place your finger on the space bar. The test will start automatically.
