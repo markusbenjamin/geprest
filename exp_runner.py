@@ -69,6 +69,7 @@ special_test_structures = {
 stimulus_set = 0 # select which stimulus set to use
 stimulus_id = ['201','202','203'][stimulus_set] # list usable stimulus sets
 stimulus_id = '325'
+#stimulus_id = random.choice(stimulus_ids)
 aud_stimulus_freq = 315 # for using the correct eq spec file || DEV implement eq spec
 randomize_modality_order = True
 modality_order = random.sample(['aud', 'vis'], k=2) if randomize_modality_order else ['aud','vis'] # modality order
@@ -349,6 +350,28 @@ with open(warnings_path, "w", encoding="utf-8") as file:
         file.write("No missing files.\n")
 
 master_gain_exp = 1  # nominal gain passed into eq spec
+#region Additive white noise
+
+ADD_WHITE_NOISE = False
+
+# noise RMS as a fraction of signal RMS
+# 0.1 = noise RMS is 10% of signal RMS
+WHITE_NOISE_RELATIVE_RMS = 0.025
+
+# None => different noise each run
+# integer => reproducible noise sequence
+WHITE_NOISE_SEED = None
+
+# prevent accidental clipping after adding noise
+WHITE_NOISE_CLIP_OUTPUT = True
+
+white_noise_rng = np.random.default_rng(WHITE_NOISE_SEED)
+
+exp_settings_and_data['white_noise_relative_rms'] = WHITE_NOISE_RELATIVE_RMS if ADD_WHITE_NOISE else 0
+if ADD_WHITE_NOISE:
+    exp_settings_and_data['white_noise_seed'] = WHITE_NOISE_SEED
+
+#endregion
 
 #region Audio EQ
 
@@ -361,11 +384,6 @@ def load_audio_eq_spec(path):
 
     with open(path, "r", encoding="utf-8") as file:
         spec = json.load(file)
-
-    if spec.get("kind") != "speaker_eq_curve_spec":
-        raise ValueError(
-            "audio eq curve JSON must have kind == 'speaker_eq_curve_spec'"
-        )
 
     return spec
 
@@ -450,28 +468,152 @@ def interp_corrected_gain(eq_spec, speaker_num, freq_hz, nominal_gain):
 
 audio_eq_spec = load_audio_eq_spec(equalization_path)
 
+APPLY_CENTER_PULL = True
+CENTER_PULL_TARGET_GAIN = 0.23
+CENTER_PULL_STRENGTH = 0.5
+CENTER_PULL_MIN_FACTOR = 0.7
+CENTER_PULL_MAX_FACTOR = 2.0
+
+def center_pull_factor(actual_gain):
+    """
+    Return a multiplier that pulls actual_gain toward CENTER_PULL_TARGET_GAIN.
+
+    Supports either a scalar float or a NumPy array.
+
+    strength:
+        0.0 -> no pull
+        0.5 -> halfway pull in multiplicative/log space
+        1.0 -> full pull to target
+
+    final_gain = actual_gain * center_pull_factor(actual_gain)
+    """
+
+    actual_gain_arr = np.asarray(actual_gain, dtype=float)
+
+    factor = np.ones_like(actual_gain_arr, dtype=float)
+
+    positive = actual_gain_arr > 0.0
+    factor[positive] = (
+        float(CENTER_PULL_TARGET_GAIN) / actual_gain_arr[positive]
+    ) ** float(CENTER_PULL_STRENGTH)
+
+    if not np.all(np.isfinite(factor)):
+        raise ValueError(
+            f"non-finite center_pull_factor: "
+            f"target={CENTER_PULL_TARGET_GAIN}, "
+            f"strength={CENTER_PULL_STRENGTH}"
+        )
+
+    factor = np.clip(
+        factor,
+        float(CENTER_PULL_MIN_FACTOR),
+        float(CENTER_PULL_MAX_FACTOR),
+    )
+
+    if factor.ndim == 0:
+        return float(factor)
+
+    return factor.astype(np.float32, copy=False)
 
 def speaker_playback_gain(sp):
     """
     Final playback amplitude for a normalized WAV channel routed to speaker sp.
 
-    If EQ is active:
-        master_gain_exp is treated as the nominal gain requested from the eq curve.
-        returned gain is the corrected speaker-specific gain.
+    Steps:
+        1. determine actual_gain
+           - EQ active: speaker-specific corrected gain from eq curve
+           - EQ inactive: plain master_gain_exp
 
-    If EQ is inactive / off-grid:
-        fallback is plain master_gain_exp.
+        2. calculate factor as a function of actual_gain
+
+        3. return actual_gain * factor
     """
     if audio_eq_spec is None:
-        return float(master_gain_exp)
+        actual_gain = float(master_gain_exp)
+    else:
+        actual_gain = interp_corrected_gain(
+            eq_spec=audio_eq_spec,
+            speaker_num=int(sp),
+            freq_hz=float(aud_stimulus_freq),
+            nominal_gain=float(master_gain_exp),
+        )
 
-    return interp_corrected_gain(
-        eq_spec=audio_eq_spec,
-        speaker_num=int(sp),
-        freq_hz=float(aud_stimulus_freq),
-        nominal_gain=float(master_gain_exp),
-    )
+    factor = float(center_pull_factor(actual_gain))
+    final_gain = float(actual_gain) * factor
 
+    if not np.isfinite(final_gain):
+        raise ValueError(
+            f"non-finite final gain for speaker {sp}: "
+            f"actual_gain={actual_gain}, factor={factor}"
+        )
+
+    if final_gain < -1e-9 or final_gain > 1.0 + 1e-9:
+        raise ValueError(
+            f"final playback gain {final_gain} outside 0..1 "
+            f"for speaker {sp}: actual_gain={actual_gain}, factor={factor}"
+        )
+
+    return float(np.clip(final_gain, 0.0, 1.0))
+
+def add_white_noise(x):
+    """
+    Optionally add white noise to an audio vector or matrix.
+
+    WHITE_NOISE_RELATIVE_RMS:
+        0.1 means noise RMS = 10% of signal RMS.
+
+    Works on:
+        1D array: samples
+        2D array: samples x channels
+
+    Noise is scaled per channel.
+    """
+    if not ADD_WHITE_NOISE:
+        return x
+
+    x = np.asarray(x, dtype=np.float32)
+
+    if x.size == 0:
+        return x
+
+    rel = float(WHITE_NOISE_RELATIVE_RMS)
+
+    if rel <= 0:
+        return x
+
+    if x.ndim == 1:
+        signal_rms = float(np.sqrt(np.mean(x ** 2)))
+
+        if signal_rms <= 1e-12:
+            return x
+
+        noise = white_noise_rng.normal(0.0, 1.0, size=x.shape).astype(np.float32)
+        noise_rms = float(np.sqrt(np.mean(noise ** 2)))
+
+        if noise_rms <= 1e-12:
+            return x
+
+        y = x + noise * (signal_rms * rel / noise_rms)
+
+    elif x.ndim == 2:
+        signal_rms = np.sqrt(np.mean(x ** 2, axis=0, keepdims=True))
+
+        noise = white_noise_rng.normal(0.0, 1.0, size=x.shape).astype(np.float32)
+        noise_rms = np.sqrt(np.mean(noise ** 2, axis=0, keepdims=True))
+
+        scale = np.zeros_like(signal_rms, dtype=np.float32)
+        ok = (signal_rms > 1e-12) & (noise_rms > 1e-12)
+        scale[ok] = signal_rms[ok] * rel / noise_rms[ok]
+
+        y = x + noise * scale
+
+    else:
+        raise ValueError(f"unsupported audio shape for white noise: {x.shape}")
+
+    if WHITE_NOISE_CLIP_OUTPUT:
+        y = np.clip(y, -1.0, 1.0)
+
+    return y.astype(np.float32, copy=False)
 
 def collect_routed_speakers(routing_obj):
     speakers = set()
@@ -793,7 +935,7 @@ def video_start_buffered(
 
     stop_evt = threading.Event()
     queue_lock = threading.Lock()
-    frame_queue = deque([first_surf])
+    frame_queue = deque([(0, first_surf)])
 
     _video_buffer_stop = stop_evt
 
@@ -804,20 +946,26 @@ def video_start_buffered(
         "prefetch_n": prefetch_n,
         "fps": fps,
         "ms_per": 1000.0 / fps,
-        "next_ms": pygame.time.get_ticks(),
         "dest": dest,
         "loop": loop,
         "keep_aspect": keep_aspect,
         "duration": dur,
+        "frame_count": int(fcnt) if fcnt > 0 else None,
         "needs_runtime_scale": ((dw, dh) != (vw, vh)),
         "path": p,
         "cap": cap,
         "eof": False,
+
+        # new buffered timing state
+        "playback_start_ms": None,
+        "current_surf": None,
+        "current_idx": -1,
     }
 
     def reader_loop():
         global _video_state
         try:
+            reader_idx = 1
             while not stop_evt.is_set():
                 if _video_state is None:
                     break
@@ -831,6 +979,21 @@ def video_start_buffered(
                     time.sleep(0.005)
                     continue
 
+                state = _video_state
+                if state is not None and state.get("playback_start_ms") is not None:
+                    now = pygame.time.get_ticks()
+                    desired_idx = int((now - state["playback_start_ms"]) / state["ms_per"])
+
+                    while reader_idx < desired_idx:
+                        ok = cap.grab()
+                        if not ok:
+                            state["eof"] = True
+                            break
+                        reader_idx += 1
+
+                    if state.get("eof", False):
+                        break
+
                 ret, frame = cap.read()
                 if not ret:
                     _video_state["eof"] = True
@@ -840,7 +1003,9 @@ def video_start_buffered(
                 surf = pygame.surfarray.make_surface(frame.swapaxes(0, 1))
 
                 with queue_lock:
-                    frame_queue.append(surf)
+                    frame_queue.append((reader_idx, surf))
+
+                reader_idx += 1
 
         finally:
             try:
@@ -915,83 +1080,141 @@ def video_start(
         play_frames = frames
 
     _video_state = {
+        "mode": "preloaded",
         "frames": play_frames,
-        "frame_idx": 0,
         "frame_count": len(play_frames),
         "fps": vid["fps"],
         "ms_per": vid["ms_per"],
-        "next_ms": pygame.time.get_ticks(),
         "dest": dest,
         "loop": loop,
         "keep_aspect": keep_aspect,
         "duration": vid["duration"],
         "needs_runtime_scale": ((dw, dh) != (vw, vh) and not rescale_precompute),
+        "playback_start_ms": None,
+        "current_surf": None,
+        "last_drawn_idx": None,
     }
     return vid["duration"]
 
-def play_visual_stimulus(vid, pos = None, rrect = None):
+def play_visual_stimulus(vid, pos=None, rrect=None):
     if preload_video:
-        video_start(vid)
+        video_start(
+            vid,
+            pos=pos if pos is not None else (0.5, 0.5),
+            rrect=rrect,
+            rescale_precompute=True
+        )
     else:
-        video_start_buffered(vid)
+        video_start_buffered(
+            vid,
+            pos=pos if pos is not None else (0.5, 0.5),
+            rrect=rrect
+        )
+        
+def _video_prepare_surf(surf):
+    if _video_state["needs_runtime_scale"]:
+        return pygame.transform.smoothscale(surf, _video_state["dest"].size)
+    return surf
 
-def video_tick():
-    """
-    Advance the current video by one frame if it is time and blit it.
-    Call this once per iteration of your main loop before the display flip.
-    """
-    global _video_state, stimulus_start
-    if _video_state is None:
-        return
 
-    now = pygame.time.get_ticks()
-    if now < _video_state["next_ms"]:
-        return
+def _video_draw_current():
+    surf = _video_state.get("current_surf")
+    if surf is not None:
+        screen.blit(surf, _video_state["dest"])
 
-    if _video_state.get("mode") == "buffered":
-        with _video_state["queue_lock"]:
-            if len(_video_state["frame_queue"]) > 0:
-                surf = _video_state["frame_queue"].popleft()
-            else:
-                surf = None
+def _video_started_now(now):
+    global stimulus_start
 
-        if surf is None:
-            if _video_state.get("eof", False):
-                video_stop()
-            return
-
-        _video_state["next_ms"] += _video_state["ms_per"]
-
-        if _video_state["needs_runtime_scale"]:
-            surf = pygame.transform.smoothscale(surf, _video_state["dest"].size)
+    if _video_state.get("playback_start_ms") is None:
+        _video_state["playback_start_ms"] = now
 
         if stimulus_start is None:
             stimulus_start = exp_time()
 
-        screen.blit(surf, _video_state["dest"])
+    return _video_state["playback_start_ms"]
+
+def video_tick():
+    """
+    Draw the video every screen refresh, but select the correct frame
+    from elapsed playback time. This prevents flicker and prevents
+    slow playback when the main loop occasionally falls behind.
+    """
+    global _video_state
+
+    if _video_state is None:
         return
 
-    idx = _video_state["frame_idx"]
+    now = pygame.time.get_ticks()
+    start_ms = _video_started_now(now)
 
-    if idx >= _video_state["frame_count"]:
-        if _video_state["loop"]:
-            _video_state["frame_idx"] = 0
-            idx = 0
+    elapsed_ms = now - start_ms
+    desired_idx = int(elapsed_ms / _video_state["ms_per"])
+
+    mode = _video_state.get("mode")
+
+    if mode == "preloaded":
+        frame_count = _video_state["frame_count"]
+
+        if desired_idx >= frame_count:
+            if _video_state["loop"]:
+                idx = desired_idx % frame_count
+            else:
+                video_stop()
+                return
         else:
+            idx = desired_idx
+
+        if idx != _video_state.get("last_drawn_idx"):
+            surf = _video_state["frames"][idx]
+            _video_state["current_surf"] = _video_prepare_surf(surf)
+            _video_state["last_drawn_idx"] = idx
+
+        _video_draw_current()
+        return
+
+    if mode == "buffered":
+        if _video_state["playback_start_ms"] is None:
+            _video_state["playback_start_ms"] = now
+
+            if stimulus_start is None:
+                stimulus_start = exp_time()
+
+        desired_idx = int(
+            (now - _video_state["playback_start_ms"])
+            / _video_state["ms_per"]
+        )
+
+        chosen = None
+
+        with _video_state["queue_lock"]:
+            # Drop old queued frames and keep the newest frame that is due now.
+            while (
+                len(_video_state["frame_queue"]) > 0
+                and _video_state["frame_queue"][0][0] <= desired_idx
+            ):
+                chosen = _video_state["frame_queue"].popleft()
+
+            queue_empty = len(_video_state["frame_queue"]) == 0
+
+        if chosen is not None:
+            idx, surf = chosen
+            _video_state["current_surf"] = _video_prepare_surf(surf)
+            _video_state["current_idx"] = idx
+
+        _video_draw_current()
+
+        frame_count = _video_state.get("frame_count")
+
+        if (
+            _video_state.get("eof", False)
+            and queue_empty
+            and frame_count is not None
+            and desired_idx >= frame_count
+        ):
             video_stop()
-            return
 
-    surf = _video_state["frames"][idx]
-    _video_state["next_ms"] += _video_state["ms_per"]
-    _video_state["frame_idx"] += 1
-
-    if _video_state["needs_runtime_scale"]:
-        surf = pygame.transform.smoothscale(surf, _video_state["dest"].size)
-
-    if stimulus_start is None:
-        stimulus_start = exp_time()
-    screen.blit(surf, _video_state["dest"])
-
+        return
+    
 def video_is_playing():
     """Return True while a clip started with `video_start` is still active."""
     return _video_state is not None
@@ -1052,8 +1275,11 @@ if on_grid:
 
                 gain = speaker_playback_gain(sp)
 
+                sig = samp[:, wav_ch_i]
+                sig = add_white_noise(sig)
+
                 routing_spec[ch] = (
-                    samp[:, wav_ch_i] * float(gain),
+                    sig * float(gain),
                     start_in_s
                 )
 
@@ -1075,6 +1301,7 @@ else:
     def play_auditory_stimulus(speaker_routing, samp, start_in_s):
         global stimulus_start
         if preload_audio:
+            samp = add_white_noise(samp)
             play_wav_lr(samp * master_gain_exp)
             stimulus_start = exp_time()
         else:
@@ -1198,8 +1425,11 @@ def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
             if wav_ch_i >= first_chunk.shape[1]:
                 continue
 
+            sig = first_chunk[:, wav_ch_i]
+            sig = add_white_noise(sig)
+
             routing_spec[out_ch] = (
-                first_chunk[:, wav_ch_i] * gain,
+                sig * gain,
                 start_in_s
             )
 
@@ -1210,6 +1440,7 @@ def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
 
     else:
         first_chunk = apply_buffered_frame_normalization(first_chunk, buffered_spec)
+        first_chunk = add_white_noise(first_chunk)
         play_wav_lr(first_chunk * master_gain_exp, start_in_s=start_in_s)
 
     stimulus_start = exp_time()
@@ -1241,11 +1472,16 @@ def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
                         for wav_ch_i, out_ch, gain in route_pairs:
                             if wav_ch_i >= frames.shape[1]:
                                 continue
-                            channel_append(out_ch, frames[:, wav_ch_i] * gain)
+                            sig = frames[:, wav_ch_i]
+                            sig = add_white_noise(sig)
+                            channel_append(out_ch, sig * gain)
                     else:
                         frames = apply_buffered_frame_normalization(frames, buffered_spec)
+                        frames = add_white_noise(frames)
+
                         left = frames[:, 0]
                         right = frames[:, 1] if frames.shape[1] >= 2 else frames[:, 0]
+
                         channel_append(0, left * master_gain_exp)
                         channel_append(1, right * master_gain_exp)
 
@@ -1270,11 +1506,16 @@ def play_auditory_stimulus_buffered(speaker_routing, buffered_spec, start_in_s):
                             for wav_ch_i, out_ch, gain in route_pairs:
                                 if wav_ch_i >= frames.shape[1]:
                                     continue
-                                channel_append(out_ch, frames[:, wav_ch_i] * gain)
+                                sig = frames[:, wav_ch_i]
+                                sig = add_white_noise(sig)
+                                channel_append(out_ch, sig * gain)
                         else:
                             frames = apply_buffered_frame_normalization(frames, buffered_spec)
+                            frames = add_white_noise(frames)
+
                             left = frames[:, 0]
                             right = frames[:, 1] if frames.shape[1] >= 2 else frames[:, 0]
+
                             channel_append(0, left * master_gain_exp)
                             channel_append(1, right * master_gain_exp)
                     else:
@@ -1463,9 +1704,9 @@ audio_peak_cache = audio_peak_cache_load(AUDIO_PEAK_CACHE_PATH)
 def make_buffered_audio_spec(path):
     spec = {
         "path": path,
-        "chunk_s": 0.35,
-        "prefill_s": 1.0,
-        "topup_s": 0.5,
+        "chunk_s": 0.75,
+        "prefill_s": 2.0,
+        "topup_s": 1.25,
     }
 
     if NORMALIZE_AUDIO_WAVS:
@@ -3292,8 +3533,8 @@ def draw():
                     )
                 case 'stimulus':
                     screen.fill(TESTGRAY)
-                    text_on_screen('Could you catch that a few of the pauses were longer?', 0.5, 0.1)
                     video_tick()
+                    text_on_screen('Could you catch that a few of the pauses were longer?', 0.5, 0.1)
                 case 'repeat':
                     screen.fill(WHITE)
                     text_on_screen('<want repeat?>', 0.5, 0.1)
@@ -3310,9 +3551,9 @@ def draw():
                     match stage['modifiers']['modality']:
                         case 'aud':
                             text_on_screen('<playing sound and logging SPACE>', 0.5, 0.1)
-                        case 'vis':
-                            text_on_screen('<showing video and logging SPACE>', 0.5, 0.1)
+                        case 'vis':                            
                             video_tick()
+                            text_on_screen('<showing video and logging SPACE>', 0.5, 0.1)
                 case 'repeat':
                     screen.fill(WHITE)
                     text_on_screen('<want repeat?>', 0.5, 0.1)
@@ -3331,9 +3572,9 @@ def draw():
                             text_on_screen(f'<condition: {stage["conditions"][test_condition_index]}>', 0.5, 0.075)
                             text_on_screen('<playing sound and logging SPACE>', 0.5, 0.125)
                         case 'vis':
+                            video_tick()
                             text_on_screen(f'<condition: {stage["conditions"][test_condition_index]}>', 0.5, 0.075)
                             text_on_screen('<showing video and logging SPACE>', 0.5, 0.125)
-                            video_tick()
                 case 'repeat':
                     screen.fill(WHITE)
                     if all_test_conditions_done():
