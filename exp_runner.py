@@ -354,9 +354,8 @@ master_gain_exp = 1  # nominal gain passed into eq spec
 
 ADD_WHITE_NOISE = False
 
-# noise RMS as a fraction of signal RMS
-# 0.1 = noise RMS is 10% of signal RMS
-WHITE_NOISE_RELATIVE_RMS = 0.025
+# absolute full-scale RMS of added white noise
+WHITE_NOISE_RMS = 0.025
 
 # None => different noise each run
 # integer => reproducible noise sequence
@@ -365,11 +364,17 @@ WHITE_NOISE_SEED = None
 # prevent accidental clipping after adding noise
 WHITE_NOISE_CLIP_OUTPUT = True
 
+# short-window RMS at or below this level is treated as quiet
+WHITE_NOISE_SIGNAL_FLOOR = 1e-3
+WHITE_NOISE_GATE_WINDOW_SAMPLES = 256
+
 white_noise_rng = np.random.default_rng(WHITE_NOISE_SEED)
 
-exp_settings_and_data['white_noise_relative_rms'] = WHITE_NOISE_RELATIVE_RMS if ADD_WHITE_NOISE else 0
+exp_settings_and_data['white_noise_rms'] = WHITE_NOISE_RMS if ADD_WHITE_NOISE else 0
 if ADD_WHITE_NOISE:
     exp_settings_and_data['white_noise_seed'] = WHITE_NOISE_SEED
+    exp_settings_and_data['white_noise_signal_floor'] = WHITE_NOISE_SIGNAL_FLOOR
+    exp_settings_and_data['white_noise_gate_window_samples'] = WHITE_NOISE_GATE_WINDOW_SAMPLES
 
 #endregion
 
@@ -555,18 +560,46 @@ def speaker_playback_gain(sp):
 
     return float(np.clip(final_gain, 0.0, 1.0))
 
+def white_noise_signal_mask(x):
+    x = np.asarray(x, dtype=np.float32)
+    signal_floor = float(WHITE_NOISE_SIGNAL_FLOOR)
+    window_samples = max(1, int(WHITE_NOISE_GATE_WINDOW_SAMPLES))
+
+    def channel_mask(sig):
+        if sig.size == 0:
+            return np.zeros(sig.shape, dtype=bool)
+
+        if sig.size < window_samples:
+            rms = float(np.sqrt(np.mean(sig ** 2)))
+            return np.full(sig.shape, rms > signal_floor, dtype=bool)
+
+        kernel = np.ones(window_samples, dtype=np.float32) / float(window_samples)
+        local_power = np.convolve(sig ** 2, kernel, mode="same")
+        return np.sqrt(local_power) > signal_floor
+
+    if x.ndim == 1:
+        return channel_mask(x)
+
+    if x.ndim == 2:
+        return np.column_stack([
+            channel_mask(x[:, ch_i])
+            for ch_i in range(x.shape[1])
+        ])
+
+    raise ValueError(f"unsupported audio shape for white noise gate: {x.shape}")
+
+
 def add_white_noise(x):
     """
     Optionally add white noise to an audio vector or matrix.
 
-    WHITE_NOISE_RELATIVE_RMS:
-        0.1 means noise RMS = 10% of signal RMS.
+    WHITE_NOISE_RMS controls the absolute full-scale RMS of the added noise.
 
     Works on:
         1D array: samples
         2D array: samples x channels
 
-    Noise is scaled per channel.
+    Noise is scaled and gated per channel. Quiet samples remain unchanged.
     """
     if not ADD_WHITE_NOISE:
         return x
@@ -576,36 +609,36 @@ def add_white_noise(x):
     if x.size == 0:
         return x
 
-    rel = float(WHITE_NOISE_RELATIVE_RMS)
+    noise_rms = float(WHITE_NOISE_RMS)
 
-    if rel <= 0:
+    if noise_rms <= 0:
         return x
 
+    signal_mask = white_noise_signal_mask(x)
+
     if x.ndim == 1:
-        signal_rms = float(np.sqrt(np.mean(x ** 2)))
-
-        if signal_rms <= 1e-12:
+        if not np.any(signal_mask):
             return x
 
-        noise = white_noise_rng.normal(0.0, 1.0, size=x.shape).astype(np.float32)
-        noise_rms = float(np.sqrt(np.mean(noise ** 2)))
+        noise = white_noise_rng.normal(
+            0.0,
+            noise_rms,
+            size=x.shape
+        ).astype(np.float32)
 
-        if noise_rms <= 1e-12:
-            return x
-
-        y = x + noise * (signal_rms * rel / noise_rms)
+        y = x.copy()
+        y[signal_mask] = x[signal_mask] + noise[signal_mask]
 
     elif x.ndim == 2:
-        signal_rms = np.sqrt(np.mean(x ** 2, axis=0, keepdims=True))
+        if not np.any(signal_mask):
+            return x
 
-        noise = white_noise_rng.normal(0.0, 1.0, size=x.shape).astype(np.float32)
-        noise_rms = np.sqrt(np.mean(noise ** 2, axis=0, keepdims=True))
-
-        scale = np.zeros_like(signal_rms, dtype=np.float32)
-        ok = (signal_rms > 1e-12) & (noise_rms > 1e-12)
-        scale[ok] = signal_rms[ok] * rel / noise_rms[ok]
-
-        y = x + noise * scale
+        noise = white_noise_rng.normal(
+            0.0,
+            noise_rms,
+            size=x.shape
+        ).astype(np.float32)
+        y = x + noise * signal_mask
 
     else:
         raise ValueError(f"unsupported audio shape for white noise: {x.shape}")
