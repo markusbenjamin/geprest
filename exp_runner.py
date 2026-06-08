@@ -17,7 +17,7 @@ from collections import deque
 #endregion
 
 #region Persistent settings and environmental parameters
-dev = True #DEV
+dev = False #DEV
 
 exp_settings_and_data = {}
 exp_root = "./geprest/"
