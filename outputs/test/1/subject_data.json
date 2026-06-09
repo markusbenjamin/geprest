@@ -1,0 +1,19 @@
+{
+  "space_presses": {
+    "pattern1_practice_aud": {
+      "repeat_0": [
+        7.8984,
+        10.3934,
+        12.8537,
+        15.3129,
+        17.6711
+      ]
+    }
+  },
+  "repeat_num": {
+    "pattern1_familiarization_aud": 1,
+    "pattern1_practice_aud": 0
+  },
+  "gender": "female",
+  "age": "1"
+}

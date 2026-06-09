@@ -1,0 +1,34 @@
+{"time": 0.0, "msg": "Start."}
+{"time": 0.0566, "msg": "Set up welcome stage."}
+{"time": 375.5781, "event": "Proceed clicked."}
+{"time": 375.6353, "msg": "Shut down welcome stage."}
+{"time": 375.6803, "event": "Consented.", "answer": "I consent to participate in the experiment"}
+{"time": 375.726, "msg": "Set up screener stage."}
+{"time": 399.7983, "event": "Proceed clicked."}
+{"time": 399.8545, "msg": "Shut down screener stage."}
+{"time": 399.8975, "event": "Screened.", "answer": "I confirm that none of the above listed items applies to me."}
+{"time": 399.941, "msg": "Set up intro_questionnaire stage."}
+{"time": 406.4269, "event": "Proceed clicked."}
+{"time": 406.4706, "msg": "Shut down intro_questionnaire stage."}
+{"time": 406.5143, "event": "Gender submitted.", "answer": "female"}
+{"time": 406.559, "event": "Age submitted.", "answer": "1"}
+{"time": 406.6022, "msg": "Set up pattern1_familiarization_aud stage."}
+{"time": 441.3339, "event": "Start clicked for pattern1_familiarization_aud."}
+{"time": 441.5442, "msg": "Start stimulus for pattern1_familiarization_aud."}
+{"time": 454.6819, "msg": "Finished stimulus for pattern1_familiarization_aud."}
+{"time": 463.0848, "event": "Repeat clicked for pattern1_familiarization_aud."}
+{"time": 463.1555, "msg": "Start stimulus for pattern1_familiarization_aud."}
+{"time": 466.3972, "msg": "Q pressed in stage pattern1_familiarization_aud."}
+{"time": 467.018, "msg": "Finished stimulus for pattern1_familiarization_aud."}
+{"time": 468.1151, "event": "Proceed clicked."}
+{"time": 468.1599, "msg": "Shut down pattern1_familiarization_aud stage."}
+{"time": 468.2044, "msg": "Set up pattern1_practice_aud stage."}
+{"time": 589.0406, "event": "Start clicked for pattern1_practice_aud."}
+{"time": 589.2265, "msg": "Start stimulus for pattern1_practice_aud, repeat 0."}
+{"time": 597.0801, "msg": "Space pressed in stage pattern1_practice_aud."}
+{"time": 599.5709, "msg": "Space pressed in stage pattern1_practice_aud."}
+{"time": 602.0335, "msg": "Space pressed in stage pattern1_practice_aud."}
+{"time": 604.4936, "msg": "Space pressed in stage pattern1_practice_aud."}
+{"time": 606.8531, "msg": "Space pressed in stage pattern1_practice_aud."}
+{"time": 609.7832, "msg": "Data successfully exported."}
+{"time": 609.8785, "msg": "User interrupt."}
