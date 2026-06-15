@@ -1,0 +1,47 @@
+{
+  "space_presses": {
+    "pattern1_practice_aud": {
+      "repeat_0": []
+    },
+    "pattern1_test_aud": {
+      "2": [],
+      "1": []
+    },
+    "pattern1_practice_vis": {
+      "repeat_0": []
+    },
+    "pattern1_test_vis": {
+      "1": [],
+      "2": []
+    },
+    "pattern4_test_vis": {
+      "2": [],
+      "1": []
+    },
+    "pattern5_test_aud": {
+      "1": [],
+      "2": []
+    },
+    "pattern5_test_vis": {
+      "2": [],
+      "1": []
+    },
+    "pattern3_test_aud": {
+      "1": [],
+      "2": []
+    }
+  },
+  "repeat_num": {
+    "pattern1_familiarization_aud": 0,
+    "pattern1_practice_aud": 0,
+    "pattern1_familiarization_vis": 0,
+    "pattern1_practice_vis": 0
+  },
+  "gender": "female",
+  "age": "2",
+  "likert_pattern1_test_aud": "4",
+  "likert_pattern1_test_vis": "3",
+  "likert_pattern4_test_vis": "3",
+  "likert_pattern5_test_aud": "3",
+  "likert_pattern5_test_vis": "3"
+}
