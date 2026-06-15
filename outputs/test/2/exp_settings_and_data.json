@@ -90,8 +90,8 @@
         "phase": "pattern1"
       },
       "conditions": [
-        "1",
-        "2"
+        "2",
+        "1"
       ],
       "name": "pattern1_test_vis"
     },
@@ -122,8 +122,8 @@
         "phase": "pattern5"
       },
       "conditions": [
-        "1",
-        "2"
+        "2",
+        "1"
       ],
       "name": "pattern5_test_aud"
     },
@@ -138,8 +138,8 @@
         "phase": "pattern5"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
       "name": "pattern5_test_vis"
     },
@@ -154,8 +154,8 @@
         "phase": "pattern3"
       },
       "conditions": [
-        "1",
-        "2"
+        "2",
+        "1"
       ],
       "name": "pattern3_test_aud"
     },
@@ -170,8 +170,8 @@
         "phase": "pattern3"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
       "name": "pattern3_test_vis"
     },
@@ -186,8 +186,8 @@
         "phase": "pattern2"
       },
       "conditions": [
-        "1",
-        "2"
+        "2",
+        "1"
       ],
       "name": "pattern2_test_aud"
     },
@@ -202,8 +202,8 @@
         "phase": "pattern2"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
       "name": "pattern2_test_vis"
     },

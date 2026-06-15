@@ -11,24 +11,24 @@
       "repeat_0": []
     },
     "pattern1_test_vis": {
-      "1": [],
-      "2": []
+      "2": [],
+      "1": []
     },
     "pattern4_test_vis": {
       "2": [],
       "1": []
     },
     "pattern5_test_aud": {
-      "1": [],
-      "2": []
-    },
-    "pattern5_test_vis": {
       "2": [],
       "1": []
     },
-    "pattern3_test_aud": {
+    "pattern5_test_vis": {
       "1": [],
       "2": []
+    },
+    "pattern3_test_aud": {
+      "2": [],
+      "1": []
     }
   },
   "repeat_num": {
@@ -39,7 +39,7 @@
   },
   "gender": "female",
   "age": "2",
-  "likert_pattern1_test_aud": "4",
+  "likert_pattern1_test_aud": "3",
   "likert_pattern1_test_vis": "3",
   "likert_pattern4_test_vis": "3",
   "likert_pattern5_test_aud": "3",
