@@ -1,0 +1,582 @@
+{"time": 0.0, "msg": "Start."}
+{"time": 0.0532, "msg": "Set up welcome stage."}
+{"time": 100.3195, "event": "Proceed clicked."}
+{"time": 100.3851, "msg": "Shut down welcome stage."}
+{"time": 100.4302, "event": "Consented.", "answer": "I consent to participate in the experiment"}
+{"time": 100.4742, "msg": "Set up screener stage."}
+{"time": 111.2236, "event": "Proceed clicked."}
+{"time": 111.2796, "msg": "Shut down screener stage."}
+{"time": 111.3232, "event": "Screened.", "answer": "I confirm that none of the above listed items applies to me."}
+{"time": 111.3668, "msg": "Set up intro_questionnaire stage."}
+{"time": 116.1274, "event": "Proceed clicked."}
+{"time": 116.172, "msg": "Shut down intro_questionnaire stage."}
+{"time": 116.2163, "event": "Gender submitted.", "answer": "male"}
+{"time": 116.2599, "event": "Age submitted.", "answer": "andy"}
+{"time": 116.3043, "msg": "Set up pattern1_familiarization_vis stage."}
+{"time": 131.0978, "event": "Start clicked for pattern1_familiarization_vis."}
+{"time": 131.5556, "msg": "Start stimulus for pattern1_familiarization_vis."}
+{"time": 146.334, "msg": "Finished stimulus for pattern1_familiarization_vis."}
+{"time": 152.6166, "event": "Repeat clicked for pattern1_familiarization_vis."}
+{"time": 152.7382, "msg": "Start stimulus for pattern1_familiarization_vis."}
+{"time": 159.1403, "msg": "Q pressed in stage pattern1_familiarization_vis."}
+{"time": 159.2397, "msg": "Finished stimulus for pattern1_familiarization_vis."}
+{"time": 162.0099, "event": "Proceed clicked."}
+{"time": 162.0559, "msg": "Shut down pattern1_familiarization_vis stage."}
+{"time": 162.1002, "msg": "Set up pattern1_practice_vis stage."}
+{"time": 190.4495, "event": "Start clicked for pattern1_practice_vis."}
+{"time": 190.6291, "msg": "Start stimulus for pattern1_practice_vis, repeat 0."}
+{"time": 201.4178, "msg": "Space pressed in stage pattern1_practice_vis."}
+{"time": 203.8104, "msg": "Space pressed in stage pattern1_practice_vis."}
+{"time": 206.8909, "msg": "Space pressed in stage pattern1_practice_vis."}
+{"time": 209.0331, "msg": "Space pressed in stage pattern1_practice_vis."}
+{"time": 212.3649, "msg": "Space pressed in stage pattern1_practice_vis."}
+{"time": 230.3226, "msg": "Q pressed in stage pattern1_practice_vis."}
+{"time": 230.4184, "msg": "Finished stimulus for pattern1_practice_vis."}
+{"time": 241.9303, "event": "Proceed clicked."}
+{"time": 241.9881, "msg": "Shut down pattern1_practice_vis stage."}
+{"time": 242.0332, "msg": "Set up pattern1_test_vis stage."}
+{"time": 392.0462, "event": "Start clicked for pattern1_test_vis."}
+{"time": 392.2352, "msg": "Start stimulus for pattern1_test_vis in condition 1."}
+{"time": 423.3369, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 431.277, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 448.8326, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 460.5814, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 460.7364, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 483.933, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 513.8576, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 519.6436, "msg": "Finished stimulus for pattern1_test_vis."}
+{"time": 607.6632, "event": "Next clicked for pattern1_test_vis."}
+{"time": 607.7211, "msg": "Test condition changed to 2 in pattern1_test_vis."}
+{"time": 607.7661, "msg": "Set up pattern1_test_vis stage."}
+{"time": 618.1137, "event": "Start clicked for pattern1_test_vis."}
+{"time": 618.3044, "msg": "Start stimulus for pattern1_test_vis in condition 2."}
+{"time": 634.549, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 649.5159, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 653.0596, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 656.5209, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 665.7809, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 682.5567, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 691.1863, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 703.6559, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 716.1573, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 741.6415, "msg": "Space pressed in stage pattern1_test_vis."}
+{"time": 745.7166, "msg": "Finished stimulus for pattern1_test_vis."}
+{"time": 881.7418, "event": "Proceed clicked."}
+{"time": 881.7978, "msg": "Shut down pattern1_test_vis stage."}
+{"time": 881.8427, "msg": "Set up test_questionnaire stage."}
+{"time": 992.0835, "event": "Proceed clicked."}
+{"time": 992.1406, "msg": "Shut down test_questionnaire stage."}
+{"time": 992.1847, "event": "Likert submitted for pattern1_test_vis.", "answer": "5"}
+{"time": 992.229, "msg": "Set up pattern1_familiarization_aud stage."}
+{"time": 1019.161, "event": "Start clicked for pattern1_familiarization_aud."}
+{"time": 1019.3754, "msg": "Start stimulus for pattern1_familiarization_aud."}
+{"time": 1027.2343, "msg": "Q pressed in stage pattern1_familiarization_aud."}
+{"time": 1027.7885, "msg": "Finished stimulus for pattern1_familiarization_aud."}
+{"time": 1036.1193, "event": "Repeat clicked for pattern1_familiarization_aud."}
+{"time": 1036.2053, "msg": "Start stimulus for pattern1_familiarization_aud."}
+{"time": 1038.2321, "msg": "Q pressed in stage pattern1_familiarization_aud."}
+{"time": 1038.8595, "msg": "Finished stimulus for pattern1_familiarization_aud."}
+{"time": 1040.0028, "event": "Proceed clicked."}
+{"time": 1040.0491, "msg": "Shut down pattern1_familiarization_aud stage."}
+{"time": 1040.0942, "msg": "Set up pattern1_practice_aud stage."}
+{"time": 1056.606, "event": "Start clicked for pattern1_practice_aud."}
+{"time": 1056.7853, "msg": "Start stimulus for pattern1_practice_aud, repeat 0."}
+{"time": 1065.4167, "msg": "Space pressed in stage pattern1_practice_aud."}
+{"time": 1069.2971, "msg": "Q pressed in stage pattern1_practice_aud."}
+{"time": 1069.935, "msg": "Finished stimulus for pattern1_practice_aud."}
+{"time": 1076.0412, "event": "Repeat clicked for pattern1_practice_aud."}
+{"time": 1076.1143, "msg": "Start stimulus for pattern1_practice_aud, repeat 1."}
+{"time": 1084.435, "msg": "Q pressed in stage pattern1_practice_aud."}
+{"time": 1084.9918, "msg": "Finished stimulus for pattern1_practice_aud."}
+{"time": 1093.4926, "event": "Proceed clicked."}
+{"time": 1093.538, "msg": "Shut down pattern1_practice_aud stage."}
+{"time": 1093.5825, "msg": "Set up pattern1_test_aud stage."}
+{"time": 1322.8302, "event": "Start clicked for pattern1_test_aud."}
+{"time": 1323.0141, "msg": "Start stimulus for pattern1_test_aud in condition 1."}
+{"time": 1338.841, "msg": "Space pressed in stage pattern1_test_aud."}
+{"time": 1348.0295, "msg": "Space pressed in stage pattern1_test_aud."}
+{"time": 1355.7869, "msg": "Space pressed in stage pattern1_test_aud."}
+{"time": 1381.7204, "msg": "Space pressed in stage pattern1_test_aud."}
+{"time": 1389.1332, "msg": "Space pressed in stage pattern1_test_aud."}
+{"time": 1398.3505, "msg": "Space pressed in stage pattern1_test_aud."}
+{"time": 1417.6142, "msg": "Space pressed in stage pattern1_test_aud."}
+{"time": 1425.1766, "msg": "Space pressed in stage pattern1_test_aud."}
+{"time": 1429.3536, "msg": "Space pressed in stage pattern1_test_aud."}
+{"time": 1448.4544, "msg": "Finished stimulus for pattern1_test_aud."}
+{"time": 1487.9006, "event": "Next clicked for pattern1_test_aud."}
+{"time": 1487.9588, "msg": "Test condition changed to 2 in pattern1_test_aud."}
+{"time": 1488.0033, "msg": "Set up pattern1_test_aud stage."}
+{"time": 1504.8502, "event": "Start clicked for pattern1_test_aud."}
+{"time": 1505.0195, "msg": "Start stimulus for pattern1_test_aud in condition 2."}
+{"time": 1521.1697, "msg": "Space pressed in stage pattern1_test_aud."}
+{"time": 1532.0825, "msg": "Space pressed in stage pattern1_test_aud."}
+{"time": 1539.0735, "msg": "Space pressed in stage pattern1_test_aud."}
+{"time": 1564.3828, "msg": "Space pressed in stage pattern1_test_aud."}
+{"time": 1605.7228, "msg": "Space pressed in stage pattern1_test_aud."}
+{"time": 1627.2426, "msg": "Space pressed in stage pattern1_test_aud."}
+{"time": 1630.459, "msg": "Finished stimulus for pattern1_test_aud."}
+{"time": 1632.6359, "event": "Proceed clicked."}
+{"time": 1632.6818, "msg": "Shut down pattern1_test_aud stage."}
+{"time": 1632.7267, "msg": "Set up test_questionnaire stage."}
+{"time": 1637.726, "event": "Proceed clicked."}
+{"time": 1637.7756, "msg": "Shut down test_questionnaire stage."}
+{"time": 1637.8198, "event": "Likert submitted for pattern1_test_aud.", "answer": "2"}
+{"time": 1637.8631, "msg": "Set up pattern3_test_vis stage."}
+{"time": 1723.283, "event": "Start clicked for pattern3_test_vis."}
+{"time": 1723.4749, "msg": "Start stimulus for pattern3_test_vis in condition 2."}
+{"time": 1745.7751, "msg": "Space pressed in stage pattern3_test_vis."}
+{"time": 1759.8138, "msg": "Space pressed in stage pattern3_test_vis."}
+{"time": 1778.5442, "msg": "Space pressed in stage pattern3_test_vis."}
+{"time": 1803.3065, "msg": "Space pressed in stage pattern3_test_vis."}
+{"time": 1845.5596, "msg": "Space pressed in stage pattern3_test_vis."}
+{"time": 1850.8855, "msg": "Finished stimulus for pattern3_test_vis."}
+{"time": 1889.6706, "event": "Next clicked for pattern3_test_vis."}
+{"time": 1889.7275, "msg": "Test condition changed to 1 in pattern3_test_vis."}
+{"time": 1889.7712, "msg": "Set up pattern3_test_vis stage."}
+{"time": 1891.2331, "event": "Start clicked for pattern3_test_vis."}
+{"time": 1891.4123, "msg": "Start stimulus for pattern3_test_vis in condition 1."}
+{"time": 1912.5921, "msg": "Space pressed in stage pattern3_test_vis."}
+{"time": 1949.4233, "msg": "Space pressed in stage pattern3_test_vis."}
+{"time": 1954.9116, "msg": "Space pressed in stage pattern3_test_vis."}
+{"time": 1980.1314, "msg": "Space pressed in stage pattern3_test_vis."}
+{"time": 1996.4858, "msg": "Space pressed in stage pattern3_test_vis."}
+{"time": 2006.1084, "msg": "Space pressed in stage pattern3_test_vis."}
+{"time": 2018.8263, "msg": "Finished stimulus for pattern3_test_vis."}
+{"time": 2041.0927, "event": "Proceed clicked."}
+{"time": 2041.1506, "msg": "Shut down pattern3_test_vis stage."}
+{"time": 2041.1947, "msg": "Set up test_questionnaire stage."}
+{"time": 2044.5228, "event": "Proceed clicked."}
+{"time": 2044.5676, "msg": "Shut down test_questionnaire stage."}
+{"time": 2044.6116, "event": "Likert submitted for pattern3_test_vis.", "answer": "5"}
+{"time": 2044.6558, "msg": "Set up pattern3_test_aud stage."}
+{"time": 2069.4494, "event": "Start clicked for pattern3_test_aud."}
+{"time": 2069.6212, "msg": "Start stimulus for pattern3_test_aud in condition 2."}
+{"time": 2084.725, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2091.6908, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2095.9028, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2103.2466, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2111.3622, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2115.2985, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2125.0179, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2155.0798, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2159.3458, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2163.7214, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2168.6927, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2185.5424, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2195.0618, "msg": "Finished stimulus for pattern3_test_aud."}
+{"time": 2217.4184, "event": "Next clicked for pattern3_test_aud."}
+{"time": 2217.4757, "msg": "Test condition changed to 1 in pattern3_test_aud."}
+{"time": 2217.5189, "msg": "Set up pattern3_test_aud stage."}
+{"time": 2262.4449, "event": "Start clicked for pattern3_test_aud."}
+{"time": 2262.6332, "msg": "Start stimulus for pattern3_test_aud in condition 1."}
+{"time": 2283.1445, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2291.354, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2299.1728, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2303.2824, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2348.6701, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2362.7648, "msg": "Space pressed in stage pattern3_test_aud."}
+{"time": 2388.0738, "msg": "Finished stimulus for pattern3_test_aud."}
+{"time": 2443.6913, "event": "Proceed clicked."}
+{"time": 2443.7477, "msg": "Shut down pattern3_test_aud stage."}
+{"time": 2443.7911, "msg": "Set up test_questionnaire stage."}
+{"time": 2577.2784, "event": "Proceed clicked."}
+{"time": 2577.3315, "msg": "Shut down test_questionnaire stage."}
+{"time": 2577.3759, "event": "Likert submitted for pattern3_test_aud.", "answer": "4"}
+{"time": 2577.4188, "msg": "Set up pattern2_test_vis stage."}
+{"time": 2586.459, "event": "Start clicked for pattern2_test_vis."}
+{"time": 2586.6382, "msg": "Start stimulus for pattern2_test_vis in condition 1."}
+{"time": 2607.1269, "msg": "Space pressed in stage pattern2_test_vis."}
+{"time": 2615.2192, "msg": "Space pressed in stage pattern2_test_vis."}
+{"time": 2618.8603, "msg": "Space pressed in stage pattern2_test_vis."}
+{"time": 2623.6005, "msg": "Space pressed in stage pattern2_test_vis."}
+{"time": 2696.727, "msg": "Space pressed in stage pattern2_test_vis."}
+{"time": 2702.8374, "msg": "Space pressed in stage pattern2_test_vis."}
+{"time": 2714.0378, "msg": "Finished stimulus for pattern2_test_vis."}
+{"time": 2727.322, "event": "Next clicked for pattern2_test_vis."}
+{"time": 2727.3793, "msg": "Test condition changed to 2 in pattern2_test_vis."}
+{"time": 2727.4237, "msg": "Set up pattern2_test_vis stage."}
+{"time": 2728.7355, "event": "Start clicked for pattern2_test_vis."}
+{"time": 2728.9146, "msg": "Start stimulus for pattern2_test_vis in condition 2."}
+{"time": 2751.226, "msg": "Space pressed in stage pattern2_test_vis."}
+{"time": 2755.5063, "msg": "Space pressed in stage pattern2_test_vis."}
+{"time": 2798.0427, "msg": "Space pressed in stage pattern2_test_vis."}
+{"time": 2840.1688, "msg": "Space pressed in stage pattern2_test_vis."}
+{"time": 2856.3261, "msg": "Finished stimulus for pattern2_test_vis."}
+{"time": 2858.8142, "event": "Proceed clicked."}
+{"time": 2858.8599, "msg": "Shut down pattern2_test_vis stage."}
+{"time": 2858.9051, "msg": "Set up test_questionnaire stage."}
+{"time": 2862.7418, "event": "Proceed clicked."}
+{"time": 2862.7866, "msg": "Shut down test_questionnaire stage."}
+{"time": 2862.8315, "event": "Likert submitted for pattern2_test_vis.", "answer": "3"}
+{"time": 2862.8758, "msg": "Set up pattern2_test_aud stage."}
+{"time": 2890.2607, "event": "Start clicked for pattern2_test_aud."}
+{"time": 2890.4752, "msg": "Start stimulus for pattern2_test_aud in condition 1."}
+{"time": 2897.6115, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 2906.9637, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 2911.5294, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 2918.1082, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 2923.8275, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 2931.2213, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 2937.8775, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 2951.3983, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 2960.1059, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 2985.1056, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 2993.4632, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 3002.3585, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 3015.9144, "msg": "Finished stimulus for pattern2_test_aud."}
+{"time": 3023.4627, "event": "Next clicked for pattern2_test_aud."}
+{"time": 3023.5084, "msg": "Test condition changed to 2 in pattern2_test_aud."}
+{"time": 3023.5531, "msg": "Set up pattern2_test_aud stage."}
+{"time": 3038.3537, "event": "Start clicked for pattern2_test_aud."}
+{"time": 3038.5777, "msg": "Start stimulus for pattern2_test_aud in condition 2."}
+{"time": 3053.0912, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 3057.2822, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 3060.9548, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 3064.7621, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 3079.863, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 3100.7596, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 3116.9517, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 3125.9817, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 3150.5032, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 3157.7853, "msg": "Space pressed in stage pattern2_test_aud."}
+{"time": 3164.0178, "msg": "Finished stimulus for pattern2_test_aud."}
+{"time": 3183.2345, "event": "Proceed clicked."}
+{"time": 3183.292, "msg": "Shut down pattern2_test_aud stage."}
+{"time": 3183.3358, "msg": "Set up test_questionnaire stage."}
+{"time": 3187.6539, "event": "Proceed clicked."}
+{"time": 3187.6997, "msg": "Shut down test_questionnaire stage."}
+{"time": 3187.7445, "event": "Likert submitted for pattern2_test_aud.", "answer": "2"}
+{"time": 3187.789, "msg": "Set up pattern5_test_vis stage."}
+{"time": 3235.8985, "event": "Start clicked for pattern5_test_vis."}
+{"time": 3236.0891, "msg": "Start stimulus for pattern5_test_vis in condition 2."}
+{"time": 3246.9589, "msg": "Space pressed in stage pattern5_test_vis."}
+{"time": 3281.4072, "msg": "Space pressed in stage pattern5_test_vis."}
+{"time": 3332.9582, "msg": "Space pressed in stage pattern5_test_vis."}
+{"time": 3363.4402, "msg": "Finished stimulus for pattern5_test_vis."}
+{"time": 3375.4416, "event": "Next clicked for pattern5_test_vis."}
+{"time": 3375.4986, "msg": "Test condition changed to 1 in pattern5_test_vis."}
+{"time": 3375.5421, "msg": "Set up pattern5_test_vis stage."}
+{"time": 3382.9266, "event": "Start clicked for pattern5_test_vis."}
+{"time": 3383.1073, "msg": "Start stimulus for pattern5_test_vis in condition 1."}
+{"time": 3398.4311, "msg": "Space pressed in stage pattern5_test_vis."}
+{"time": 3425.0195, "msg": "Space pressed in stage pattern5_test_vis."}
+{"time": 3476.0868, "msg": "Space pressed in stage pattern5_test_vis."}
+{"time": 3484.971, "msg": "Space pressed in stage pattern5_test_vis."}
+{"time": 3490.6277, "msg": "Space pressed in stage pattern5_test_vis."}
+{"time": 3494.8612, "msg": "Space pressed in stage pattern5_test_vis."}
+{"time": 3510.5224, "msg": "Finished stimulus for pattern5_test_vis."}
+{"time": 3519.2283, "event": "Proceed clicked."}
+{"time": 3519.2747, "msg": "Shut down pattern5_test_vis stage."}
+{"time": 3519.3197, "msg": "Set up test_questionnaire stage."}
+{"time": 3521.2957, "event": "Proceed clicked."}
+{"time": 3521.3444, "msg": "Shut down test_questionnaire stage."}
+{"time": 3521.3886, "event": "Likert submitted for pattern5_test_vis.", "answer": "3"}
+{"time": 3521.4326, "msg": "Set up pattern5_test_aud stage."}
+{"time": 3527.9633, "event": "Start clicked for pattern5_test_aud."}
+{"time": 3528.426, "msg": "Start stimulus for pattern5_test_aud in condition 2."}
+{"time": 3547.3253, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3555.9135, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3564.6262, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3577.18, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3581.9531, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3588.9792, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3597.9573, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3616.5229, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3623.7696, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3631.7892, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3646.6939, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3653.8582, "msg": "Finished stimulus for pattern5_test_aud."}
+{"time": 3656.6635, "event": "Next clicked for pattern5_test_aud."}
+{"time": 3656.7094, "msg": "Test condition changed to 1 in pattern5_test_aud."}
+{"time": 3656.7581, "msg": "Set up pattern5_test_aud stage."}
+{"time": 3669.101, "event": "Start clicked for pattern5_test_aud."}
+{"time": 3669.5728, "msg": "Start stimulus for pattern5_test_aud in condition 1."}
+{"time": 3684.0559, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3691.8342, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3715.5557, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3732.8695, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3738.9915, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3743.353, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3745.4555, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3755.5776, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3776.3332, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3779.4218, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3791.0366, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3792.8793, "msg": "Space pressed in stage pattern5_test_aud."}
+{"time": 3795.0059, "msg": "Finished stimulus for pattern5_test_aud."}
+{"time": 3799.7187, "event": "Proceed clicked."}
+{"time": 3799.7649, "msg": "Shut down pattern5_test_aud stage."}
+{"time": 3799.8095, "msg": "Set up test_questionnaire stage."}
+{"time": 3802.8354, "event": "Proceed clicked."}
+{"time": 3802.8844, "msg": "Shut down test_questionnaire stage."}
+{"time": 3802.9295, "event": "Likert submitted for pattern5_test_aud.", "answer": "2"}
+{"time": 3802.9729, "msg": "Set up pattern4_test_vis stage."}
+{"time": 3815.2539, "event": "Start clicked for pattern4_test_vis."}
+{"time": 3815.4495, "msg": "Start stimulus for pattern4_test_vis in condition 1."}
+{"time": 3841.5808, "msg": "Space pressed in stage pattern4_test_vis."}
+{"time": 3856.332, "msg": "Space pressed in stage pattern4_test_vis."}
+{"time": 3864.175, "msg": "Space pressed in stage pattern4_test_vis."}
+{"time": 3914.4944, "msg": "Space pressed in stage pattern4_test_vis."}
+{"time": 3942.8618, "msg": "Finished stimulus for pattern4_test_vis."}
+{"time": 3970.4706, "event": "Next clicked for pattern4_test_vis."}
+{"time": 3970.5287, "msg": "Test condition changed to 2 in pattern4_test_vis."}
+{"time": 3970.5737, "msg": "Set up pattern4_test_vis stage."}
+{"time": 3971.8993, "event": "Start clicked for pattern4_test_vis."}
+{"time": 3972.0831, "msg": "Start stimulus for pattern4_test_vis in condition 2."}
+{"time": 3994.2429, "msg": "Space pressed in stage pattern4_test_vis."}
+{"time": 4002.9384, "msg": "Space pressed in stage pattern4_test_vis."}
+{"time": 4027.803, "msg": "Space pressed in stage pattern4_test_vis."}
+{"time": 4066.3935, "msg": "Space pressed in stage pattern4_test_vis."}
+{"time": 4099.4907, "msg": "Finished stimulus for pattern4_test_vis."}
+{"time": 4102.4795, "event": "Proceed clicked."}
+{"time": 4102.5233, "msg": "Shut down pattern4_test_vis stage."}
+{"time": 4102.5659, "msg": "Set up test_questionnaire stage."}
+{"time": 4112.0633, "event": "Proceed clicked."}
+{"time": 4112.1117, "msg": "Shut down test_questionnaire stage."}
+{"time": 4112.1564, "event": "Likert submitted for pattern4_test_vis.", "answer": "4"}
+{"time": 4112.1998, "msg": "Set up baseline1_practice_vis stage."}
+{"time": 4137.9327, "event": "Start clicked for baseline1_practice_vis."}
+{"time": 4138.1204, "msg": "Start stimulus for baseline1_practice_vis, repeat 0."}
+{"time": 4145.2162, "msg": "Space pressed in stage baseline1_practice_vis."}
+{"time": 4149.4842, "msg": "Space pressed in stage baseline1_practice_vis."}
+{"time": 4151.0322, "msg": "Q pressed in stage baseline1_practice_vis."}
+{"time": 4151.1166, "msg": "Finished stimulus for baseline1_practice_vis."}
+{"time": 4152.919, "event": "Repeat clicked for baseline1_practice_vis."}
+{"time": 4153.0575, "msg": "Start stimulus for baseline1_practice_vis, repeat 1."}
+{"time": 4155.1378, "msg": "Q pressed in stage baseline1_practice_vis."}
+{"time": 4155.2236, "msg": "Finished stimulus for baseline1_practice_vis."}
+{"time": 4156.1949, "event": "Proceed clicked."}
+{"time": 4156.2394, "msg": "Shut down baseline1_practice_vis stage."}
+{"time": 4156.2873, "msg": "Set up baseline1_test_vis stage."}
+{"time": 4165.1724, "event": "Start clicked for baseline1_test_vis."}
+{"time": 4165.3361, "msg": "Start stimulus for baseline1_test_vis in condition 1."}
+{"time": 4171.4365, "msg": "Space pressed in stage baseline1_test_vis."}
+{"time": 4176.809, "msg": "Space pressed in stage baseline1_test_vis."}
+{"time": 4183.7378, "msg": "Space pressed in stage baseline1_test_vis."}
+{"time": 4186.8642, "msg": "Space pressed in stage baseline1_test_vis."}
+{"time": 4190.5595, "msg": "Finished stimulus for baseline1_test_vis."}
+{"time": 4193.5493, "event": "Proceed clicked."}
+{"time": 4193.5936, "msg": "Shut down baseline1_test_vis stage."}
+{"time": 4193.6373, "msg": "Set up test_questionnaire stage."}
+{"time": 4195.9195, "event": "Proceed clicked."}
+{"time": 4195.9636, "msg": "Shut down test_questionnaire stage."}
+{"time": 4196.0079, "event": "Likert submitted for baseline1_test_vis.", "answer": "1"}
+{"time": 4196.0516, "msg": "Set up baseline1_practice_aud stage."}
+{"time": 4225.3134, "event": "Start clicked for baseline1_practice_aud."}
+{"time": 4225.4792, "msg": "Start stimulus for baseline1_practice_aud, repeat 0."}
+{"time": 4233.1776, "msg": "Space pressed in stage baseline1_practice_aud."}
+{"time": 4234.2866, "msg": "Q pressed in stage baseline1_practice_aud."}
+{"time": 4234.9145, "msg": "Finished stimulus for baseline1_practice_aud."}
+{"time": 4235.7906, "event": "Repeat clicked for baseline1_practice_aud."}
+{"time": 4235.8727, "msg": "Start stimulus for baseline1_practice_aud, repeat 1."}
+{"time": 4237.3204, "msg": "Q pressed in stage baseline1_practice_aud."}
+{"time": 4237.8782, "msg": "Finished stimulus for baseline1_practice_aud."}
+{"time": 4238.9146, "event": "Proceed clicked."}
+{"time": 4238.9599, "msg": "Shut down baseline1_practice_aud stage."}
+{"time": 4239.0037, "msg": "Set up baseline1_test_aud stage."}
+{"time": 4245.8099, "event": "Start clicked for baseline1_test_aud."}
+{"time": 4245.9659, "msg": "Start stimulus for baseline1_test_aud in condition 1."}
+{"time": 4250.3999, "msg": "Space pressed in stage baseline1_test_aud."}
+{"time": 4252.4684, "msg": "Space pressed in stage baseline1_test_aud."}
+{"time": 4257.1827, "msg": "Space pressed in stage baseline1_test_aud."}
+{"time": 4258.6404, "msg": "Space pressed in stage baseline1_test_aud."}
+{"time": 4270.9114, "msg": "Finished stimulus for baseline1_test_aud."}
+{"time": 4418.8401, "event": "Proceed clicked."}
+{"time": 4418.8962, "msg": "Shut down baseline1_test_aud stage."}
+{"time": 4418.9396, "msg": "Set up test_questionnaire stage."}
+{"time": 4422.0749, "event": "Proceed clicked."}
+{"time": 4422.1195, "msg": "Shut down test_questionnaire stage."}
+{"time": 4422.1633, "event": "Likert submitted for baseline1_test_aud.", "answer": "1"}
+{"time": 4422.2069, "msg": "Set up baseline2_practice_aud stage."}
+{"time": 4429.6205, "event": "Start clicked for baseline2_practice_aud."}
+{"time": 4429.7972, "msg": "Start stimulus for baseline2_practice_aud, repeat 0."}
+{"time": 4435.3529, "msg": "Q pressed in stage baseline2_practice_aud."}
+{"time": 4435.9814, "msg": "Finished stimulus for baseline2_practice_aud."}
+{"time": 4437.5758, "event": "Repeat clicked for baseline2_practice_aud."}
+{"time": 4437.6648, "msg": "Start stimulus for baseline2_practice_aud, repeat 1."}
+{"time": 4440.0092, "msg": "Space pressed in stage baseline2_practice_aud."}
+{"time": 4440.6712, "msg": "Q pressed in stage baseline2_practice_aud."}
+{"time": 4441.2482, "msg": "Finished stimulus for baseline2_practice_aud."}
+{"time": 4441.8735, "event": "Proceed clicked."}
+{"time": 4441.9188, "msg": "Shut down baseline2_practice_aud stage."}
+{"time": 4441.963, "msg": "Set up baseline2_test_aud stage."}
+{"time": 4450.9826, "event": "Start clicked for baseline2_test_aud."}
+{"time": 4451.2989, "msg": "Start stimulus for baseline2_test_aud in condition 2."}
+{"time": 4454.9431, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4457.0593, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4462.0894, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4465.1546, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4467.2286, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4469.3915, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4473.2129, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4475.4344, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4478.2304, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4481.6586, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4484.7233, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4487.3359, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4489.7208, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4494.9671, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4503.942, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4520.5691, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4523.4077, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4525.0393, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4527.4896, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4532.5492, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4538.3184, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4540.3171, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4543.8399, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4548.5003, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4551.4632, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4554.5455, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4556.69, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4559.3325, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4561.7058, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4564.1173, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4566.619, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4569.8264, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4574.9995, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4579.4262, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4582.2501, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4584.5489, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4587.3767, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4590.5332, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4597.3851, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4602.1806, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4608.6089, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4614.1734, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4616.5574, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4619.4374, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4624.1915, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4631.068, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4633.3688, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4638.9859, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4643.8047, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4648.9689, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4651.7815, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4654.2471, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4657.9087, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4659.8914, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4662.2389, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4665.0874, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4667.6631, "msg": "Finished stimulus for baseline2_test_aud."}
+{"time": 4702.5974, "event": "Next clicked for baseline2_test_aud."}
+{"time": 4702.6538, "msg": "Test condition changed to 3 in baseline2_test_aud."}
+{"time": 4702.6983, "msg": "Set up baseline2_test_aud stage."}
+{"time": 4706.1433, "event": "Start clicked for baseline2_test_aud."}
+{"time": 4706.4535, "msg": "Start stimulus for baseline2_test_aud in condition 3."}
+{"time": 4709.1197, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4711.0476, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4713.7305, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4716.4775, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4718.9375, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4726.9199, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4729.863, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4731.7875, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4737.368, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4740.2231, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4742.4937, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4750.1638, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4755.293, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4761.009, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4763.1109, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4766.4093, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4771.2371, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4773.1852, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4775.1128, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4798.0781, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4800.9541, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4803.7903, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4821.8171, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4827.0343, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4829.8653, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4836.6749, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4841.2774, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4846.0316, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4849.1076, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4851.3357, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4853.3981, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4856.3904, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4858.1671, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4861.454, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4864.1048, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4866.6207, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4868.7512, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4870.9115, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4874.0531, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4876.5467, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4878.9522, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4881.8228, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4885.2204, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4887.7629, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4890.5671, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4893.293, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4895.8611, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4898.5014, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4901.713, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4904.143, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4906.3069, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4909.6876, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4912.5736, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4917.2818, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4919.3718, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4922.6317, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4925.2566, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4928.1667, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4930.8056, "msg": "Finished stimulus for baseline2_test_aud."}
+{"time": 4935.0939, "event": "Next clicked for baseline2_test_aud."}
+{"time": 4935.1392, "msg": "Test condition changed to 1 in baseline2_test_aud."}
+{"time": 4935.1826, "msg": "Set up baseline2_test_aud stage."}
+{"time": 4940.9304, "event": "Start clicked for baseline2_test_aud."}
+{"time": 4941.3658, "msg": "Start stimulus for baseline2_test_aud in condition 1."}
+{"time": 4945.7523, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4948.6029, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4951.45, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4953.484, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4955.4125, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4958.0389, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4960.9893, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4963.8577, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4980.165, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4982.6157, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4987.7882, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4990.5686, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4992.9677, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4995.3795, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 4999.7666, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5001.9563, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5004.6537, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5007.3582, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5010.6545, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5013.4263, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5015.8105, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5018.6546, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5021.4471, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5026.6868, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5029.8264, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5048.3991, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5053.8636, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5055.8423, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5063.6796, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5066.5797, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5069.8166, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5074.3596, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5077.262, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5081.589, "msg": "Space pressed in stage baseline2_test_aud."}
+{"time": 5085.253, "msg": "Q pressed in stage baseline2_test_aud."}
+{"time": 5085.8408, "msg": "Finished stimulus for baseline2_test_aud."}
+{"time": 5088.4335, "event": "Proceed clicked."}
+{"time": 5088.4791, "msg": "Shut down baseline2_test_aud stage."}
+{"time": 5088.5236, "msg": "Set up test_questionnaire stage."}
+{"time": 5091.8226, "event": "Proceed clicked."}
+{"time": 5091.8669, "msg": "Shut down test_questionnaire stage."}
+{"time": 5091.9118, "event": "Likert submitted for baseline2_test_aud.", "answer": "4"}
+{"time": 5091.9556, "msg": "Set up outro_questionnaire stage."}
+{"time": 5097.0525, "event": "Proceed clicked."}
+{"time": 5097.1005, "msg": "Shut down outro_questionnaire stage."}
+{"time": 5097.1441, "event": "Instructions clear submitted.", "answer": "yes"}
+{"time": 5097.1878, "event": "Auditory patterns description submitted.", "answer": "a"}
+{"time": 5097.231, "event": "Visual patterns description submitted.", "answer": "a"}
+{"time": 5097.2746, "event": "Strategy submitted.", "answer": "a"}
+{"time": 5097.3189, "msg": "Set up thanks stage."}
+{"time": 5099.4834, "msg": "Data successfully exported."}
+{"time": 5099.5348, "msg": "End."}
