@@ -8,8 +8,8 @@
   "randomize_pattern_phase_presentation": true,
   "pattern_phase_order": [
     1,
-    4,
     2,
+    4,
     3,
     5
   ],
@@ -17,8 +17,8 @@
   "randomize_baseline_test_condition_orderings": true,
   "stimulus_id": "328",
   "modality_order": [
-    "vis",
-    "aud"
+    "aud",
+    "vis"
   ],
   "subject": "3",
   "run_label": "260624_3",
@@ -34,6 +34,38 @@
     {
       "type": "intro_questionnaire",
       "name": "intro_questionnaire"
+    },
+    {
+      "type": "familiarization",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "pattern1"
+      },
+      "name": "pattern1_familiarization_aud"
+    },
+    {
+      "type": "practice",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "pattern1"
+      },
+      "name": "pattern1_practice_aud"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "pattern1"
+      },
+      "conditions": [
+        "1",
+        "2"
+      ],
+      "name": "pattern1_test_aud"
+    },
+    {
+      "type": "test_questionnaire",
+      "name": "test_questionnaire"
     },
     {
       "type": "familiarization",
@@ -68,32 +100,32 @@
       "name": "test_questionnaire"
     },
     {
-      "type": "familiarization",
-      "modifiers": {
-        "modality": "aud",
-        "phase": "pattern1"
-      },
-      "name": "pattern1_familiarization_aud"
-    },
-    {
-      "type": "practice",
-      "modifiers": {
-        "modality": "aud",
-        "phase": "pattern1"
-      },
-      "name": "pattern1_practice_aud"
-    },
-    {
       "type": "test",
       "modifiers": {
         "modality": "aud",
-        "phase": "pattern1"
+        "phase": "pattern2"
       },
       "conditions": [
         "2",
         "1"
       ],
-      "name": "pattern1_test_aud"
+      "name": "pattern2_test_aud"
+    },
+    {
+      "type": "test_questionnaire",
+      "name": "test_questionnaire"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "vis",
+        "phase": "pattern2"
+      },
+      "conditions": [
+        "1",
+        "2"
+      ],
+      "name": "pattern2_test_vis"
     },
     {
       "type": "test_questionnaire",
@@ -106,8 +138,8 @@
         "phase": "pattern4"
       },
       "conditions": [
-        "1",
-        "2"
+        "2",
+        "1"
       ],
       "name": "pattern4_test_vis"
     },
@@ -118,30 +150,14 @@
     {
       "type": "test",
       "modifiers": {
-        "modality": "vis",
-        "phase": "pattern2"
-      },
-      "conditions": [
-        "2",
-        "1"
-      ],
-      "name": "pattern2_test_vis"
-    },
-    {
-      "type": "test_questionnaire",
-      "name": "test_questionnaire"
-    },
-    {
-      "type": "test",
-      "modifiers": {
         "modality": "aud",
-        "phase": "pattern2"
+        "phase": "pattern3"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
-      "name": "pattern2_test_aud"
+      "name": "pattern3_test_aud"
     },
     {
       "type": "test_questionnaire",
@@ -167,13 +183,13 @@
       "type": "test",
       "modifiers": {
         "modality": "aud",
-        "phase": "pattern3"
+        "phase": "pattern5"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
-      "name": "pattern3_test_aud"
+      "name": "pattern5_test_aud"
     },
     {
       "type": "test_questionnaire",
@@ -186,8 +202,8 @@
         "phase": "pattern5"
       },
       "conditions": [
-        "1",
-        "2"
+        "2",
+        "1"
       ],
       "name": "pattern5_test_vis"
     },
@@ -196,16 +212,23 @@
       "name": "test_questionnaire"
     },
     {
+      "type": "practice",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "baseline1"
+      },
+      "name": "baseline1_practice_aud"
+    },
+    {
       "type": "test",
       "modifiers": {
         "modality": "aud",
-        "phase": "pattern5"
+        "phase": "baseline1"
       },
       "conditions": [
-        "2",
         "1"
       ],
-      "name": "pattern5_test_aud"
+      "name": "baseline1_test_aud"
     },
     {
       "type": "test_questionnaire",
@@ -238,29 +261,6 @@
       "type": "practice",
       "modifiers": {
         "modality": "aud",
-        "phase": "baseline1"
-      },
-      "name": "baseline1_practice_aud"
-    },
-    {
-      "type": "test",
-      "modifiers": {
-        "modality": "aud",
-        "phase": "baseline1"
-      },
-      "conditions": [
-        "1"
-      ],
-      "name": "baseline1_test_aud"
-    },
-    {
-      "type": "test_questionnaire",
-      "name": "test_questionnaire"
-    },
-    {
-      "type": "practice",
-      "modifiers": {
-        "modality": "aud",
         "phase": "baseline2"
       },
       "name": "baseline2_practice_aud"
@@ -272,8 +272,8 @@
         "phase": "baseline2"
       },
       "conditions": [
-        "3",
         "2",
+        "3",
         "1"
       ],
       "name": "baseline2_test_aud"
@@ -296,7 +296,6 @@
   "white_noise_signal_floor": 0.001,
   "white_noise_gate_window_samples": 256,
   "speaker_routing": {
-    "pattern1_test_vis": {},
     "pattern1_familiarization_aud": [
       28
     ],
@@ -314,8 +313,7 @@
         3
       ]
     },
-    "pattern4_test_vis": {},
-    "pattern2_test_vis": {},
+    "pattern1_test_vis": {},
     "pattern2_test_aud": {
       "1": [
         2,
@@ -338,7 +336,8 @@
         53
       ]
     },
-    "pattern3_test_vis": {},
+    "pattern2_test_vis": {},
+    "pattern4_test_vis": {},
     "pattern3_test_aud": {
       "1": [
         16,
@@ -351,7 +350,7 @@
         23
       ]
     },
-    "pattern5_test_vis": {},
+    "pattern3_test_vis": {},
     "pattern5_test_aud": {
       "1": [
         3,
@@ -457,7 +456,7 @@
         55
       ]
     },
-    "baseline1_test_vis": {},
+    "pattern5_test_vis": {},
     "baseline1_practice_aud": [
       28
     ],
@@ -466,6 +465,7 @@
         28
       ]
     },
+    "baseline1_test_vis": {},
     "baseline2_practice_aud": [
       11,
       15,
