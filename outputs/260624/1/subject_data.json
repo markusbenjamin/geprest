@@ -1,4 +1,8 @@
 {
   "space_presses": {},
-  "repeat_num": {}
+  "repeat_num": {
+    "pattern1_familiarization_aud": 0
+  },
+  "gender": "female",
+  "age": "1"
 }
