@@ -1,0 +1,23 @@
+{
+  "space_presses": {
+    "pattern1_practice_aud": {
+      "repeat_0": []
+    },
+    "pattern1_test_aud": {
+      "1": [],
+      "2": []
+    },
+    "pattern1_practice_vis": {
+      "repeat_0": []
+    }
+  },
+  "repeat_num": {
+    "pattern1_familiarization_aud": 0,
+    "pattern1_practice_aud": 0,
+    "pattern1_familiarization_vis": 0,
+    "pattern1_practice_vis": 0
+  },
+  "gender": "female",
+  "age": "1",
+  "likert_pattern1_test_aud": "3"
+}
