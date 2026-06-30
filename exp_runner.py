@@ -17,7 +17,7 @@ from collections import deque
 #endregion
 
 #region Persistent settings and environmental parameters
-dev = False #DEV
+dev = False #DEV 
 
 exp_settings_and_data = {}
 exp_root = "./geprest/"
@@ -51,7 +51,7 @@ equalization_path = f"{exp_root}/inputs/stimuli/equalization.json"
 #region Arguments
 demo = False # demo mode on off
 on_grid = True # set to True if in lab and on grid || DEV: auto-detect
-batch = 'dev' if dev else ('demo' if demo else 'test') # set by experimenter
+batch = 'dev' if dev else ('demo' if demo else '260624') # set by experimenter
 
 pattern_phases = [2,3,4,5] # list used pattern phases except 1 which has the familiarization stim files
 randomize_pattern_phase_presentation = True # randomize pattern phase order
@@ -66,13 +66,14 @@ special_test_structures = {
     'baseline2': {'aud': ['1', '2', '3'], 'vis': []},
 }
 
-stimulus_set = 0 # select which stimulus set to use
-stimulus_id = ['201','202','203'][stimulus_set] # list usable stimulus sets
-stimulus_id = '325'
-#stimulus_id = random.choice(stimulus_ids)
+#stimulus_set = 0 # select which  stimulus set to use
+stimulus_id = ['326','327','328','329']#[stimulus_set] # list usable stimulus sets
+#stimulus_id = '329'
+stimulus_id = random.choice(stimulus_id)
 aud_stimulus_freq = 315 # for using the correct eq spec file || DEV implement eq spec
 randomize_modality_order = True
 modality_order = random.sample(['aud', 'vis'], k=2) if randomize_modality_order else ['aud','vis'] # modality order
+#print(stimulus_id) 
 
 exp_settings_and_data['batch'] = batch
 exp_settings_and_data['randomize_pattern_phase_presentation'] = randomize_pattern_phase_presentation
@@ -352,7 +353,7 @@ with open(warnings_path, "w", encoding="utf-8") as file:
 master_gain_exp = 1  # nominal gain passed into eq spec
 #region Additive white noise
 
-ADD_WHITE_NOISE = False
+ADD_WHITE_NOISE = True
 
 # absolute full-scale RMS of added white noise
 WHITE_NOISE_RMS = 0.025
@@ -1848,7 +1849,7 @@ else:
                                 else "placeholder"
                             )
 
-                            wav_path = f"{exp_root}/inputs/stimuli/{load_name}.wav"
+                            wav_path = f"{exp_root}/inputs/stimuli/{load_name}.wav" 
 
                             if preload_audio:
                                 stimuli[stage["name"]][condition_name] = load_wav(
@@ -3113,7 +3114,7 @@ next_button = Button( # Used to proceed to next test condition
 
 likert_radio_test = RadioButtons(
     ui,
-    header="How difficult was the previous part? (1 - easy, 5 - hard)",
+    header="How difficult was this part? (1 - very easy, 5 - very difficult)",
     options=["1", "2", "3", "4", "5"],
     rrect=(0.5, 0.3,  0.35, 0.1),
     on_submit=lambda ans: (
@@ -3174,7 +3175,7 @@ pattern_radio = RadioButtons( #DEV likely remove
 aud_pattern_field = TextField(
     ui,
     (0.5, 0.47, 0.7, 0.13),
-    header="Did you notice any repeating patterns in the AUDITORY test with location changes?",
+    header="Did you notice any repeating patterns in the AUDITORY test?",
     placeholder="If yes, can you remember and describe them?",
     on_submit=lambda ans: (
         log({"event": "Auditory patterns description submitted.", "answer": ans}),
@@ -3185,7 +3186,7 @@ aud_pattern_field = TextField(
 vis_pattern_field = TextField(
     ui,
     (0.5, 0.62, 0.7, 0.13),
-    header="Did you notice any repeating patterns in the VISUAL tests with location changes?",
+    header="Did you notice any repeating patterns in the VISUAL tests?",
     placeholder="If yes, can you remember and describe them?",
     on_submit=lambda ans: (
         log({"event": "Visual patterns description submitted.", "answer": ans}),
@@ -3555,7 +3556,7 @@ def draw():
                     video_tick()
                 case 'repeat':
                     screen.fill(WHITE)
-                    text_on_screen('<want repeat?>', 0.5, 0.1)
+                    text_on_screen('<You can play the stimulus again, or continue with the Proceed button.>', 0.5, 0.1)
         case 'familiarization':
             match substage:
                 case 'intro':
@@ -3570,7 +3571,7 @@ def draw():
                     text_on_screen('Could you catch that a few of the pauses were longer?', 0.5, 0.1)
                 case 'repeat':
                     screen.fill(WHITE)
-                    text_on_screen('<want repeat?>', 0.5, 0.1)
+                    text_on_screen('<You can play the stimulus again, or continue with the Proceed button.>', 0.5, 0.1)
         case 'practice':
             match substage:
                 case 'intro':
@@ -3583,13 +3584,13 @@ def draw():
                     screen.fill(TESTGRAY)
                     match stage['modifiers']['modality']:
                         case 'aud':
-                            text_on_screen('<playing sound and logging SPACE>', 0.5, 0.1)
+                            text_on_screen(' ', 0.5, 0.1)
                         case 'vis':                            
                             video_tick()
-                            text_on_screen('<showing video and logging SPACE>', 0.5, 0.1)
+                            text_on_screen(' ', 0.5, 0.1)
                 case 'repeat':
                     screen.fill(WHITE)
-                    text_on_screen('<want repeat?>', 0.5, 0.1)
+                    text_on_screen('<You can play the stimulus again, or continue with the Proceed button.>', 0.5, 0.1)
         case 'test':
             match substage:
                 case 'intro':
@@ -3602,18 +3603,18 @@ def draw():
                     screen.fill(TESTGRAY)
                     match stage['modifiers']['modality']:
                         case 'aud':
-                            text_on_screen(f'<condition: {stage["conditions"][test_condition_index]}>', 0.5, 0.075)
-                            text_on_screen('<playing sound and logging SPACE>', 0.5, 0.125)
+                            text_on_screen(f' ', 0.5, 0.075)
+                            text_on_screen(' ', 0.5, 0.125)
                         case 'vis':
                             video_tick()
-                            text_on_screen(f'<condition: {stage["conditions"][test_condition_index]}>', 0.5, 0.075)
-                            text_on_screen('<showing video and logging SPACE>', 0.5, 0.125)
+                            text_on_screen(f' ', 0.5, 0.075)
+                            text_on_screen(' ', 0.5, 0.125)
                 case 'repeat':
                     screen.fill(WHITE)
                     if all_test_conditions_done():
-                        text_on_screen('<test stage finished>', 0.5, 0.1)
+                        text_on_screen('You have completed all the tests in this part.', 0.5, 0.1)
                     else:
-                        text_on_screen('<next condition?>', 0.5, 0.1)
+                        text_on_screen('Continue to the next part.', 0.5, 0.1)
         case 'test_questionnaire':
             screen.fill(WHITE)
             wrapped_text_on_screen(

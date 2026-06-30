@@ -1,17 +1,11 @@
-You will be presented with a continuous stream of circles on the screen. In this part, the circles can come from different locations, but your task remains the same: find the longer pauses in-between the circles.
+This is one of the two tests of part H: This time, you will start right with the test session. The test will be similar to the practice session from the first part, only more difficult. There will be way fewer longer pauses, and some parameters of this part will be different.
 
-It will be similar to the practice session, only more difficult. There will be way fewer longer pauses. 
+Again, you will be presented with a continuous stream of circles on the screen. The circles can come from different locations, but your task remains the same: find the longer pauses in-between the circles.
 
-In the beginning you must be patient, there will be more typical pauses, so that you can have a good sense of it. 
+In the beginning you must be patient, there will be more typical pauses, so that you can have a good sense of it. Keep being attentive, and try to find the very few longer pauses hidden in the stream. Be patient, and as fast and as accurate as possible. Don't think, just rely on your instinct.
 
-Keep being attentive, and try to find the very few longer pauses hidden in the stream.
-
-Be patient, and as fast and as accurate as possible. Don't think, just rely on your instinct.
+Do not drum, hum, or sing quietly during the presentation of the stream.
 
 Press the space bar if you see a longer pause in-between the circles compared to the typical pause duration.
-
-Again, do not drum, hum, or sing quietly during the presentation of the stream.
-
-Get ready.
-
+Get ready. 
 After clicking 'Start', place your finger on the space bar. The test will start automatically.

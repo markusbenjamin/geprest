@@ -1,1 +1,13 @@
-baseline1_test_aud.txt
+This is the only test of part K: The test will be similar to the practice session, only more difficult. There will be way fewer longer pauses.
+
+You will be presented with a continuous stream of tones through hidden speakers. In this part, the tones will come only from one location, but your task remains the same: find the longer pauses in-between the tones.
+
+In the beginning you must be patient, there will be more typical pauses, so that you can have a good sense of it. Keep being attentive, and try to find the very few longer pauses hidden in the stream. Be patient, and as fast and as accurate as possible. Don't think, just rely on your instinct.
+
+Again, do not drum, hum, or sing quietly during the presentation of the stream.
+
+This part will only have one test.
+
+Press the space bar if you hear a longer pause in-between the tones compared to the typical pause duration.
+Get ready.
+After clicking 'Start', place your finger on the space bar. The test will start automatically.

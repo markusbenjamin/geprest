@@ -1,5 +1,5 @@
 - stage: egy állomás az exp_structure-ben
-- blokk ('phase' in code): pl. pattern1 vagy baseline2, tehát familiarization, practice, test és test_questionnaire stage-k valamilyen ismétlés mentes alhalmaza
+- block ('phase' in code): pl. pattern1 vagy baseline2, tehát familiarization, practice, test és test_questionnaire stage-k valamilyen ismétlés mentes alhalmaza
 - familiarization stage: van inger, tud ismétlődni igény esetén, nincs input loggolás
 - practice: van inger, tud ismétlődni igény esetén, van input loggolás
 - test: van inger, annyi kondíció, ahány definiálva van, vagy randomizálva, vagy nem, van input loggolás, mindig test_questionnaire követi (jelenlegi verzióban)

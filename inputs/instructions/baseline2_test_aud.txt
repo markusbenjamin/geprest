@@ -1,1 +1,17 @@
-baseline2_test_aud.txt
+This is one of the three tests of part M: !!!! NEW TASK !!!! 
+
+The test will be similar to the practice session, only more difficult. There will be way fewer location changes. 
+
+You will be presented with a continuous stream of tones through hidden speakers. Similar to the previous practice section, the tones will come mainly from one location, but some of them will not, and will come from a different location. And again, this time your task is to find the tones that come from a different location.
+
+In the beginning you must be patient, there will be more typical tones, so that you can have a good sense of it. Keep being attentive, and try to find the very few different locations hidden in the stream. Be patient, and as fast and as accurate as possible. Don't think, just rely on your instinct.
+
+Press the space bar if you hear a tone coming from a different location compared to the typical location.
+
+Again, do not drum, hum, or sing quietly during the presentation of the stream.
+
+This part will consist of three tests.
+
+Press the space bar if you hear a tone coming from a different location compared to the typical location.
+Get ready.
+After clicking 'Start', place your finger on the space bar. The test will start automatically.  
