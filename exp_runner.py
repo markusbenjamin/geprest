@@ -2246,6 +2246,13 @@ class TextField:
         self.active = False
         self.blur()
 
+    def reset(self):
+        self.text = ""
+        self.cursor = 0
+        self._bs_down = False
+        self._bs_next = 0.0
+        self.blur()
+
     def focus(self):
         # blur any previously focused field
         if TextField.focused_field is not None and TextField.focused_field is not self:
@@ -3116,12 +3123,24 @@ likert_radio_test = RadioButtons(
     ui,
     header="How difficult was this part? (1 - very easy, 5 - very difficult)",
     options=["1", "2", "3", "4", "5"],
-    rrect=(0.5, 0.3,  0.35, 0.1),
+    rrect=(0.5, 0.32,  0.5, 0.12),
     on_submit=lambda ans: (
         log({"event": f"Likert submitted for {last_test_stage_name}.", "answer": ans}),
         subject_data.update({f"likert_{last_test_stage_name}": ans}),
     ),
     layout="horizontal"
+)
+
+non_center_strategy_question = "If you chose a different strategy and did not look at the center of the screen, please describe it."
+
+non_center_strategy_field = TextField(
+    ui,
+    (0.5, 0.66, 0.7, 0.16),
+    placeholder="Describe your strategy...",
+    on_submit=lambda ans: (
+        log({"event": f"Non-center strategy submitted for {last_test_stage_name}.", "answer": ans}),
+        subject_data.update({f"non_center_strategy_{last_test_stage_name}": ans}),
+    )
 )
 
 instructions_clear_radio = RadioButtons(
@@ -3387,6 +3406,7 @@ def set_up_stage():
         case 'test_questionnaire':
             proceed_button.show()
             likert_radio_test.show()
+            non_center_strategy_field.show()
         case 'outro_questionnaire':
             proceed_button.show()
             instructions_clear_radio.show()
@@ -3458,6 +3478,9 @@ def shutdown_stage():
             likert_radio_test.submit()
             likert_radio_test.hide()
             likert_radio_test.reset()
+            non_center_strategy_field.submit()
+            non_center_strategy_field.hide()
+            non_center_strategy_field.reset()
         case 'outro_questionnaire':
             proceed_button.deactivate()
             instructions_clear_radio.submit()
@@ -3556,7 +3579,7 @@ def draw():
                     video_tick()
                 case 'repeat':
                     screen.fill(WHITE)
-                    text_on_screen('<You can play the stimulus again, or continue with the Proceed button.>', 0.5, 0.1)
+                    text_on_screen('You can play the stimulus again, or continue with the Proceed button.', 0.5, 0.1)
         case 'familiarization':
             match substage:
                 case 'intro':
@@ -3571,7 +3594,7 @@ def draw():
                     text_on_screen('Could you catch that a few of the pauses were longer?', 0.5, 0.1)
                 case 'repeat':
                     screen.fill(WHITE)
-                    text_on_screen('<You can play the stimulus again, or continue with the Proceed button.>', 0.5, 0.1)
+                    text_on_screen('You can play the stimulus again, or continue with the Proceed button.', 0.5, 0.1)
         case 'practice':
             match substage:
                 case 'intro':
@@ -3590,7 +3613,7 @@ def draw():
                             text_on_screen(' ', 0.5, 0.1)
                 case 'repeat':
                     screen.fill(WHITE)
-                    text_on_screen('<You can play the stimulus again, or continue with the Proceed button.>', 0.5, 0.1)
+                    text_on_screen('You can play the stimulus again, or continue with the Proceed button.', 0.5, 0.1)
         case 'test':
             match substage:
                 case 'intro':
@@ -3619,7 +3642,11 @@ def draw():
             screen.fill(WHITE)
             wrapped_text_on_screen(
                         instructions[stage['name']],
-                        (0.5, 0.15, 0.8, 0.3)
+                        (0.5, 0.12, 0.8, 0.18)
+                    )
+            wrapped_text_on_screen(
+                        non_center_strategy_question,
+                        (0.5, 0.5, 0.75, 0.12)
                     )
         case 'outro_questionnaire':
             screen.fill(WHITE)
