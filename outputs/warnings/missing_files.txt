@@ -4,53 +4,10 @@ none
 
 stimulus
 --------
-pattern1_familiarization_aud: ./geprest/inputs/stimuli/pattern1_familiarization_aud.wav
-pattern1_practice_aud: ./geprest/inputs/stimuli/pattern1_practice_aud.wav
-pattern1_test_aud:1: ./geprest/inputs/stimuli/pattern1_test1_aud_sID329.wav
-pattern1_test_aud:2: ./geprest/inputs/stimuli/pattern1_test2_aud_sID329.wav
-pattern1_familiarization_vis: ./geprest/inputs/stimuli/pattern1_familiarization_vis.mp4
-pattern1_practice_vis: ./geprest/inputs/stimuli/pattern1_practice_vis.mp4
-pattern1_test_vis:1: ./geprest/inputs/stimuli/pattern1_test1_vis_sID329.mp4
-pattern1_test_vis:2: ./geprest/inputs/stimuli/pattern1_test2_vis_sID329.mp4
-pattern5_test_aud:1: ./geprest/inputs/stimuli/pattern5_test1_aud_sID329.wav
-pattern5_test_aud:2: ./geprest/inputs/stimuli/pattern5_test2_aud_sID329.wav
-pattern5_test_vis:1: ./geprest/inputs/stimuli/pattern5_test1_vis_sID329.mp4
-pattern5_test_vis:2: ./geprest/inputs/stimuli/pattern5_test2_vis_sID329.mp4
-pattern4_test_vis:1: ./geprest/inputs/stimuli/pattern4_test1_vis_sID329.mp4
-pattern4_test_vis:2: ./geprest/inputs/stimuli/pattern4_test2_vis_sID329.mp4
-pattern3_test_aud:1: ./geprest/inputs/stimuli/pattern3_test1_aud_sID329.wav
-pattern3_test_aud:2: ./geprest/inputs/stimuli/pattern3_test2_aud_sID329.wav
-pattern3_test_vis:1: ./geprest/inputs/stimuli/pattern3_test1_vis_sID329.mp4
-pattern3_test_vis:2: ./geprest/inputs/stimuli/pattern3_test2_vis_sID329.mp4
-pattern2_test_aud:1: ./geprest/inputs/stimuli/pattern2_test1_aud_sID329.wav
-pattern2_test_aud:2: ./geprest/inputs/stimuli/pattern2_test2_aud_sID329.wav
-pattern2_test_vis:1: ./geprest/inputs/stimuli/pattern2_test1_vis_sID329.mp4
-pattern2_test_vis:2: ./geprest/inputs/stimuli/pattern2_test2_vis_sID329.mp4
-baseline1_practice_aud: ./geprest/inputs/stimuli/baseline1_practice_aud.wav
-baseline1_test_aud:1: ./geprest/inputs/stimuli/baseline1_test1_aud_sID329.wav
-baseline1_practice_vis: ./geprest/inputs/stimuli/baseline1_practice_vis.mp4
-baseline1_test_vis:1: ./geprest/inputs/stimuli/baseline1_test1_vis_sID329.mp4
-baseline2_practice_aud: ./geprest/inputs/stimuli/baseline2_practice_aud.wav
-baseline2_test_aud:1: ./geprest/inputs/stimuli/baseline2_test1_aud_sID329.wav
-baseline2_test_aud:2: ./geprest/inputs/stimuli/baseline2_test2_aud_sID329.wav
-baseline2_test_aud:3: ./geprest/inputs/stimuli/baseline2_test3_aud_sID329.wav
+none
 
 routing
 -------
-pattern1_familiarization_aud: ./geprest/inputs/stimuli/pattern1_familiarization_aud.csv
-pattern1_practice_aud: ./geprest/inputs/stimuli/pattern1_practice_aud.csv
-pattern1_test_aud:1: ./geprest/inputs/stimuli/pattern1_test1_aud_sID329.csv
-pattern1_test_aud:2: ./geprest/inputs/stimuli/pattern1_test2_aud_sID329.csv
-pattern5_test_aud:1: ./geprest/inputs/stimuli/pattern5_test1_aud_sID329.csv
-pattern5_test_aud:2: ./geprest/inputs/stimuli/pattern5_test2_aud_sID329.csv
-pattern3_test_aud:1: ./geprest/inputs/stimuli/pattern3_test1_aud_sID329.csv
-pattern3_test_aud:2: ./geprest/inputs/stimuli/pattern3_test2_aud_sID329.csv
-pattern2_test_aud:1: ./geprest/inputs/stimuli/pattern2_test1_aud_sID329.csv
-pattern2_test_aud:2: ./geprest/inputs/stimuli/pattern2_test2_aud_sID329.csv
-baseline1_practice_aud: ./geprest/inputs/stimuli/baseline1_practice_aud.csv
-baseline1_test_aud:1: ./geprest/inputs/stimuli/baseline1_test1_aud_sID329.csv
-baseline2_practice_aud: ./geprest/inputs/stimuli/baseline2_practice_aud.csv
-baseline2_test_aud:1: ./geprest/inputs/stimuli/baseline2_test1_aud_sID329.csv
-baseline2_test_aud:2: ./geprest/inputs/stimuli/baseline2_test2_aud_sID329.csv
-baseline2_test_aud:3: ./geprest/inputs/stimuli/baseline2_test3_aud_sID329.csv
+none
 
+No missing files.
