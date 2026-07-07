@@ -1,0 +1,372 @@
+{
+  "space_presses": {
+    "pattern1_practice_aud": {
+      "repeat_0": [
+        8.8007,
+        17.2081,
+        22.0936,
+        27.4942,
+        32.9145,
+        37.6756,
+        42.974,
+        46.8152,
+        50.7397
+      ]
+    },
+    "pattern1_test_aud": {
+      "2": [],
+      "1": [
+        11.2174,
+        17.2168,
+        27.8918,
+        47.5982,
+        74.3162,
+        77.9013,
+        94.793,
+        103.5738,
+        118.0197
+      ]
+    },
+    "pattern1_practice_vis": {
+      "repeat_0": [
+        8.6247,
+        13.2672,
+        16.8863,
+        21.5414,
+        24.676,
+        29.5057,
+        32.8281,
+        36.1198,
+        39.8696,
+        44.2544,
+        47.1887,
+        50.9243,
+        54.4999
+      ]
+    },
+    "pattern1_test_vis": {
+      "2": [
+        21.7845,
+        26.6345,
+        35.2317,
+        44.1754,
+        61.5272,
+        69.2001,
+        80.3536
+      ],
+      "1": [
+        21.8661,
+        72.5472,
+        106.4786
+      ]
+    },
+    "pattern4_test_vis": {
+      "1": [
+        15.3947,
+        33.5881,
+        42.2005,
+        59.4273,
+        67.5734,
+        84.8712,
+        122.7535
+      ],
+      "2": [
+        22.1379,
+        33.8671,
+        59.5282,
+        77.331,
+        102.9127,
+        123.2773
+      ]
+    },
+    "pattern5_test_aud": {
+      "2": [
+        14.2769,
+        23.5541,
+        49.8691,
+        59.5309,
+        62.9953,
+        82.0376,
+        90.1829,
+        119.6621
+      ],
+      "1": [
+        16.5322,
+        19.9385,
+        27.3755,
+        35.2428,
+        43.3061,
+        52.2794,
+        69.986,
+        87.6636,
+        96.2734,
+        107.2273
+      ]
+    },
+    "pattern5_test_vis": {
+      "2": [
+        22.3953,
+        35.0358,
+        48.7958,
+        58.6893,
+        73.2927,
+        102.5714,
+        119.165
+      ],
+      "1": [
+        29.3594,
+        37.6769,
+        49.1559,
+        95.1051
+      ]
+    },
+    "pattern3_test_aud": {
+      "2": [
+        18.9832,
+        27.3428,
+        36.3247,
+        40.9775,
+        49.1031,
+        60.6337,
+        77.8435,
+        81.9122,
+        95.4432
+      ],
+      "1": [
+        14.616,
+        17.9723,
+        36.5084,
+        98.3896
+      ]
+    },
+    "pattern3_test_vis": {
+      "2": [
+        22.4381,
+        55.6329
+      ],
+      "1": [
+        14.4332,
+        40.8893,
+        107.5259
+      ]
+    },
+    "pattern2_test_aud": {
+      "1": [
+        1.2764,
+        20.7645,
+        43.6629,
+        60.5088,
+        86.1865,
+        108.0487
+      ],
+      "2": [
+        9.9168,
+        14.8452,
+        21.9767,
+        85.9672,
+        89.681
+      ]
+    },
+    "pattern2_test_vis": {
+      "1": [
+        20.7162,
+        57.9783,
+        105.6444
+      ],
+      "2": [
+        38.4556,
+        58.528
+      ]
+    },
+    "baseline1_practice_aud": {
+      "repeat_0": [
+        7.7368,
+        10.5057,
+        13.0925,
+        20.4113,
+        23.3308,
+        25.6612
+      ]
+    },
+    "baseline1_test_aud": {
+      "1": [
+        4.5051,
+        7.7352,
+        12.6036,
+        15.8854,
+        19.1281,
+        21.5538,
+        25.3717
+      ]
+    },
+    "baseline1_practice_vis": {
+      "repeat_0": [
+        6.9699,
+        11.21,
+        16.1848,
+        21.4312,
+        24.1581,
+        26.6726,
+        29.2037,
+        31.7787
+      ]
+    },
+    "baseline1_test_vis": {
+      "1": [
+        4.8721,
+        8.2735,
+        12.3591,
+        15.8195,
+        21.1712
+      ]
+    },
+    "baseline2_practice_aud": {
+      "repeat_0": []
+    },
+    "baseline2_test_aud": {
+      "2": [
+        14.6327,
+        18.6998,
+        25.5326,
+        33.6461,
+        53.4874,
+        69.9917,
+        91.9387
+      ],
+      "3": [
+        20.7551,
+        81.8913
+      ],
+      "1": [
+        2.2512,
+        3.9176,
+        7.0098,
+        8.8821,
+        10.4714,
+        12.3712,
+        13.526,
+        14.8219,
+        16.0493,
+        17.5012,
+        19.0901,
+        21.0223,
+        22.1588,
+        23.4731,
+        24.6679,
+        26.2104,
+        28.3218,
+        29.7078,
+        31.4808,
+        32.9065,
+        34.212,
+        35.3942,
+        36.5637,
+        37.6969,
+        38.9287,
+        40.1042,
+        41.3485,
+        42.5688,
+        43.7993,
+        45.1165,
+        46.1991,
+        47.4849,
+        48.7018,
+        49.8519,
+        51.0689,
+        52.3188,
+        53.6572,
+        55.0869,
+        56.2705,
+        57.5215,
+        58.9377,
+        60.2368,
+        61.9077,
+        63.1232,
+        64.3616,
+        65.5263,
+        66.7811,
+        68.1798,
+        69.7056,
+        71.5676,
+        72.7669,
+        74.1579,
+        75.3729,
+        76.4404,
+        77.7709,
+        78.8999,
+        80.1121,
+        81.3172,
+        82.4649,
+        83.7345,
+        84.8899,
+        86.1265,
+        87.4073,
+        88.553,
+        89.7415,
+        91.0024,
+        92.2823,
+        93.3796,
+        94.6444,
+        95.9394,
+        97.2079,
+        98.2569,
+        99.6661,
+        100.983,
+        102.3845,
+        104.3157,
+        105.5502,
+        106.7182,
+        107.9493,
+        109.2047,
+        110.6776,
+        112.7008,
+        114.0148,
+        115.5366,
+        117.678,
+        118.9348,
+        120.4783,
+        122.5771,
+        124.4419
+      ]
+    }
+  },
+  "repeat_num": {
+    "pattern1_familiarization_aud": 0,
+    "pattern1_practice_aud": 0,
+    "pattern1_familiarization_vis": 0,
+    "pattern1_practice_vis": 0,
+    "baseline1_practice_aud": 0,
+    "baseline1_practice_vis": 0,
+    "baseline2_practice_aud": 0
+  },
+  "gender": "male",
+  "age": "22",
+  "likert_pattern1_test_aud": "4",
+  "non_center_strategy_pattern1_test_aud": "",
+  "likert_pattern1_test_vis": "3",
+  "non_center_strategy_pattern1_test_vis": "",
+  "likert_pattern4_test_vis": "4",
+  "non_center_strategy_pattern4_test_vis": "",
+  "likert_pattern5_test_aud": "3",
+  "non_center_strategy_pattern5_test_aud": "I just look below the computer screen.",
+  "likert_pattern5_test_vis": "4",
+  "non_center_strategy_pattern5_test_vis": "",
+  "likert_pattern3_test_aud": "4",
+  "non_center_strategy_pattern3_test_aud": "I look below the computer screen.",
+  "likert_pattern3_test_vis": "5",
+  "non_center_strategy_pattern3_test_vis": "",
+  "likert_pattern2_test_aud": "3",
+  "non_center_strategy_pattern2_test_aud": "",
+  "likert_pattern2_test_vis": "4",
+  "non_center_strategy_pattern2_test_vis": "",
+  "likert_baseline1_test_aud": "1",
+  "non_center_strategy_baseline1_test_aud": "",
+  "likert_baseline1_test_vis": "1",
+  "non_center_strategy_baseline1_test_vis": "",
+  "likert_baseline2_test_aud": "4",
+  "non_center_strategy_baseline2_test_aud": "",
+  "instructions_clear": "yes",
+  "auditory_patterns_notice": "Yes all of the auditory tests have repeating patterns.",
+  "visual_patterns_notice": "Yes, but not in every tests just in few.",
+  "strategy": "In the auditory tests I look below the computer screen. In the visual tests I look to the centre of the screen."
+}
