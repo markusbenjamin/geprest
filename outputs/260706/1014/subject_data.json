@@ -1,0 +1,417 @@
+{
+  "space_presses": {
+    "pattern1_practice_aud": {
+      "repeat_0": [
+        2.1982,
+        4.1458,
+        6.7463,
+        7.9863,
+        10.3869,
+        12.6525,
+        14.1237,
+        18.9417,
+        22.3744,
+        27.6447,
+        29.1574,
+        33.1119,
+        35.277,
+        36.8778,
+        40.2626,
+        47.218,
+        49.286
+      ]
+    },
+    "pattern1_test_aud": {
+      "2": [
+        20.8425,
+        29.5717,
+        75.1592,
+        95.2131
+      ],
+      "1": [
+        14.8073,
+        62.8853,
+        76.6188,
+        87.6425
+      ]
+    },
+    "pattern1_practice_vis": {
+      "repeat_0": [
+        7.8253,
+        10.7896,
+        13.5423,
+        16.7272,
+        18.4592,
+        21.7551,
+        24.4301,
+        27.1036,
+        30.6767,
+        38.9185,
+        42.125,
+        44.6054,
+        46.973
+      ]
+    },
+    "pattern1_test_vis": {
+      "1": [
+        35.324,
+        44.7448,
+        73.4686,
+        105.3882
+      ],
+      "2": [
+        48.5918,
+        54.6102
+      ]
+    },
+    "pattern5_test_aud": {
+      "2": [
+        16.1763,
+        19.1383,
+        26.8398,
+        30.9328,
+        37.396,
+        46.2915,
+        55.2901,
+        63.3283,
+        71.63,
+        74.8438,
+        78.5925,
+        84.2386,
+        95.9883,
+        104.7368,
+        123.1239
+      ],
+      "1": [
+        14.517,
+        18.6444,
+        38.7996,
+        44.0409,
+        49.6266,
+        59.5057,
+        67.9642,
+        98.8469,
+        106.9991,
+        120.2175
+      ]
+    },
+    "pattern5_test_vis": {
+      "2": [
+        18.1505,
+        71.3369,
+        101.957,
+        124.9136
+      ],
+      "1": [
+        17.0375,
+        18.1048,
+        23.4694,
+        26.2374,
+        32.9004,
+        37.847,
+        40.2024,
+        45.5832,
+        50.7128,
+        106.0474,
+        114.3483,
+        116.9634
+      ]
+    },
+    "pattern4_test_vis": {
+      "1": [
+        4.788,
+        22.0081,
+        35.3154,
+        36.7619,
+        41.0498,
+        62.7034,
+        67.9294,
+        85.0989,
+        103.7633
+      ],
+      "2": [
+        22.26,
+        29.5234,
+        33.2608,
+        69.5435,
+        109.73
+      ]
+    },
+    "pattern3_test_aud": {
+      "2": [
+        16.2783,
+        19.4503,
+        22.9093,
+        27.0264,
+        35.2345,
+        43.3479,
+        52.1495,
+        69.617,
+        83.4722,
+        96.309,
+        108.0991,
+        111.3229
+      ],
+      "1": [
+        19.403,
+        27.722,
+        60.3657,
+        67.3491,
+        74.9838,
+        90.5416,
+        121.6523
+      ]
+    },
+    "pattern3_test_vis": {
+      "1": [
+        78.9214,
+        85.7746,
+        106.3318
+      ],
+      "2": [
+        35.967
+      ]
+    },
+    "pattern2_test_aud": {
+      "2": [
+        15.1835,
+        18.123,
+        26.174,
+        36.8139,
+        97.9931,
+        107.2018
+      ],
+      "1": [
+        89.9637,
+        99.347,
+        108.1976
+      ]
+    },
+    "pattern2_test_vis": {
+      "2": [
+        51.7532,
+        74.5823,
+        92.7104
+      ],
+      "1": [
+        25.359,
+        119.132
+      ]
+    },
+    "baseline1_practice_aud": {
+      "repeat_0": [
+        7.8398,
+        12.8984,
+        20.3577,
+        25.6089
+      ]
+    },
+    "baseline1_test_aud": {
+      "1": [
+        4.2305,
+        9.153,
+        13.3326,
+        17.2069
+      ]
+    },
+    "baseline1_practice_vis": {
+      "repeat_0": [
+        7.2385,
+        21.5656
+      ]
+    },
+    "baseline1_test_vis": {
+      "1": [
+        12.1523,
+        16.2776,
+        21.2592,
+        26.2754,
+        27.3842
+      ]
+    },
+    "baseline2_practice_aud": {
+      "repeat_0": [
+        7.3814,
+        12.2052,
+        14.5558,
+        17.3371,
+        20.1102,
+        25.4253,
+        29.7527
+      ]
+    },
+    "baseline2_test_aud": {
+      "3": [
+        3.1752,
+        6.3239,
+        9.3875,
+        12.2774,
+        15.5284,
+        18.1794,
+        21.0454,
+        23.4774,
+        25.845,
+        27.7935,
+        30.1556,
+        35.4206,
+        38.1207,
+        40.6467,
+        45.0206,
+        48.2691,
+        53.0529,
+        56.2075,
+        58.8275,
+        61.0131,
+        63.8045,
+        66.2072,
+        68.5976,
+        71.5425,
+        76.4653,
+        78.7463,
+        81.8723,
+        91.054,
+        95.7077,
+        103.5598,
+        112.1469,
+        116.6077,
+        122.0092,
+        127.4082,
+        129.7665,
+        133.7867,
+        136.8435,
+        139.3892,
+        141.7897
+      ],
+      "1": [
+        3.1656,
+        5.7143,
+        9.0182,
+        24.9317,
+        31.7244,
+        34.8353,
+        37.432,
+        40.6485,
+        48.7535,
+        50.9753,
+        53.6846,
+        56.2785,
+        58.9043,
+        64.9079,
+        70.9459,
+        74.1622,
+        79.4478,
+        82.2011,
+        84.5665,
+        87.348,
+        90.1984,
+        92.9254,
+        98.6571,
+        101.0618,
+        103.7467,
+        106.2389,
+        108.9186,
+        110.9562,
+        115.8805,
+        119.0434,
+        123.4097,
+        128.2257,
+        134.1369,
+        136.4727,
+        141.0075,
+        146.2293,
+        151.7936,
+        154.8809,
+        167.5407,
+        168.9217,
+        171.5136
+      ],
+      "2": [
+        5.7888,
+        7.8942,
+        12.8091,
+        14.9402,
+        17.2908,
+        19.7261,
+        22.8781,
+        29.5088,
+        32.6155,
+        35.6308,
+        37.8034,
+        42.9301,
+        45.7507,
+        48.9325,
+        51.4387,
+        53.7731,
+        56.8891,
+        60.0878,
+        62.9403,
+        65.2773,
+        65.4656,
+        70.3826,
+        70.6137,
+        73.2053,
+        74.9403,
+        79.7575,
+        82.7672,
+        85.2028,
+        87.9125,
+        92.6633,
+        95.4386,
+        98.5553,
+        102.5935,
+        104.5842,
+        107.4367,
+        110.8692,
+        114.5495,
+        117.8658,
+        120.1382,
+        123.3545,
+        128.4272,
+        130.854,
+        133.4868,
+        136.385,
+        139.7977,
+        142.1702
+      ]
+    }
+  },
+  "repeat_num": {
+    "pattern1_familiarization_aud": 0,
+    "pattern1_practice_aud": 0,
+    "pattern1_familiarization_vis": 0,
+    "pattern1_practice_vis": 0,
+    "baseline1_practice_aud": 0,
+    "baseline1_practice_vis": 0,
+    "baseline2_practice_aud": 0
+  },
+  "gender": "male",
+  "age": "19",
+  "likert_pattern1_test_aud": "4",
+  "non_center_strategy_pattern1_test_aud": "i tried to somehow cover my eyes a little, so I can focus better on the autiditve sences maybe",
+  "likert_pattern1_test_vis": "3",
+  "non_center_strategy_pattern1_test_vis": "I tried to lean back in the chair ",
+  "likert_pattern5_test_aud": "4",
+  "non_center_strategy_pattern5_test_aud": "",
+  "likert_pattern5_test_vis": "5",
+  "non_center_strategy_pattern5_test_vis": "",
+  "likert_pattern4_test_vis": "5",
+  "non_center_strategy_pattern4_test_vis": "",
+  "likert_pattern3_test_aud": "4",
+  "non_center_strategy_pattern3_test_aud": "",
+  "likert_pattern3_test_vis": "3",
+  "non_center_strategy_pattern3_test_vis": "",
+  "likert_pattern2_test_aud": "2",
+  "non_center_strategy_pattern2_test_aud": "",
+  "likert_pattern2_test_vis": "5",
+  "non_center_strategy_pattern2_test_vis": "",
+  "likert_baseline1_test_aud": "2",
+  "non_center_strategy_baseline1_test_aud": "",
+  "likert_baseline1_test_vis": "1",
+  "non_center_strategy_baseline1_test_vis": "",
+  "likert_baseline2_test_aud": "1",
+  "non_center_strategy_baseline2_test_aud": "",
+  "instructions_clear": "yes",
+  "auditory_patterns_notice": "sometimes only",
+  "visual_patterns_notice": "maybe there were more pattern in the middle",
+  "strategy": "During the auditive parts I tried to cov er or close my eyes so I can focuse more on my auditive sences. In the visual parts I tride to move te chair a bit back so I can focus on the edges of the computer better a little"
+}
