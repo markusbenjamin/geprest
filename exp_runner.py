@@ -24,6 +24,23 @@ exp_root = "./geprest/"
 
 zoom = 1
 exp_settings_and_data['zoom'] = zoom
+
+# Displayed visual-stimulus video area scale.
+# 1 keeps the original video pixel size. Any other positive value resizes the
+# video while preserving aspect ratio. Example: 0.5 means half area, i.e.
+# width and height are multiplied by sqrt(0.5).
+visual_video_area_scale = 0.5
+if visual_video_area_scale <= 0:
+    raise ValueError("visual_video_area_scale must be positive; use 1 for original size")
+
+visual_video_linear_scale = (
+    1
+    if visual_video_area_scale == 1
+    else visual_video_area_scale ** 0.5
+)
+exp_settings_and_data['visual_video_area_scale'] = visual_video_area_scale
+exp_settings_and_data['visual_video_linear_scale'] = visual_video_linear_scale
+
 font_size = int(22 * zoom)
 
 ui_font = pygame.font.SysFont("bahnschrift", int(font_size * zoom), bold = False)
@@ -915,6 +932,7 @@ def video_start_buffered(
     *,
     rrect=None,
     pos=(0.5, 0.5),
+    size_scale=1,
     keep_aspect=True,
     loop=False
 ):
@@ -961,7 +979,10 @@ def video_start_buffered(
         cx, cy = int(rcx * sw), int(rcy * sh)
     else:
         rcx, rcy = pos
-        dw, dh = vw, vh
+        scale = float(size_scale)
+        if scale <= 0:
+            raise ValueError("video size_scale must be positive")
+        dw, dh = max(1, int(round(vw * scale))), max(1, int(round(vh * scale)))
         cx, cy = int(rcx * sw), int(rcy * sh)
 
     dest = pygame.Rect(0, 0, dw, dh)
@@ -1063,6 +1084,7 @@ def video_start(
     *,
     rrect=None,                    # (rcx, rcy, rw, rh) – relative center + relative size
     pos=(0.5, 0.5),               # (rcx, rcy) – relative center, original video size
+    size_scale=1,                 # scale original video width/height when rrect is not given
     keep_aspect=True,
     loop=False,
     rescale_precompute=False
@@ -1102,7 +1124,10 @@ def video_start(
 
     else:
         rcx, rcy = pos
-        dw, dh = vw, vh
+        scale = float(size_scale)
+        if scale <= 0:
+            raise ValueError("video size_scale must be positive")
+        dw, dh = max(1, int(round(vw * scale))), max(1, int(round(vh * scale)))
         cx, cy = int(rcx * sw), int(rcy * sh)
 
     dest = pygame.Rect(0, 0, dw, dh)
@@ -1130,19 +1155,26 @@ def video_start(
     }
     return vid["duration"]
 
+def _visual_video_size_scale():
+    return visual_video_linear_scale
+
 def play_visual_stimulus(vid, pos=None, rrect=None):
+    size_scale = 1 if rrect is not None else _visual_video_size_scale()
+
     if preload_video:
         video_start(
             vid,
             pos=pos if pos is not None else (0.5, 0.5),
             rrect=rrect,
+            size_scale=size_scale,
             rescale_precompute=True
         )
     else:
         video_start_buffered(
             vid,
             pos=pos if pos is not None else (0.5, 0.5),
-            rrect=rrect
+            rrect=rrect,
+            size_scale=size_scale
         )
         
 def _video_prepare_surf(surf):
