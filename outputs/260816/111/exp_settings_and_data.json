@@ -15,7 +15,7 @@
   ],
   "randomize_pattern_test_condition_orderings": true,
   "randomize_baseline_test_condition_orderings": true,
-  "stimulus_id": "330",
+  "stimulus_id": "331",
   "modality_order": [
     "vis",
     "aud"
@@ -58,8 +58,8 @@
         "phase": "pattern1"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
       "name": "pattern1_test_vis"
     },
@@ -90,8 +90,8 @@
         "phase": "pattern1"
       },
       "conditions": [
-        "1",
-        "2"
+        "2",
+        "1"
       ],
       "name": "pattern1_test_aud"
     },
@@ -122,8 +122,8 @@
         "phase": "pattern2"
       },
       "conditions": [
-        "1",
-        "2"
+        "2",
+        "1"
       ],
       "name": "pattern2_test_aud"
     },
@@ -186,8 +186,8 @@
         "phase": "pattern3"
       },
       "conditions": [
-        "1",
-        "2"
+        "2",
+        "1"
       ],
       "name": "pattern3_test_aud"
     },
@@ -272,9 +272,9 @@
         "phase": "baseline2"
       },
       "conditions": [
-        "2",
+        "3",
         "1",
-        "3"
+        "2"
       ],
       "name": "baseline2_test_aud"
     },
@@ -341,14 +341,13 @@
     "pattern5_test_aud": {
       "1": [
         1,
-        2,
         3,
         4,
         5,
-        6,
         7,
         8,
         9,
+        10,
         11,
         12,
         13,
@@ -382,13 +381,10 @@
         43,
         44,
         45,
-        46,
         47,
         48,
         49,
-        50,
         51,
-        52,
         53,
         55
       ],
@@ -397,7 +393,7 @@
         2,
         3,
         4,
-        5,
+        6,
         7,
         8,
         9,
@@ -440,7 +436,6 @@
         48,
         49,
         50,
-        51,
         52,
         53,
         55
