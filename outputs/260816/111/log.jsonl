@@ -1,198 +1,298 @@
 {"time": 0.0, "msg": "Start."}
-{"time": 0.0466, "msg": "Set up welcome stage."}
-{"time": 16.5365, "event": "Proceed clicked."}
-{"time": 16.5924, "msg": "Shut down welcome stage."}
-{"time": 16.6368, "event": "Consented.", "answer": "I consent to participate in the experiment"}
-{"time": 16.6825, "msg": "Set up screener stage."}
-{"time": 26.9405, "event": "Proceed clicked."}
-{"time": 26.9968, "msg": "Shut down screener stage."}
-{"time": 27.0415, "event": "Screened.", "answer": "I confirm that none of the above listed items applies to me."}
-{"time": 27.0863, "msg": "Set up intro_questionnaire stage."}
-{"time": 32.1937, "event": "Proceed clicked."}
-{"time": 32.238, "msg": "Shut down intro_questionnaire stage."}
-{"time": 32.2826, "event": "Gender submitted.", "answer": "female"}
-{"time": 32.3262, "event": "Age submitted.", "answer": "111"}
-{"time": 32.3696, "msg": "Set up pattern1_familiarization_vis stage."}
-{"time": 37.1638, "event": "Start clicked for pattern1_familiarization_vis."}
-{"time": 37.3564, "msg": "Start stimulus for pattern1_familiarization_vis."}
-{"time": 39.455, "msg": "Q pressed in stage pattern1_familiarization_vis."}
-{"time": 40.1003, "msg": "Finished stimulus for pattern1_familiarization_vis."}
-{"time": 42.9226, "event": "Proceed clicked."}
-{"time": 42.9675, "msg": "Shut down pattern1_familiarization_vis stage."}
-{"time": 43.0119, "msg": "Set up pattern1_practice_vis stage."}
-{"time": 57.5844, "event": "Start clicked for pattern1_practice_vis."}
-{"time": 57.7799, "msg": "Start stimulus for pattern1_practice_vis, repeat 0."}
-{"time": 68.9443, "msg": "Q pressed in stage pattern1_practice_vis."}
-{"time": 69.0344, "msg": "Finished stimulus for pattern1_practice_vis."}
-{"time": 84.2296, "event": "Proceed clicked."}
-{"time": 84.2863, "msg": "Shut down pattern1_practice_vis stage."}
-{"time": 84.3304, "msg": "Set up pattern1_test_vis stage."}
-{"time": 90.0761, "event": "Start clicked for pattern1_test_vis."}
-{"time": 90.2615, "msg": "Start stimulus for pattern1_test_vis in condition 1."}
-{"time": 218.264, "msg": "Finished stimulus for pattern1_test_vis."}
-{"time": 227.0309, "event": "Next clicked for pattern1_test_vis."}
-{"time": 227.0764, "msg": "Test condition changed to 2 in pattern1_test_vis."}
-{"time": 227.121, "msg": "Set up pattern1_test_vis stage."}
-{"time": 228.9343, "event": "Start clicked for pattern1_test_vis."}
-{"time": 229.1281, "msg": "Start stimulus for pattern1_test_vis in condition 2."}
-{"time": 304.1935, "msg": "Q pressed in stage pattern1_test_vis."}
-{"time": 304.2983, "msg": "Finished stimulus for pattern1_test_vis."}
-{"time": 305.8998, "event": "Proceed clicked."}
-{"time": 305.9453, "msg": "Shut down pattern1_test_vis stage."}
-{"time": 305.9902, "msg": "Set up test_questionnaire stage."}
-{"time": 312.4382, "event": "Proceed clicked."}
-{"time": 312.4837, "msg": "Shut down test_questionnaire stage."}
-{"time": 312.5285, "event": "Likert submitted for pattern1_test_vis.", "answer": "5"}
-{"time": 312.5729, "event": "Non-center strategy submitted for pattern1_test_vis.", "answer": ""}
-{"time": 312.6174, "msg": "Set up pattern1_familiarization_aud stage."}
-{"time": 315.1332, "event": "Start clicked for pattern1_familiarization_aud."}
-{"time": 315.3256, "msg": "Start stimulus for pattern1_familiarization_aud."}
-{"time": 322.1395, "msg": "Q pressed in stage pattern1_familiarization_aud."}
-{"time": 322.7141, "msg": "Finished stimulus for pattern1_familiarization_aud."}
-{"time": 323.5519, "event": "Proceed clicked."}
-{"time": 323.597, "msg": "Shut down pattern1_familiarization_aud stage."}
-{"time": 323.6417, "msg": "Set up pattern1_practice_aud stage."}
-{"time": 326.8148, "event": "Start clicked for pattern1_practice_aud."}
-{"time": 326.9837, "msg": "Start stimulus for pattern1_practice_aud, repeat 0."}
-{"time": 334.859, "msg": "Q pressed in stage pattern1_practice_aud."}
-{"time": 335.4896, "msg": "Finished stimulus for pattern1_practice_aud."}
-{"time": 336.3428, "event": "Proceed clicked."}
-{"time": 336.3878, "msg": "Shut down pattern1_practice_aud stage."}
-{"time": 336.4325, "msg": "Set up pattern1_test_aud stage."}
-{"time": 337.8824, "event": "Start clicked for pattern1_test_aud."}
-{"time": 338.0436, "msg": "Start stimulus for pattern1_test_aud in condition 2."}
-{"time": 358.3355, "msg": "Q pressed in stage pattern1_test_aud."}
-{"time": 358.9024, "msg": "Finished stimulus for pattern1_test_aud."}
-{"time": 359.6403, "event": "Next clicked for pattern1_test_aud."}
-{"time": 359.6857, "msg": "Test condition changed to 1 in pattern1_test_aud."}
-{"time": 359.7303, "msg": "Set up pattern1_test_aud stage."}
-{"time": 361.2131, "event": "Start clicked for pattern1_test_aud."}
-{"time": 361.3847, "msg": "Start stimulus for pattern1_test_aud in condition 1."}
-{"time": 376.3655, "msg": "Q pressed in stage pattern1_test_aud."}
-{"time": 376.9494, "msg": "Finished stimulus for pattern1_test_aud."}
-{"time": 377.5477, "event": "Proceed clicked."}
-{"time": 377.5927, "msg": "Shut down pattern1_test_aud stage."}
-{"time": 377.6374, "msg": "Set up test_questionnaire stage."}
-{"time": 381.4931, "event": "Proceed clicked."}
-{"time": 381.5384, "msg": "Shut down test_questionnaire stage."}
-{"time": 381.5833, "event": "Likert submitted for pattern1_test_aud.", "answer": "3"}
-{"time": 381.6279, "event": "Non-center strategy submitted for pattern1_test_aud.", "answer": ""}
-{"time": 381.6717, "msg": "Set up pattern2_test_vis stage."}
-{"time": 406.7326, "event": "Start clicked for pattern2_test_vis."}
-{"time": 406.9288, "msg": "Start stimulus for pattern2_test_vis in condition 1."}
-{"time": 430.8099, "msg": "Q pressed in stage pattern2_test_vis."}
-{"time": 430.8962, "msg": "Finished stimulus for pattern2_test_vis."}
-{"time": 432.0354, "event": "Next clicked for pattern2_test_vis."}
-{"time": 432.0788, "msg": "Test condition changed to 2 in pattern2_test_vis."}
-{"time": 432.1226, "msg": "Set up pattern2_test_vis stage."}
-{"time": 433.3506, "event": "Start clicked for pattern2_test_vis."}
-{"time": 433.5521, "msg": "Start stimulus for pattern2_test_vis in condition 2."}
-{"time": 468.87, "msg": "Q pressed in stage pattern2_test_vis."}
-{"time": 468.9549, "msg": "Finished stimulus for pattern2_test_vis."}
-{"time": 471.2458, "event": "Proceed clicked."}
-{"time": 471.291, "msg": "Shut down pattern2_test_vis stage."}
-{"time": 471.3356, "msg": "Set up test_questionnaire stage."}
-{"time": 474.7531, "event": "Proceed clicked."}
-{"time": 474.7974, "msg": "Shut down test_questionnaire stage."}
-{"time": 474.8422, "event": "Likert submitted for pattern2_test_vis.", "answer": "5"}
-{"time": 474.8867, "event": "Non-center strategy submitted for pattern2_test_vis.", "answer": ""}
-{"time": 474.9311, "msg": "Set up pattern2_test_aud stage."}
-{"time": 476.4964, "event": "Start clicked for pattern2_test_aud."}
-{"time": 476.7155, "msg": "Start stimulus for pattern2_test_aud in condition 2."}
-{"time": 491.114, "msg": "Q pressed in stage pattern2_test_aud."}
-{"time": 491.722, "msg": "Finished stimulus for pattern2_test_aud."}
-{"time": 494.9327, "event": "Next clicked for pattern2_test_aud."}
-{"time": 494.9782, "msg": "Test condition changed to 1 in pattern2_test_aud."}
-{"time": 495.0226, "msg": "Set up pattern2_test_aud stage."}
-{"time": 514.8681, "event": "Start clicked for pattern2_test_aud."}
-{"time": 515.0858, "msg": "Start stimulus for pattern2_test_aud in condition 1."}
-{"time": 531.4508, "msg": "Q pressed in stage pattern2_test_aud."}
-{"time": 532.0429, "msg": "Finished stimulus for pattern2_test_aud."}
-{"time": 532.9303, "event": "Proceed clicked."}
-{"time": 532.9752, "msg": "Shut down pattern2_test_aud stage."}
-{"time": 533.0198, "msg": "Set up test_questionnaire stage."}
-{"time": 537.2279, "event": "Proceed clicked."}
-{"time": 537.2721, "msg": "Shut down test_questionnaire stage."}
-{"time": 537.3168, "event": "Likert submitted for pattern2_test_aud.", "answer": "3"}
-{"time": 537.361, "event": "Non-center strategy submitted for pattern2_test_aud.", "answer": ""}
-{"time": 537.4046, "msg": "Set up pattern5_test_vis stage."}
-{"time": 541.3946, "event": "Start clicked for pattern5_test_vis."}
-{"time": 541.5958, "msg": "Start stimulus for pattern5_test_vis in condition 2."}
-{"time": 588.2117, "msg": "Q pressed in stage pattern5_test_vis."}
-{"time": 588.3056, "msg": "Finished stimulus for pattern5_test_vis."}
-{"time": 594.1581, "event": "Next clicked for pattern5_test_vis."}
-{"time": 594.2035, "msg": "Test condition changed to 1 in pattern5_test_vis."}
-{"time": 594.2479, "msg": "Set up pattern5_test_vis stage."}
-{"time": 599.3918, "event": "Start clicked for pattern5_test_vis."}
-{"time": 599.5761, "msg": "Start stimulus for pattern5_test_vis in condition 1."}
-{"time": 629.4512, "msg": "Q pressed in stage pattern5_test_vis."}
-{"time": 629.5358, "msg": "Finished stimulus for pattern5_test_vis."}
-{"time": 630.3068, "event": "Proceed clicked."}
-{"time": 630.3521, "msg": "Shut down pattern5_test_vis stage."}
-{"time": 630.3969, "msg": "Set up test_questionnaire stage."}
-{"time": 634.3735, "event": "Proceed clicked."}
-{"time": 634.4174, "msg": "Shut down test_questionnaire stage."}
-{"time": 634.4617, "event": "Likert submitted for pattern5_test_vis.", "answer": "4"}
-{"time": 634.5061, "event": "Non-center strategy submitted for pattern5_test_vis.", "answer": ""}
-{"time": 634.5497, "msg": "Set up pattern5_test_aud stage."}
-{"time": 649.9093, "event": "Start clicked for pattern5_test_aud."}
-{"time": 650.3499, "msg": "Start stimulus for pattern5_test_aud in condition 1."}
-{"time": 673.7451, "msg": "Q pressed in stage pattern5_test_aud."}
-{"time": 674.5453, "msg": "Finished stimulus for pattern5_test_aud."}
-{"time": 675.1604, "event": "Next clicked for pattern5_test_aud."}
-{"time": 675.2056, "msg": "Test condition changed to 2 in pattern5_test_aud."}
-{"time": 675.2504, "msg": "Set up pattern5_test_aud stage."}
-{"time": 676.9396, "event": "Start clicked for pattern5_test_aud."}
-{"time": 677.381, "msg": "Start stimulus for pattern5_test_aud in condition 2."}
-{"time": 679.6432, "msg": "Q pressed in stage pattern5_test_aud."}
-{"time": 680.4, "msg": "Finished stimulus for pattern5_test_aud."}
-{"time": 681.093, "event": "Proceed clicked."}
-{"time": 681.1379, "msg": "Shut down pattern5_test_aud stage."}
-{"time": 681.1825, "msg": "Set up test_questionnaire stage."}
-{"time": 684.0096, "event": "Proceed clicked."}
-{"time": 684.0583, "msg": "Shut down test_questionnaire stage."}
-{"time": 684.103, "event": "Likert submitted for pattern5_test_aud.", "answer": "2"}
-{"time": 684.1472, "event": "Non-center strategy submitted for pattern5_test_aud.", "answer": ""}
-{"time": 684.1905, "msg": "Set up pattern3_test_vis stage."}
-{"time": 685.7152, "event": "Start clicked for pattern3_test_vis."}
-{"time": 685.914, "msg": "Start stimulus for pattern3_test_vis in condition 2."}
-{"time": 740.2535, "msg": "Q pressed in stage pattern3_test_vis."}
-{"time": 740.3425, "msg": "Finished stimulus for pattern3_test_vis."}
-{"time": 741.3269, "event": "Next clicked for pattern3_test_vis."}
-{"time": 741.3717, "msg": "Test condition changed to 1 in pattern3_test_vis."}
-{"time": 741.4164, "msg": "Set up pattern3_test_vis stage."}
-{"time": 742.8037, "event": "Start clicked for pattern3_test_vis."}
-{"time": 742.9895, "msg": "Start stimulus for pattern3_test_vis in condition 1."}
-{"time": 774.3848, "msg": "Q pressed in stage pattern3_test_vis."}
-{"time": 774.4784, "msg": "Finished stimulus for pattern3_test_vis."}
-{"time": 775.2187, "event": "Proceed clicked."}
-{"time": 775.2639, "msg": "Shut down pattern3_test_vis stage."}
-{"time": 775.3085, "msg": "Set up test_questionnaire stage."}
-{"time": 786.5659, "event": "Proceed clicked."}
-{"time": 786.6233, "msg": "Shut down test_questionnaire stage."}
-{"time": 786.668, "event": "Likert submitted for pattern3_test_vis.", "answer": "5"}
-{"time": 786.7128, "event": "Non-center strategy submitted for pattern3_test_vis.", "answer": ""}
-{"time": 786.7572, "msg": "Set up pattern3_test_aud stage."}
-{"time": 811.6581, "event": "Start clicked for pattern3_test_aud."}
-{"time": 811.8185, "msg": "Start stimulus for pattern3_test_aud in condition 2."}
-{"time": 851.7922, "msg": "Q pressed in stage pattern3_test_aud."}
-{"time": 852.3678, "msg": "Finished stimulus for pattern3_test_aud."}
-{"time": 853.3649, "event": "Next clicked for pattern3_test_aud."}
-{"time": 853.4101, "msg": "Test condition changed to 1 in pattern3_test_aud."}
-{"time": 853.4554, "msg": "Set up pattern3_test_aud stage."}
-{"time": 855.8953, "event": "Start clicked for pattern3_test_aud."}
-{"time": 856.0763, "msg": "Start stimulus for pattern3_test_aud in condition 1."}
-{"time": 887.8174, "msg": "Q pressed in stage pattern3_test_aud."}
-{"time": 888.4521, "msg": "Finished stimulus for pattern3_test_aud."}
-{"time": 888.9828, "event": "Proceed clicked."}
-{"time": 889.0279, "msg": "Shut down pattern3_test_aud stage."}
-{"time": 889.0726, "msg": "Set up test_questionnaire stage."}
-{"time": 891.5721, "event": "Proceed clicked."}
-{"time": 891.6162, "msg": "Shut down test_questionnaire stage."}
-{"time": 891.661, "event": "Likert submitted for pattern3_test_aud.", "answer": "3"}
-{"time": 891.7052, "event": "Non-center strategy submitted for pattern3_test_aud.", "answer": ""}
-{"time": 891.7487, "msg": "Set up pattern4_test_vis stage."}
-{"time": 917.6544, "event": "Start clicked for pattern4_test_vis."}
-{"time": 917.8634, "msg": "Start stimulus for pattern4_test_vis in condition 1."}
-{"time": 967.0657, "msg": "Data successfully exported."}
-{"time": 967.1165, "msg": "User interrupt."}
+{"time": 0.065, "msg": "Set up welcome stage."}
+{"time": 23.5655, "event": "Proceed clicked."}
+{"time": 23.6226, "msg": "Shut down welcome stage."}
+{"time": 23.6669, "event": "Consented.", "answer": "I consent to participate in the experiment"}
+{"time": 23.7111, "msg": "Set up screener stage."}
+{"time": 34.0894, "event": "Proceed clicked."}
+{"time": 34.1472, "msg": "Shut down screener stage."}
+{"time": 34.1921, "event": "Screened.", "answer": "I confirm that none of the above listed items applies to me."}
+{"time": 34.2368, "msg": "Set up intro_questionnaire stage."}
+{"time": 39.5711, "event": "Proceed clicked."}
+{"time": 39.6149, "msg": "Shut down intro_questionnaire stage."}
+{"time": 39.6597, "event": "Gender submitted.", "answer": "female"}
+{"time": 39.7044, "event": "Age submitted.", "answer": "100"}
+{"time": 39.748, "msg": "Set up pattern1_familiarization_vis stage."}
+{"time": 41.1941, "event": "Start clicked for pattern1_familiarization_vis."}
+{"time": 41.3787, "msg": "Start stimulus for pattern1_familiarization_vis."}
+{"time": 44.1226, "msg": "Q pressed in stage pattern1_familiarization_vis."}
+{"time": 44.7677, "msg": "Finished stimulus for pattern1_familiarization_vis."}
+{"time": 45.5315, "event": "Repeat clicked for pattern1_familiarization_vis."}
+{"time": 45.6701, "msg": "Start stimulus for pattern1_familiarization_vis."}
+{"time": 46.426, "msg": "Q pressed in stage pattern1_familiarization_vis."}
+{"time": 46.5116, "msg": "Finished stimulus for pattern1_familiarization_vis."}
+{"time": 47.0915, "event": "Proceed clicked."}
+{"time": 47.1369, "msg": "Shut down pattern1_familiarization_vis stage."}
+{"time": 47.1817, "msg": "Set up pattern1_practice_vis stage."}
+{"time": 48.2622, "event": "Start clicked for pattern1_practice_vis."}
+{"time": 48.4376, "msg": "Start stimulus for pattern1_practice_vis, repeat 0."}
+{"time": 49.936, "msg": "Q pressed in stage pattern1_practice_vis."}
+{"time": 50.0209, "msg": "Finished stimulus for pattern1_practice_vis."}
+{"time": 50.8895, "event": "Proceed clicked."}
+{"time": 50.9346, "msg": "Shut down pattern1_practice_vis stage."}
+{"time": 50.979, "msg": "Set up pattern1_test_vis stage."}
+{"time": 52.9334, "event": "Start clicked for pattern1_test_vis."}
+{"time": 53.1149, "msg": "Start stimulus for pattern1_test_vis in condition 2."}
+{"time": 63.7039, "msg": "Q pressed in stage pattern1_test_vis."}
+{"time": 63.789, "msg": "Finished stimulus for pattern1_test_vis."}
+{"time": 65.4735, "event": "Next clicked for pattern1_test_vis."}
+{"time": 65.5191, "msg": "Test condition changed to 1 in pattern1_test_vis."}
+{"time": 65.5639, "msg": "Set up pattern1_test_vis stage."}
+{"time": 68.1208, "event": "Start clicked for pattern1_test_vis."}
+{"time": 68.3006, "msg": "Start stimulus for pattern1_test_vis in condition 1."}
+{"time": 75.5917, "msg": "Q pressed in stage pattern1_test_vis."}
+{"time": 75.6856, "msg": "Finished stimulus for pattern1_test_vis."}
+{"time": 76.6998, "event": "Proceed clicked."}
+{"time": 76.754, "msg": "Shut down pattern1_test_vis stage."}
+{"time": 76.7986, "msg": "Set up test_questionnaire stage."}
+{"time": 79.3025, "event": "Proceed clicked."}
+{"time": 79.3468, "msg": "Shut down test_questionnaire stage."}
+{"time": 79.3915, "event": "Likert submitted for pattern1_test_vis.", "answer": "5"}
+{"time": 79.4363, "event": "Non-center strategy submitted for pattern1_test_vis.", "answer": ""}
+{"time": 79.4797, "msg": "Set up pattern1_familiarization_aud stage."}
+{"time": 80.5853, "event": "Start clicked for pattern1_familiarization_aud."}
+{"time": 80.7925, "msg": "Start stimulus for pattern1_familiarization_aud."}
+{"time": 82.208, "msg": "Q pressed in stage pattern1_familiarization_aud."}
+{"time": 82.7962, "msg": "Finished stimulus for pattern1_familiarization_aud."}
+{"time": 83.4936, "event": "Proceed clicked."}
+{"time": 83.5391, "msg": "Shut down pattern1_familiarization_aud stage."}
+{"time": 83.5838, "msg": "Set up pattern1_practice_aud stage."}
+{"time": 85.1057, "event": "Start clicked for pattern1_practice_aud."}
+{"time": 85.2593, "msg": "Start stimulus for pattern1_practice_aud, repeat 0."}
+{"time": 86.0175, "msg": "Q pressed in stage pattern1_practice_aud."}
+{"time": 86.6137, "msg": "Finished stimulus for pattern1_practice_aud."}
+{"time": 87.4668, "event": "Proceed clicked."}
+{"time": 87.5122, "msg": "Shut down pattern1_practice_aud stage."}
+{"time": 87.557, "msg": "Set up pattern1_test_aud stage."}
+{"time": 90.1891, "event": "Start clicked for pattern1_test_aud."}
+{"time": 90.3572, "msg": "Start stimulus for pattern1_test_aud in condition 2."}
+{"time": 96.1118, "msg": "Q pressed in stage pattern1_test_aud."}
+{"time": 96.7278, "msg": "Finished stimulus for pattern1_test_aud."}
+{"time": 97.1763, "event": "Next clicked for pattern1_test_aud."}
+{"time": 97.2215, "msg": "Test condition changed to 1 in pattern1_test_aud."}
+{"time": 97.2662, "msg": "Set up pattern1_test_aud stage."}
+{"time": 99.0523, "event": "Start clicked for pattern1_test_aud."}
+{"time": 99.1987, "msg": "Start stimulus for pattern1_test_aud in condition 1."}
+{"time": 105.5928, "msg": "Q pressed in stage pattern1_test_aud."}
+{"time": 106.2184, "msg": "Finished stimulus for pattern1_test_aud."}
+{"time": 106.7724, "event": "Proceed clicked."}
+{"time": 106.8178, "msg": "Shut down pattern1_test_aud stage."}
+{"time": 106.8624, "msg": "Set up test_questionnaire stage."}
+{"time": 115.9322, "event": "Proceed clicked."}
+{"time": 115.9769, "msg": "Shut down test_questionnaire stage."}
+{"time": 116.0217, "event": "Likert submitted for pattern1_test_aud.", "answer": "3"}
+{"time": 116.066, "event": "Non-center strategy submitted for pattern1_test_aud.", "answer": ""}
+{"time": 116.1102, "msg": "Set up pattern2_test_vis stage."}
+{"time": 121.9451, "event": "Start clicked for pattern2_test_vis."}
+{"time": 122.1423, "msg": "Start stimulus for pattern2_test_vis in condition 1."}
+{"time": 128.4578, "msg": "Q pressed in stage pattern2_test_vis."}
+{"time": 128.5424, "msg": "Finished stimulus for pattern2_test_vis."}
+{"time": 129.3457, "event": "Next clicked for pattern2_test_vis."}
+{"time": 129.391, "msg": "Test condition changed to 2 in pattern2_test_vis."}
+{"time": 129.4361, "msg": "Set up pattern2_test_vis stage."}
+{"time": 130.7794, "event": "Start clicked for pattern2_test_vis."}
+{"time": 130.9697, "msg": "Start stimulus for pattern2_test_vis in condition 2."}
+{"time": 137.0435, "msg": "Q pressed in stage pattern2_test_vis."}
+{"time": 137.1275, "msg": "Finished stimulus for pattern2_test_vis."}
+{"time": 138.1574, "event": "Proceed clicked."}
+{"time": 138.2115, "msg": "Shut down pattern2_test_vis stage."}
+{"time": 138.2563, "msg": "Set up test_questionnaire stage."}
+{"time": 140.3776, "event": "Proceed clicked."}
+{"time": 140.4233, "msg": "Shut down test_questionnaire stage."}
+{"time": 140.4683, "event": "Likert submitted for pattern2_test_vis.", "answer": "3"}
+{"time": 140.5123, "event": "Non-center strategy submitted for pattern2_test_vis.", "answer": ""}
+{"time": 140.5565, "msg": "Set up pattern2_test_aud stage."}
+{"time": 141.8836, "event": "Start clicked for pattern2_test_aud."}
+{"time": 142.093, "msg": "Start stimulus for pattern2_test_aud in condition 1."}
+{"time": 149.1367, "msg": "Q pressed in stage pattern2_test_aud."}
+{"time": 149.7622, "msg": "Finished stimulus for pattern2_test_aud."}
+{"time": 150.1809, "event": "Next clicked for pattern2_test_aud."}
+{"time": 150.2255, "msg": "Test condition changed to 2 in pattern2_test_aud."}
+{"time": 150.2698, "msg": "Set up pattern2_test_aud stage."}
+{"time": 151.5774, "event": "Start clicked for pattern2_test_aud."}
+{"time": 151.7844, "msg": "Start stimulus for pattern2_test_aud in condition 2."}
+{"time": 157.7483, "msg": "Q pressed in stage pattern2_test_aud."}
+{"time": 158.3388, "msg": "Finished stimulus for pattern2_test_aud."}
+{"time": 158.7576, "event": "Proceed clicked."}
+{"time": 158.8074, "msg": "Shut down pattern2_test_aud stage."}
+{"time": 158.8515, "msg": "Set up test_questionnaire stage."}
+{"time": 161.1314, "event": "Proceed clicked."}
+{"time": 161.1791, "msg": "Shut down test_questionnaire stage."}
+{"time": 161.2233, "event": "Likert submitted for pattern2_test_aud.", "answer": "3"}
+{"time": 161.2668, "event": "Non-center strategy submitted for pattern2_test_aud.", "answer": ""}
+{"time": 161.31, "msg": "Set up pattern5_test_vis stage."}
+{"time": 164.5877, "event": "Start clicked for pattern5_test_vis."}
+{"time": 164.7693, "msg": "Start stimulus for pattern5_test_vis in condition 2."}
+{"time": 167.4995, "msg": "Q pressed in stage pattern5_test_vis."}
+{"time": 167.5847, "msg": "Finished stimulus for pattern5_test_vis."}
+{"time": 168.4988, "event": "Next clicked for pattern5_test_vis."}
+{"time": 168.5436, "msg": "Test condition changed to 1 in pattern5_test_vis."}
+{"time": 168.5965, "msg": "Set up pattern5_test_vis stage."}
+{"time": 170.0659, "event": "Start clicked for pattern5_test_vis."}
+{"time": 170.2487, "msg": "Start stimulus for pattern5_test_vis in condition 1."}
+{"time": 170.8753, "msg": "Q pressed in stage pattern5_test_vis."}
+{"time": 170.9603, "msg": "Finished stimulus for pattern5_test_vis."}
+{"time": 172.7478, "event": "Proceed clicked."}
+{"time": 172.7971, "msg": "Shut down pattern5_test_vis stage."}
+{"time": 172.8416, "msg": "Set up test_questionnaire stage."}
+{"time": 174.86, "event": "Proceed clicked."}
+{"time": 174.904, "msg": "Shut down test_questionnaire stage."}
+{"time": 174.9488, "event": "Likert submitted for pattern5_test_vis.", "answer": "3"}
+{"time": 174.9933, "event": "Non-center strategy submitted for pattern5_test_vis.", "answer": ""}
+{"time": 175.0368, "msg": "Set up pattern5_test_aud stage."}
+{"time": 179.0532, "event": "Start clicked for pattern5_test_aud."}
+{"time": 179.4902, "msg": "Start stimulus for pattern5_test_aud in condition 2."}
+{"time": 180.4088, "msg": "Q pressed in stage pattern5_test_aud."}
+{"time": 181.1158, "msg": "Finished stimulus for pattern5_test_aud."}
+{"time": 181.5693, "event": "Next clicked for pattern5_test_aud."}
+{"time": 181.6145, "msg": "Test condition changed to 1 in pattern5_test_aud."}
+{"time": 181.6594, "msg": "Set up pattern5_test_aud stage."}
+{"time": 183.005, "event": "Start clicked for pattern5_test_aud."}
+{"time": 183.4626, "msg": "Start stimulus for pattern5_test_aud in condition 1."}
+{"time": 183.9272, "msg": "Q pressed in stage pattern5_test_aud."}
+{"time": 184.5307, "msg": "Finished stimulus for pattern5_test_aud."}
+{"time": 185.416, "event": "Proceed clicked."}
+{"time": 185.4618, "msg": "Shut down pattern5_test_aud stage."}
+{"time": 185.5065, "msg": "Set up test_questionnaire stage."}
+{"time": 187.748, "event": "Proceed clicked."}
+{"time": 187.7926, "msg": "Shut down test_questionnaire stage."}
+{"time": 187.8372, "event": "Likert submitted for pattern5_test_aud.", "answer": "3"}
+{"time": 187.8811, "event": "Non-center strategy submitted for pattern5_test_aud.", "answer": ""}
+{"time": 187.925, "msg": "Set up pattern4_test_vis stage."}
+{"time": 189.3341, "event": "Start clicked for pattern4_test_vis."}
+{"time": 189.5442, "msg": "Start stimulus for pattern4_test_vis in condition 1."}
+{"time": 190.1643, "msg": "Q pressed in stage pattern4_test_vis."}
+{"time": 190.2485, "msg": "Finished stimulus for pattern4_test_vis."}
+{"time": 191.2095, "event": "Next clicked for pattern4_test_vis."}
+{"time": 191.2583, "msg": "Test condition changed to 2 in pattern4_test_vis."}
+{"time": 191.3117, "msg": "Set up pattern4_test_vis stage."}
+{"time": 196.0484, "event": "Start clicked for pattern4_test_vis."}
+{"time": 196.2517, "msg": "Start stimulus for pattern4_test_vis in condition 2."}
+{"time": 212.1473, "msg": "Q pressed in stage pattern4_test_vis."}
+{"time": 212.2421, "msg": "Finished stimulus for pattern4_test_vis."}
+{"time": 212.9857, "event": "Proceed clicked."}
+{"time": 213.0311, "msg": "Shut down pattern4_test_vis stage."}
+{"time": 213.0759, "msg": "Set up test_questionnaire stage."}
+{"time": 218.5541, "event": "Proceed clicked."}
+{"time": 218.5994, "msg": "Shut down test_questionnaire stage."}
+{"time": 218.6441, "event": "Likert submitted for pattern4_test_vis.", "answer": "3"}
+{"time": 218.6876, "event": "Non-center strategy submitted for pattern4_test_vis.", "answer": ""}
+{"time": 218.7323, "msg": "Set up pattern3_test_vis stage."}
+{"time": 223.7644, "event": "Start clicked for pattern3_test_vis."}
+{"time": 223.9702, "msg": "Start stimulus for pattern3_test_vis in condition 2."}
+{"time": 225.493, "msg": "Q pressed in stage pattern3_test_vis."}
+{"time": 225.5869, "msg": "Finished stimulus for pattern3_test_vis."}
+{"time": 226.0333, "event": "Next clicked for pattern3_test_vis."}
+{"time": 226.0786, "msg": "Test condition changed to 1 in pattern3_test_vis."}
+{"time": 226.1233, "msg": "Set up pattern3_test_vis stage."}
+{"time": 227.5477, "event": "Start clicked for pattern3_test_vis."}
+{"time": 227.7473, "msg": "Start stimulus for pattern3_test_vis in condition 1."}
+{"time": 228.4596, "msg": "Q pressed in stage pattern3_test_vis."}
+{"time": 228.5451, "msg": "Finished stimulus for pattern3_test_vis."}
+{"time": 229.0112, "event": "Proceed clicked."}
+{"time": 229.0561, "msg": "Shut down pattern3_test_vis stage."}
+{"time": 229.1005, "msg": "Set up test_questionnaire stage."}
+{"time": 231.4169, "event": "Proceed clicked."}
+{"time": 231.4609, "msg": "Shut down test_questionnaire stage."}
+{"time": 231.5057, "event": "Likert submitted for pattern3_test_vis.", "answer": "3"}
+{"time": 231.5502, "event": "Non-center strategy submitted for pattern3_test_vis.", "answer": ""}
+{"time": 231.5937, "msg": "Set up pattern3_test_aud stage."}
+{"time": 236.3987, "event": "Start clicked for pattern3_test_aud."}
+{"time": 236.5705, "msg": "Start stimulus for pattern3_test_aud in condition 2."}
+{"time": 237.8367, "msg": "Q pressed in stage pattern3_test_aud."}
+{"time": 238.3892, "msg": "Finished stimulus for pattern3_test_aud."}
+{"time": 238.8085, "event": "Next clicked for pattern3_test_aud."}
+{"time": 238.854, "msg": "Test condition changed to 1 in pattern3_test_aud."}
+{"time": 238.9073, "msg": "Set up pattern3_test_aud stage."}
+{"time": 240.3784, "event": "Start clicked for pattern3_test_aud."}
+{"time": 240.5312, "msg": "Start stimulus for pattern3_test_aud in condition 1."}
+{"time": 241.5189, "msg": "Q pressed in stage pattern3_test_aud."}
+{"time": 242.0712, "msg": "Finished stimulus for pattern3_test_aud."}
+{"time": 243.0867, "event": "Proceed clicked."}
+{"time": 243.1324, "msg": "Shut down pattern3_test_aud stage."}
+{"time": 243.1776, "msg": "Set up test_questionnaire stage."}
+{"time": 245.8228, "event": "Proceed clicked."}
+{"time": 245.8684, "msg": "Shut down test_questionnaire stage."}
+{"time": 245.9132, "event": "Likert submitted for pattern3_test_aud.", "answer": "3"}
+{"time": 245.9579, "event": "Non-center strategy submitted for pattern3_test_aud.", "answer": ""}
+{"time": 246.0013, "msg": "Set up baseline1_practice_vis stage."}
+{"time": 252.795, "event": "Start clicked for baseline1_practice_vis."}
+{"time": 252.9852, "msg": "Start stimulus for baseline1_practice_vis, repeat 0."}
+{"time": 274.5497, "msg": "Q pressed in stage baseline1_practice_vis."}
+{"time": 274.6352, "msg": "Finished stimulus for baseline1_practice_vis."}
+{"time": 275.7303, "event": "Proceed clicked."}
+{"time": 275.7755, "msg": "Shut down baseline1_practice_vis stage."}
+{"time": 275.82, "msg": "Set up baseline1_test_vis stage."}
+{"time": 280.727, "event": "Start clicked for baseline1_test_vis."}
+{"time": 280.8987, "msg": "Start stimulus for baseline1_test_vis in condition 1."}
+{"time": 285.4504, "msg": "Q pressed in stage baseline1_test_vis."}
+{"time": 285.5372, "msg": "Finished stimulus for baseline1_test_vis."}
+{"time": 286.3912, "event": "Proceed clicked."}
+{"time": 286.4363, "msg": "Shut down baseline1_test_vis stage."}
+{"time": 286.481, "msg": "Set up test_questionnaire stage."}
+{"time": 289.7822, "event": "Proceed clicked."}
+{"time": 289.8275, "msg": "Shut down test_questionnaire stage."}
+{"time": 289.8722, "event": "Likert submitted for baseline1_test_vis.", "answer": "1"}
+{"time": 289.9166, "event": "Non-center strategy submitted for baseline1_test_vis.", "answer": ""}
+{"time": 289.9606, "msg": "Set up baseline1_practice_aud stage."}
+{"time": 295.1681, "event": "Start clicked for baseline1_practice_aud."}
+{"time": 295.3263, "msg": "Start stimulus for baseline1_practice_aud, repeat 0."}
+{"time": 297.2598, "msg": "Q pressed in stage baseline1_practice_aud."}
+{"time": 297.8885, "msg": "Finished stimulus for baseline1_practice_aud."}
+{"time": 298.3882, "event": "Proceed clicked."}
+{"time": 298.4335, "msg": "Shut down baseline1_practice_aud stage."}
+{"time": 298.4781, "msg": "Set up baseline1_test_aud stage."}
+{"time": 299.8433, "event": "Start clicked for baseline1_test_aud."}
+{"time": 299.9889, "msg": "Start stimulus for baseline1_test_aud in condition 1."}
+{"time": 300.6335, "msg": "Q pressed in stage baseline1_test_aud."}
+{"time": 301.2505, "msg": "Finished stimulus for baseline1_test_aud."}
+{"time": 301.7535, "event": "Proceed clicked."}
+{"time": 301.7976, "msg": "Shut down baseline1_test_aud stage."}
+{"time": 301.8425, "msg": "Set up test_questionnaire stage."}
+{"time": 304.5894, "event": "Proceed clicked."}
+{"time": 304.6338, "msg": "Shut down test_questionnaire stage."}
+{"time": 304.6785, "event": "Likert submitted for baseline1_test_aud.", "answer": "1"}
+{"time": 304.7227, "event": "Non-center strategy submitted for baseline1_test_aud.", "answer": ""}
+{"time": 304.7663, "msg": "Set up baseline2_practice_aud stage."}
+{"time": 339.9499, "event": "Start clicked for baseline2_practice_aud."}
+{"time": 340.1826, "msg": "Start stimulus for baseline2_practice_aud, repeat 0."}
+{"time": 345.9632, "msg": "Q pressed in stage baseline2_practice_aud."}
+{"time": 346.5519, "msg": "Finished stimulus for baseline2_practice_aud."}
+{"time": 347.8123, "event": "Proceed clicked."}
+{"time": 347.8576, "msg": "Shut down baseline2_practice_aud stage."}
+{"time": 347.9021, "msg": "Set up baseline2_test_aud stage."}
+{"time": 349.5691, "event": "Start clicked for baseline2_test_aud."}
+{"time": 349.8711, "msg": "Start stimulus for baseline2_test_aud in condition 1."}
+{"time": 355.9176, "msg": "Q pressed in stage baseline2_test_aud."}
+{"time": 356.6095, "msg": "Finished stimulus for baseline2_test_aud."}
+{"time": 357.1773, "event": "Next clicked for baseline2_test_aud."}
+{"time": 357.2227, "msg": "Test condition changed to 2 in baseline2_test_aud."}
+{"time": 357.2676, "msg": "Set up baseline2_test_aud stage."}
+{"time": 358.6093, "event": "Start clicked for baseline2_test_aud."}
+{"time": 358.8738, "msg": "Start stimulus for baseline2_test_aud in condition 2."}
+{"time": 360.5727, "msg": "Q pressed in stage baseline2_test_aud."}
+{"time": 361.1546, "msg": "Finished stimulus for baseline2_test_aud."}
+{"time": 361.7195, "event": "Next clicked for baseline2_test_aud."}
+{"time": 361.7647, "msg": "Test condition changed to 3 in baseline2_test_aud."}
+{"time": 361.8093, "msg": "Set up baseline2_test_aud stage."}
+{"time": 363.176, "event": "Start clicked for baseline2_test_aud."}
+{"time": 363.4379, "msg": "Start stimulus for baseline2_test_aud in condition 3."}
+{"time": 365.0316, "msg": "Q pressed in stage baseline2_test_aud."}
+{"time": 365.6259, "msg": "Finished stimulus for baseline2_test_aud."}
+{"time": 367.6378, "event": "Proceed clicked."}
+{"time": 367.6873, "msg": "Shut down baseline2_test_aud stage."}
+{"time": 367.7325, "msg": "Set up test_questionnaire stage."}
+{"time": 371.0438, "event": "Proceed clicked."}
+{"time": 371.0882, "msg": "Shut down test_questionnaire stage."}
+{"time": 371.1329, "event": "Likert submitted for baseline2_test_aud.", "answer": "1"}
+{"time": 371.1765, "event": "Non-center strategy submitted for baseline2_test_aud.", "answer": ""}
+{"time": 371.2205, "msg": "Set up outro_questionnaire stage."}
+{"time": 405.8341, "event": "Proceed clicked."}
+{"time": 405.8905, "msg": "Shut down outro_questionnaire stage."}
+{"time": 405.9353, "event": "Instructions clear submitted.", "answer": "yes"}
+{"time": 405.979, "event": "Auditory patterns description submitted.", "answer": " zzz"}
+{"time": 406.0237, "event": "Visual patterns description submitted.", "answer": " zzz"}
+{"time": 406.0684, "event": "Strategy submitted.", "answer": " zzz"}
+{"time": 406.1131, "msg": "Set up thanks stage."}
+{"time": 408.31, "msg": "Data successfully exported."}
+{"time": 408.3624, "msg": "End."}

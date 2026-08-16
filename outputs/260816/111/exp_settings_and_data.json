@@ -10,12 +10,12 @@
     1,
     2,
     5,
-    3,
-    4
+    4,
+    3
   ],
   "randomize_pattern_test_condition_orderings": true,
   "randomize_baseline_test_condition_orderings": true,
-  "stimulus_id": "331",
+  "stimulus_id": "330",
   "modality_order": [
     "vis",
     "aud"
@@ -58,8 +58,8 @@
         "phase": "pattern1"
       },
       "conditions": [
-        "1",
-        "2"
+        "2",
+        "1"
       ],
       "name": "pattern1_test_vis"
     },
@@ -122,8 +122,8 @@
         "phase": "pattern2"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
       "name": "pattern2_test_aud"
     },
@@ -154,10 +154,26 @@
         "phase": "pattern5"
       },
       "conditions": [
+        "2",
+        "1"
+      ],
+      "name": "pattern5_test_aud"
+    },
+    {
+      "type": "test_questionnaire",
+      "name": "test_questionnaire"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "vis",
+        "phase": "pattern4"
+      },
+      "conditions": [
         "1",
         "2"
       ],
-      "name": "pattern5_test_aud"
+      "name": "pattern4_test_vis"
     },
     {
       "type": "test_questionnaire",
@@ -190,22 +206,6 @@
         "1"
       ],
       "name": "pattern3_test_aud"
-    },
-    {
-      "type": "test_questionnaire",
-      "name": "test_questionnaire"
-    },
-    {
-      "type": "test",
-      "modifiers": {
-        "modality": "vis",
-        "phase": "pattern4"
-      },
-      "conditions": [
-        "1",
-        "2"
-      ],
-      "name": "pattern4_test_vis"
     },
     {
       "type": "test_questionnaire",
@@ -272,9 +272,9 @@
         "phase": "baseline2"
       },
       "conditions": [
-        "3",
         "1",
-        "2"
+        "2",
+        "3"
       ],
       "name": "baseline2_test_aud"
     },
@@ -341,13 +341,14 @@
     "pattern5_test_aud": {
       "1": [
         1,
+        2,
         3,
         4,
         5,
+        6,
         7,
         8,
         9,
-        10,
         11,
         12,
         13,
@@ -381,10 +382,13 @@
         43,
         44,
         45,
+        46,
         47,
         48,
         49,
+        50,
         51,
+        52,
         53,
         55
       ],
@@ -393,7 +397,7 @@
         2,
         3,
         4,
-        6,
+        5,
         7,
         8,
         9,
@@ -436,11 +440,13 @@
         48,
         49,
         50,
+        51,
         52,
         53,
         55
       ]
     },
+    "pattern4_test_vis": {},
     "pattern3_test_vis": {},
     "pattern3_test_aud": {
       "1": [
@@ -454,7 +460,6 @@
         23
       ]
     },
-    "pattern4_test_vis": {},
     "baseline1_test_vis": {},
     "baseline1_practice_aud": [
       28
