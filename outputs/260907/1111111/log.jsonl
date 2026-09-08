@@ -1,0 +1,22 @@
+{"time": 0.0, "msg": "Start."}
+{"time": 0.0499, "msg": "Set up welcome stage."}
+{"time": 10.491, "event": "Proceed clicked."}
+{"time": 10.54, "msg": "Shut down welcome stage."}
+{"time": 10.5846, "event": "Consented.", "answer": "I consent to participate in the experiment"}
+{"time": 10.6296, "msg": "Set up screener stage."}
+{"time": 21.0447, "event": "Proceed clicked."}
+{"time": 21.1022, "msg": "Shut down screener stage."}
+{"time": 21.1471, "event": "Screened.", "answer": "I confirm that none of the above listed items applies to me."}
+{"time": 21.1927, "msg": "Set up intro_questionnaire stage."}
+{"time": 39.7099, "event": "Proceed clicked."}
+{"time": 39.7664, "msg": "Shut down intro_questionnaire stage."}
+{"time": 39.8114, "event": "Gender submitted.", "answer": "female"}
+{"time": 39.8564, "event": "Age submitted.", "answer": "1"}
+{"time": 39.9009, "msg": "Set up pattern1_familiarization_aud stage."}
+{"time": 41.0448, "event": "Start clicked for pattern1_familiarization_aud."}
+{"time": 41.339, "msg": "Start stimulus for pattern1_familiarization_aud."}
+{"time": 54.5471, "msg": "Finished stimulus for pattern1_familiarization_aud."}
+{"time": 65.3573, "event": "Repeat clicked for pattern1_familiarization_aud."}
+{"time": 65.4516, "msg": "Start stimulus for pattern1_familiarization_aud."}
+{"time": 67.3125, "msg": "Data successfully exported."}
+{"time": 67.3711, "msg": "User interrupt."}
