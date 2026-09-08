@@ -1,0 +1,452 @@
+{
+  "space_presses": {
+    "pattern1_practice_vis": {
+      "repeat_0": [],
+      "repeat_1": [],
+      "repeat_2": [
+        7.7155,
+        10.6153,
+        12.8424,
+        14.8479,
+        21.6148,
+        26.8751,
+        30.3411,
+        32.5228,
+        36.0037,
+        38.5697,
+        41.352,
+        44.1786,
+        46.7039,
+        49.8418,
+        51.6673,
+        54.2889
+      ]
+    },
+    "pattern1_test_vis": {
+      "2": [
+        10.3545,
+        28.796,
+        38.144,
+        49.335
+      ],
+      "1": [
+        3.7329,
+        12.4419,
+        14.4323,
+        17.8733,
+        22.1238,
+        28.4335,
+        38.479,
+        46.2902,
+        55.5123,
+        62.5264,
+        71.1635,
+        79.6538,
+        100.9637,
+        116.906
+      ]
+    },
+    "pattern1_practice_aud": {
+      "repeat_0": [
+        7.9212,
+        10.1904,
+        12.6152,
+        15.4755,
+        20.0738,
+        24.8919,
+        29.8973,
+        33.2532,
+        35.3034,
+        37.6774,
+        49.2526,
+        51.9171
+      ],
+      "repeat_1": [
+        8.0065,
+        15.2151,
+        23.9326,
+        27.7284,
+        35.0386,
+        38.0551,
+        52.0849
+      ]
+    },
+    "pattern1_test_aud": {
+      "2": [
+        29.1128,
+        35.0978,
+        43.994,
+        57.444,
+        65.26,
+        91.2243,
+        112.7887
+      ],
+      "1": [
+        12.8362,
+        26.7045,
+        63.1901
+      ]
+    },
+    "pattern5_test_vis": {
+      "1": [
+        15.5609,
+        23.8479,
+        31.7287,
+        41.0261,
+        49.1433,
+        57.4743,
+        65.8017,
+        75.7844,
+        83.4596,
+        93.6473,
+        101.4907,
+        120.0597
+      ],
+      "2": [
+        22.7633,
+        26.6197,
+        30.9352,
+        39.1714,
+        47.1162,
+        66.1231,
+        70.0988,
+        79.6594,
+        83.5171,
+        96.5649,
+        111.5631
+      ]
+    },
+    "pattern5_test_aud": {
+      "1": [
+        17.4482,
+        36.001,
+        53.0657,
+        101.4525,
+        121.6873
+      ],
+      "2": [
+        22.3858,
+        44.7499,
+        57.6585,
+        62.1964,
+        67.8873,
+        76.5409,
+        84.4471,
+        90.2896,
+        98.0311,
+        105.4947,
+        113.6319
+      ]
+    },
+    "pattern2_test_vis": {
+      "2": [
+        13.0775,
+        21.8288,
+        30.4577,
+        35.4016,
+        39.8811,
+        43.4943,
+        49.9146,
+        51.7435,
+        69.3422,
+        74.9868,
+        83.8677,
+        89.5666,
+        102.2407,
+        123.3449
+      ],
+      "1": [
+        15.3919,
+        22.0867,
+        39.1115,
+        56.1935,
+        62.9616,
+        68.219,
+        71.8303,
+        80.3063,
+        93.8279,
+        110.9036
+      ]
+    },
+    "pattern2_test_aud": {
+      "2": [
+        16.9609,
+        26.4731,
+        52.7393,
+        78.606,
+        83.0947,
+        102.5106,
+        119.8883
+      ],
+      "1": [
+        22.4155,
+        43.1931
+      ]
+    },
+    "pattern3_test_vis": {
+      "1": [
+        19.8726,
+        27.8711,
+        37.2136,
+        50.6405,
+        82.3342,
+        85.4113,
+        125.6901
+      ],
+      "2": [
+        17.5794,
+        24.9172,
+        61.6275,
+        78.4023
+      ]
+    },
+    "pattern3_test_aud": {
+      "2": [
+        23.3374,
+        40.4089,
+        48.3465,
+        56.7959,
+        79.3166,
+        86.5323,
+        107.516,
+        112.1454
+      ],
+      "1": [
+        17.0738,
+        23.3323,
+        39.2582,
+        57.3968,
+        72.6656,
+        78.7338,
+        97.7927,
+        112.1374
+      ]
+    },
+    "pattern4_test_vis": {
+      "2": [
+        16.3163,
+        42.4343,
+        46.8685,
+        52.2366,
+        61.713,
+        71.1626,
+        86.0436
+      ],
+      "1": [
+        17.4203,
+        23.8979,
+        36.6027,
+        51.7841,
+        59.5948,
+        66.3628,
+        77.2004,
+        85.9282,
+        94.3022,
+        103.0494,
+        112.0319,
+        119.2833
+      ]
+    },
+    "baseline1_practice_vis": {
+      "repeat_0": [
+        6.0554,
+        12.1774,
+        18.8563,
+        24.0249,
+        29.9409,
+        35.8236
+      ]
+    },
+    "baseline1_test_vis": {
+      "1": [
+        4.6767,
+        12.5213,
+        17.4608
+      ]
+    },
+    "baseline1_practice_aud": {
+      "repeat_0": [
+        7.24,
+        13.0102,
+        17.9928,
+        24.6518,
+        29.3647,
+        35.0648
+      ]
+    },
+    "baseline1_test_aud": {
+      "1": [
+        3.531,
+        8.84,
+        12.4168,
+        16.4279,
+        20.2276,
+        23.7858
+      ]
+    },
+    "baseline2_practice_aud": {
+      "repeat_0": [
+        2.6211,
+        5.8356,
+        8.138,
+        10.5382,
+        13.214,
+        13.5233,
+        15.3889,
+        18.1138,
+        20.2849,
+        22.4291,
+        25.3626,
+        27.4475,
+        29.647,
+        31.6909
+      ]
+    },
+    "baseline2_test_aud": {
+      "1": [
+        2.6112,
+        4.92,
+        10.6494,
+        13.1663,
+        15.477,
+        18.5368,
+        20.8804,
+        23.0037,
+        26.0863,
+        29.2383,
+        31.4404,
+        34.2387,
+        39.3933,
+        44.1523,
+        47.1371,
+        49.0308,
+        54.1785,
+        56.9733,
+        59.3845,
+        61.3327,
+        63.4652,
+        66.5433,
+        69.3733,
+        71.4375,
+        75.8006,
+        83.8921,
+        88.1981,
+        91.0053,
+        96.7684,
+        99.0027,
+        101.5961,
+        106.1537,
+        109.2174,
+        111.503,
+        113.9378,
+        116.5907,
+        119.0033,
+        121.4006,
+        124.1619,
+        129.4253,
+        132.2083,
+        135.7401,
+        141.0112,
+        150.1981,
+        155.8309,
+        158.4223,
+        160.9507,
+        166.5337,
+        169.4129,
+        171.9216,
+        174.4879
+      ],
+      "2": [
+        6.0988,
+        8.9334,
+        15.6965,
+        18.6712,
+        20.9627,
+        23.4443,
+        27.0244,
+        29.4023,
+        31.9457,
+        35.131,
+        39.7698,
+        42.6326,
+        45.2533,
+        48.2489,
+        60.7553,
+        69.1916,
+        71.8907,
+        77.8775,
+        83.0682,
+        89.368,
+        102.245,
+        109.8235,
+        112.2469,
+        124.308,
+        134.6593,
+        141.7677
+      ],
+      "3": [
+        28.6924,
+        33.0963,
+        39.3163,
+        47.1052,
+        61.3106,
+        65.0869,
+        67.4781,
+        75.1741,
+        83.1423,
+        85.5005,
+        93.1067,
+        98.4103,
+        109.4106,
+        112.6194,
+        114.9492,
+        117.7666,
+        119.968,
+        122.4072,
+        128.012,
+        131.411,
+        139.6661,
+        141.8709
+      ]
+    }
+  },
+  "repeat_num": {
+    "pattern1_familiarization_vis": 1,
+    "pattern1_practice_vis": 2,
+    "pattern1_familiarization_aud": 1,
+    "pattern1_practice_aud": 1,
+    "baseline1_practice_vis": 0,
+    "baseline1_practice_aud": 0,
+    "baseline2_practice_aud": 0
+  },
+  "gender": "female",
+  "age": "21",
+  "likert_pattern1_test_vis": "5",
+  "non_center_strategy_pattern1_test_vis": "A monitor kozepere neztem",
+  "likert_pattern1_test_aud": "5",
+  "non_center_strategy_pattern1_test_aud": "",
+  "likert_pattern5_test_vis": "5",
+  "non_center_strategy_pattern5_test_vis": "Kovettem a pontot a szememmel",
+  "likert_pattern5_test_aud": "5",
+  "non_center_strategy_pattern5_test_aud": "Probaltam nem a kepernzore fokuszalni, csak a hangokra",
+  "likert_pattern2_test_vis": "5",
+  "non_center_strategy_pattern2_test_vis": "Kovettem a szememmel a pontokat",
+  "likert_pattern2_test_aud": "5",
+  "non_center_strategy_pattern2_test_aud": "a hangokra figyeltem, nem a monitor kozepere",
+  "likert_pattern3_test_vis": "5",
+  "non_center_strategy_pattern3_test_vis": "a pontokra figyeltem",
+  "likert_pattern3_test_aud": "5",
+  "non_center_strategy_pattern3_test_aud": "becsuktam a szemem es csak hallgattam",
+  "likert_pattern4_test_vis": "5",
+  "non_center_strategy_pattern4_test_vis": "kovettem a szememmel a pontokat",
+  "likert_baseline1_test_vis": "4",
+  "non_center_strategy_baseline1_test_vis": "",
+  "likert_baseline1_test_aud": "4",
+  "non_center_strategy_baseline1_test_aud": "nem a kepernyot neztem, hanem lefele, a hangokra figyeltem",
+  "likert_baseline2_test_aud": "5",
+  "non_center_strategy_baseline2_test_aud": "nem a kepernyore neztem",
+  "instructions_clear": "yes",
+  "auditory_patterns_notice": "Igen, egy ritmust",
+  "visual_patterns_notice": "Igen, sokszor volt ismetlodo haromszog minta majd forditva",
+  "strategy": "Hat probalkoztam, de nem hiszem, hogy jo strategia volt. Probaltam kovetni a pontokat a szememmel es a felbukkanas sebessegere figyelni, a hangoknal pedig egy ritmust kovettem, amitol ha eltert a hang gondoltam, hogy egy hosszabb szunet volt"
+}
