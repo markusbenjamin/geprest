@@ -1,0 +1,381 @@
+{
+  "space_presses": {
+    "pattern1_practice_vis": {
+      "repeat_0": [
+        2.6472,
+        3.8604,
+        7.7582,
+        10.7016,
+        13.1497,
+        16.3017,
+        18.4624,
+        21.5273,
+        24.1182,
+        26.8094,
+        30.0432,
+        36.0483,
+        38.7432,
+        41.5121,
+        43.9341,
+        46.6831,
+        51.5498,
+        54.1109,
+        57.351
+      ],
+      "repeat_1": [
+        7.8178,
+        10.7871,
+        10.9194,
+        13.1586,
+        16.3614,
+        18.5052,
+        21.596,
+        24.1364,
+        26.9572,
+        30.1067,
+        32.8719,
+        36.1175,
+        38.843,
+        41.5091,
+        43.9928,
+        46.9182,
+        51.5921,
+        57.3253
+      ]
+    },
+    "pattern1_test_vis": {
+      "2": [
+        93.9111
+      ],
+      "1": [
+        20.7155,
+        29.0192,
+        38.3522,
+        44.9826,
+        49.7333,
+        56.6186,
+        68.9586,
+        78.357,
+        86.7663,
+        95.7135,
+        104.2319,
+        110.1947,
+        118.3791,
+        125.0822
+      ]
+    },
+    "pattern1_practice_aud": {
+      "repeat_0": [
+        7.9637,
+        10.3573,
+        12.4147,
+        15.4688,
+        17.1708,
+        20.0023,
+        22.4099,
+        27.5328,
+        29.6378,
+        32.9256,
+        35.2435,
+        38.0115,
+        46.933,
+        49.1245
+      ]
+    },
+    "pattern1_test_aud": {
+      "1": [
+        20.6622,
+        29.3802,
+        43.5112,
+        47.4238,
+        56.9179
+      ],
+      "2": [
+        30.3512,
+        66.0072
+      ]
+    },
+    "pattern3_test_vis": {
+      "2": [
+        17.3812,
+        26.6748,
+        30.8205,
+        39.7635,
+        47.1866,
+        59.378,
+        76.8846,
+        100.3212
+      ],
+      "1": [
+        17.8213,
+        40.2634,
+        48.0626,
+        54.886,
+        64.7956,
+        103.0909
+      ]
+    },
+    "pattern3_test_aud": {
+      "1": [
+        74.8716,
+        83.4162
+      ],
+      "2": [
+        22.2242,
+        92.3034,
+        121.0418
+      ]
+    },
+    "pattern2_test_vis": {
+      "1": [
+        22.0948,
+        35.2474,
+        39.9423,
+        51.8397,
+        83.9956,
+        102.0866
+      ],
+      "2": [
+        37.2081,
+        72.5698
+      ]
+    },
+    "pattern2_test_aud": {
+      "2": [
+        72.6129,
+        104.0644
+      ],
+      "1": [
+        90.9644
+      ]
+    },
+    "pattern4_test_vis": {
+      "2": [
+        29.7642
+      ],
+      "1": [
+        35.8295,
+        53.2487,
+        56.6755,
+        73.8608,
+        89.1714,
+        121.688,
+        126.7184
+      ]
+    },
+    "pattern5_test_vis": {
+      "1": [
+        22.6734,
+        47.6005
+      ],
+      "2": [
+        26.7133,
+        30.3064,
+        94.3349
+      ]
+    },
+    "pattern5_test_aud": {
+      "2": [
+        92.149
+      ],
+      "1": []
+    },
+    "baseline1_practice_vis": {
+      "repeat_0": [
+        6.1752,
+        12.0911,
+        18.8378,
+        24.1652,
+        30.0287
+      ]
+    },
+    "baseline1_test_vis": {
+      "1": [
+        3.6432,
+        7.855,
+        12.3994,
+        16.4842,
+        20.2956,
+        24.6315
+      ]
+    },
+    "baseline1_practice_aud": {
+      "repeat_0": [
+        6.9196,
+        12.7138,
+        17.7856,
+        24.2584
+      ]
+    },
+    "baseline1_test_aud": {
+      "1": [
+        3.391,
+        8.1853,
+        12.2889,
+        15.6661
+      ]
+    },
+    "baseline2_practice_aud": {
+      "repeat_0": [
+        2.6877,
+        5.3414,
+        7.9956,
+        10.5651,
+        13.2061,
+        15.627,
+        18.0448,
+        20.1728,
+        23.1613,
+        25.2184,
+        27.3298,
+        29.7262
+      ]
+    },
+    "baseline2_test_aud": {
+      "1": [
+        2.7311,
+        5.6799,
+        8.6497,
+        11.0024,
+        13.0062,
+        14.9056,
+        17.4583,
+        19.6935,
+        21.7157,
+        24.4661,
+        26.9067,
+        30.1422,
+        33.3179,
+        35.7135,
+        38.5153,
+        40.6502,
+        43.7714,
+        46.8949,
+        49.7297,
+        52.2863,
+        54.5916,
+        57.3402,
+        59.7868,
+        62.5272,
+        68.2831,
+        70.6289,
+        73.1874,
+        75.9237,
+        78.7276,
+        81.8713,
+        84.5941,
+        86.9996,
+        89.8012,
+        92.1855,
+        94.9079,
+        97.6349,
+        100.997,
+        103.8377,
+        106.2031,
+        108.7424,
+        111.4188,
+        113.7909,
+        116.1212,
+        118.9276,
+        121.9311,
+        123.9628,
+        126.2703,
+        129.0149,
+        131.0993,
+        132.949,
+        135.5586,
+        138.565,
+        141.8916,
+        144.2376,
+        147.3756,
+        150.2596,
+        153.1353,
+        154.9158,
+        157.6922,
+        160.6005,
+        163.0334,
+        164.949,
+        167.7301,
+        170.4873,
+        173.6931
+      ],
+      "2": [
+        2.8997,
+        5.3265,
+        7.6506,
+        56.0542,
+        59.1538,
+        75.6544,
+        85.638,
+        87.4116,
+        96.0842,
+        104.3323,
+        112.9266,
+        122.5198,
+        125.3094,
+        128.1471
+      ],
+      "3": [
+        13.8052,
+        20.618,
+        26.4406,
+        36.8963,
+        39.1394,
+        52.3926,
+        63.36,
+        66.6232,
+        74.1094,
+        77.6557,
+        80.0702,
+        84.0259,
+        87.2074,
+        90.0245,
+        94.6884,
+        98.1146,
+        103.6211,
+        105.988,
+        109.1959,
+        119.2596
+      ]
+    }
+  },
+  "repeat_num": {
+    "pattern1_familiarization_vis": 0,
+    "pattern1_practice_vis": 1,
+    "pattern1_familiarization_aud": 0,
+    "pattern1_practice_aud": 0,
+    "baseline1_practice_vis": 0,
+    "baseline1_practice_aud": 0,
+    "baseline2_practice_aud": 0
+  },
+  "gender": "female",
+  "age": "20",
+  "likert_pattern1_test_vis": "3",
+  "non_center_strategy_pattern1_test_vis": "I prefer looking at the dots ",
+  "likert_pattern1_test_aud": "5",
+  "non_center_strategy_pattern1_test_aud": "i looked further so the screen doesnt hurt my eyes and for better focus",
+  "likert_pattern3_test_vis": "5",
+  "non_center_strategy_pattern3_test_vis": "",
+  "likert_pattern3_test_aud": "5",
+  "non_center_strategy_pattern3_test_aud": "focusing on background or i tried clsing my eyes ",
+  "likert_pattern2_test_vis": "5",
+  "non_center_strategy_pattern2_test_vis": "",
+  "likert_pattern2_test_aud": "5",
+  "non_center_strategy_pattern2_test_aud": "",
+  "likert_pattern4_test_vis": "5",
+  "non_center_strategy_pattern4_test_vis": "",
+  "likert_pattern5_test_vis": "5",
+  "non_center_strategy_pattern5_test_vis": "",
+  "likert_pattern5_test_aud": "5",
+  "non_center_strategy_pattern5_test_aud": "tried focusing ont he background again",
+  "likert_baseline1_test_vis": "3",
+  "non_center_strategy_baseline1_test_vis": "",
+  "likert_baseline1_test_aud": "4",
+  "non_center_strategy_baseline1_test_aud": "",
+  "likert_baseline2_test_aud": "5",
+  "non_center_strategy_baseline2_test_aud": "i tried to look the way the main sound came from",
+  "instructions_clear": "yes",
+  "auditory_patterns_notice": "sometimes yes",
+  "visual_patterns_notice": "sometimes yes",
+  "strategy": "i did not"
+}
