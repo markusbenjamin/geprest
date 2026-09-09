@@ -1,19 +1,19 @@
 {
   "zoom": 1,
-  "visual_video_area_scale": 1,
-  "visual_video_linear_scale": 1,
+  "visual_video_area_scale": 0.5,
+  "visual_video_linear_scale": 0.7071067811865476,
   "size": {
     "w": 1920,
     "h": 1080
   },
-  "batch": "260908",
+  "batch": "260909",
   "randomize_pattern_phase_presentation": true,
   "pattern_phase_order": [
     1,
-    5,
-    4,
     3,
-    2
+    2,
+    5,
+    4
   ],
   "randomize_pattern_test_condition_orderings": true,
   "randomize_baseline_test_condition_orderings": true,
@@ -22,8 +22,8 @@
     "aud",
     "vis"
   ],
-  "subject": "123",
-  "run_label": "260908_123",
+  "subject": "1036",
+  "run_label": "260909_1036",
   "exp_structure": [
     {
       "type": "welcome",
@@ -60,8 +60,8 @@
         "phase": "pattern1"
       },
       "conditions": [
-        "1",
-        "2"
+        "2",
+        "1"
       ],
       "name": "pattern1_test_aud"
     },
@@ -92,10 +92,74 @@
         "phase": "pattern1"
       },
       "conditions": [
+        "1",
+        "2"
+      ],
+      "name": "pattern1_test_vis"
+    },
+    {
+      "type": "test_questionnaire",
+      "name": "test_questionnaire"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "pattern3"
+      },
+      "conditions": [
+        "1",
+        "2"
+      ],
+      "name": "pattern3_test_aud"
+    },
+    {
+      "type": "test_questionnaire",
+      "name": "test_questionnaire"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "vis",
+        "phase": "pattern3"
+      },
+      "conditions": [
+        "1",
+        "2"
+      ],
+      "name": "pattern3_test_vis"
+    },
+    {
+      "type": "test_questionnaire",
+      "name": "test_questionnaire"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "pattern2"
+      },
+      "conditions": [
         "2",
         "1"
       ],
-      "name": "pattern1_test_vis"
+      "name": "pattern2_test_aud"
+    },
+    {
+      "type": "test_questionnaire",
+      "name": "test_questionnaire"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "vis",
+        "phase": "pattern2"
+      },
+      "conditions": [
+        "2",
+        "1"
+      ],
+      "name": "pattern2_test_vis"
     },
     {
       "type": "test_questionnaire",
@@ -124,8 +188,8 @@
         "phase": "pattern5"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
       "name": "pattern5_test_vis"
     },
@@ -144,70 +208,6 @@
         "2"
       ],
       "name": "pattern4_test_vis"
-    },
-    {
-      "type": "test_questionnaire",
-      "name": "test_questionnaire"
-    },
-    {
-      "type": "test",
-      "modifiers": {
-        "modality": "aud",
-        "phase": "pattern3"
-      },
-      "conditions": [
-        "2",
-        "1"
-      ],
-      "name": "pattern3_test_aud"
-    },
-    {
-      "type": "test_questionnaire",
-      "name": "test_questionnaire"
-    },
-    {
-      "type": "test",
-      "modifiers": {
-        "modality": "vis",
-        "phase": "pattern3"
-      },
-      "conditions": [
-        "2",
-        "1"
-      ],
-      "name": "pattern3_test_vis"
-    },
-    {
-      "type": "test_questionnaire",
-      "name": "test_questionnaire"
-    },
-    {
-      "type": "test",
-      "modifiers": {
-        "modality": "aud",
-        "phase": "pattern2"
-      },
-      "conditions": [
-        "1",
-        "2"
-      ],
-      "name": "pattern2_test_aud"
-    },
-    {
-      "type": "test_questionnaire",
-      "name": "test_questionnaire"
-    },
-    {
-      "type": "test",
-      "modifiers": {
-        "modality": "vis",
-        "phase": "pattern2"
-      },
-      "conditions": [
-        "1",
-        "2"
-      ],
-      "name": "pattern2_test_vis"
     },
     {
       "type": "test_questionnaire",
@@ -274,9 +274,9 @@
         "phase": "baseline2"
       },
       "conditions": [
-        "3",
+        "2",
         "1",
-        "2"
+        "3"
       ],
       "name": "baseline2_test_aud"
     },
@@ -316,6 +316,42 @@
       ]
     },
     "pattern1_test_vis": {},
+    "pattern3_test_aud": {
+      "1": [
+        16,
+        20,
+        38
+      ],
+      "2": [
+        36,
+        40,
+        23
+      ]
+    },
+    "pattern3_test_vis": {},
+    "pattern2_test_aud": {
+      "1": [
+        2,
+        3,
+        7,
+        8,
+        47,
+        48,
+        52,
+        53
+      ],
+      "2": [
+        2,
+        3,
+        7,
+        8,
+        47,
+        48,
+        52,
+        53
+      ]
+    },
+    "pattern2_test_vis": {},
     "pattern5_test_aud": {
       "1": [
         1,
@@ -423,42 +459,6 @@
     },
     "pattern5_test_vis": {},
     "pattern4_test_vis": {},
-    "pattern3_test_aud": {
-      "1": [
-        16,
-        20,
-        38
-      ],
-      "2": [
-        36,
-        40,
-        23
-      ]
-    },
-    "pattern3_test_vis": {},
-    "pattern2_test_aud": {
-      "1": [
-        2,
-        3,
-        7,
-        8,
-        47,
-        48,
-        52,
-        53
-      ],
-      "2": [
-        2,
-        3,
-        7,
-        8,
-        47,
-        48,
-        52,
-        53
-      ]
-    },
-    "pattern2_test_vis": {},
     "baseline1_practice_aud": [
       28
     ],
