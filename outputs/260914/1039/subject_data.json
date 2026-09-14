@@ -1,0 +1,373 @@
+{
+  "space_presses": {
+    "pattern1_practice_aud": {
+      "repeat_0": [
+        8.03,
+        10.2908,
+        12.4684,
+        14.0241,
+        17.0303,
+        20.2561,
+        22.0567,
+        24.5338,
+        27.55,
+        29.1228,
+        35.188,
+        37.0685,
+        39.5754,
+        42.1114,
+        44.1958,
+        47.2164,
+        51.7803
+      ],
+      "repeat_1": [
+        7.8408,
+        10.1354,
+        12.3789,
+        15.3809,
+        16.9777,
+        19.0257,
+        22.1253,
+        24.4992,
+        27.5673,
+        29.9598,
+        33.0859,
+        36.8328,
+        39.7214,
+        42.0929,
+        46.7008,
+        48.8309,
+        52.237
+      ]
+    },
+    "pattern1_test_aud": {
+      "1": [
+        121.6423
+      ],
+      "2": [
+        17.7473,
+        31.6519,
+        46.4534,
+        72.3658,
+        80.8304
+      ]
+    },
+    "pattern1_practice_vis": {
+      "repeat_0": [
+        7.9237,
+        10.9177,
+        13.0279,
+        18.4051,
+        21.5773,
+        23.9405,
+        26.2471,
+        29.9788,
+        32.7448,
+        36.0341,
+        39.0821,
+        44.1053,
+        46.862,
+        51.598,
+        54.2467,
+        57.6224
+      ]
+    },
+    "pattern1_test_vis": {
+      "1": [
+        29.1509,
+        38.4058,
+        75.9689,
+        117.4302
+      ],
+      "2": [
+        22.233,
+        39.7698,
+        61.3106,
+        83.2172,
+        93.5535
+      ]
+    },
+    "pattern5_test_aud": {
+      "1": [
+        72.3187
+      ],
+      "2": [
+        14.6392,
+        22.2317,
+        29.6265,
+        45.2382,
+        51.3819
+      ]
+    },
+    "pattern5_test_vis": {
+      "2": [
+        27.3689,
+        34.5782,
+        38.0466,
+        47.3979
+      ],
+      "1": [
+        22.2455,
+        26.6711,
+        73.2379,
+        86.5482,
+        94.5189,
+        106.7451,
+        125.8499
+      ]
+    },
+    "pattern2_test_aud": {
+      "2": [
+        31.9595,
+        50.1302,
+        58.4237,
+        75.3612,
+        107.374,
+        120.1126
+      ],
+      "1": [
+        45.5586,
+        94.872,
+        111.7423,
+        118.072,
+        123.1328
+      ]
+    },
+    "pattern2_test_vis": {
+      "1": [
+        20.2237,
+        69.296,
+        76.9153,
+        122.1986
+      ],
+      "2": [
+        48.1886,
+        54.7919
+      ]
+    },
+    "pattern3_test_aud": {
+      "1": [
+        39.6721,
+        44.4055,
+        75.6487
+      ],
+      "2": [
+        37.4455,
+        64.0463
+      ]
+    },
+    "pattern3_test_vis": {
+      "2": [
+        42.2192,
+        51.8106,
+        61.7545,
+        70.3519,
+        88.0367,
+        111.8131,
+        117.3356
+      ],
+      "1": [
+        26.7709,
+        68.9592,
+        103.1339
+      ]
+    },
+    "pattern4_test_vis": {
+      "1": [
+        15.052,
+        40.178,
+        52.928,
+        56.9007,
+        84.1334,
+        91.8311,
+        96.4876,
+        110.1048
+      ],
+      "2": [
+        3.0279,
+        32.482,
+        48.3794,
+        61.0852,
+        76.7196,
+        85.6653,
+        96.582,
+        105.6475
+      ]
+    },
+    "baseline1_practice_aud": {
+      "repeat_0": [
+        7.2299,
+        12.752,
+        17.7608,
+        24.2215,
+        29.3917,
+        35.1158
+      ]
+    },
+    "baseline1_test_aud": {
+      "1": [
+        9.0467,
+        13.1502,
+        20.0459,
+        24.3853
+      ]
+    },
+    "baseline1_practice_vis": {
+      "repeat_0": [
+        6.1191,
+        12.2336,
+        18.7102,
+        24.1135,
+        29.9301
+      ]
+    },
+    "baseline1_test_vis": {
+      "1": [
+        9.2418,
+        12.9459,
+        21.574,
+        25.925
+      ]
+    },
+    "baseline2_practice_aud": {
+      "repeat_0": [
+        8.0694,
+        10.6002,
+        13.4061,
+        17.8803,
+        20.2073,
+        25.2902,
+        27.422
+      ]
+    },
+    "baseline2_test_aud": {
+      "2": [
+        3.1112,
+        8.1434,
+        10.8909,
+        15.3393,
+        17.87,
+        19.9497,
+        23.0738,
+        28.6015,
+        30.96,
+        33.8275,
+        49.3813,
+        57.8544,
+        63.9319,
+        86.9435,
+        91.7993,
+        94.7772,
+        97.8474,
+        100.1446,
+        103.2386,
+        105.7547,
+        108.4619,
+        116.5864,
+        123.9332,
+        126.5238,
+        128.1948,
+        132.8383,
+        137.6496,
+        139.498,
+        141.8354,
+        143.5432
+      ],
+      "3": [
+        8.66,
+        13.5165,
+        16.0534,
+        18.6786,
+        22.051,
+        30.7549,
+        40.9763,
+        44.195,
+        46.7298,
+        49.1177,
+        51.8519,
+        75.5825,
+        81.2399,
+        82.7207,
+        85.9397,
+        99.9721,
+        117.0196,
+        120.3,
+        129.1653,
+        131.8499,
+        133.8853,
+        136.2627
+      ],
+      "1": [
+        2.5856,
+        7.7049,
+        9.8381,
+        12.4883,
+        17.4038,
+        20.2195,
+        22.4868,
+        25.654,
+        28.8402,
+        34.6754,
+        40.4698,
+        64.6791,
+        85.6962,
+        90.3101,
+        93.8063,
+        106.7511,
+        119.2766,
+        121.7775,
+        126.6467,
+        134.1693,
+        137.4291,
+        143.1188,
+        145.718,
+        148.39,
+        151.0581,
+        153.17,
+        155.4761,
+        158.5965,
+        169.3025,
+        171.9016
+      ]
+    }
+  },
+  "repeat_num": {
+    "pattern1_familiarization_aud": 0,
+    "pattern1_practice_aud": 1,
+    "pattern1_familiarization_vis": 0,
+    "pattern1_practice_vis": 0,
+    "baseline1_practice_aud": 0,
+    "baseline1_practice_vis": 0,
+    "baseline2_practice_aud": 0
+  },
+  "gender": "male",
+  "age": "21",
+  "likert_pattern1_test_aud": "4",
+  "non_center_strategy_pattern1_test_aud": "I commnlz closed my eyes and followed the sound in my head as I concentrated on the task.",
+  "likert_pattern1_test_vis": "4",
+  "non_center_strategy_pattern1_test_vis": "",
+  "likert_pattern5_test_aud": "4",
+  "non_center_strategy_pattern5_test_aud": "",
+  "likert_pattern5_test_vis": "4",
+  "non_center_strategy_pattern5_test_vis": "I was staring at the bottom of the screen and I was concentrating on the rythm of the flashing.",
+  "likert_pattern2_test_aud": "4",
+  "non_center_strategy_pattern2_test_aud": "",
+  "likert_pattern2_test_vis": "4",
+  "non_center_strategy_pattern2_test_vis": "",
+  "likert_pattern3_test_aud": "4",
+  "non_center_strategy_pattern3_test_aud": "",
+  "likert_pattern3_test_vis": "4",
+  "non_center_strategy_pattern3_test_vis": "",
+  "likert_pattern4_test_vis": "4",
+  "non_center_strategy_pattern4_test_vis": "",
+  "likert_baseline1_test_aud": "2",
+  "non_center_strategy_baseline1_test_aud": "",
+  "likert_baseline1_test_vis": "3",
+  "non_center_strategy_baseline1_test_vis": "",
+  "likert_baseline2_test_aud": "3",
+  "non_center_strategy_baseline2_test_aud": "",
+  "instructions_clear": "yes",
+  "auditory_patterns_notice": "In the first few test I recognized a pattern in the sounds, later it became a bit more difficult to find a similar pattern as things got more chaotic.",
+  "visual_patterns_notice": "I could find some patterns similar to the audio version, but I couldnt keep ut with it mostly.",
+  "strategy": "I tryed to find a pattern in the process, but it did not always help me."
+}
