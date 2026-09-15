@@ -10,14 +10,13 @@
   "randomize_pattern_phase_presentation": true,
   "pattern_phase_order": [
     1,
+    2,
     3,
-    4,
-    5,
-    2
+    5
   ],
   "randomize_pattern_test_condition_orderings": true,
   "randomize_baseline_test_condition_orderings": true,
-  "stimulus_id": "338",
+  "stimulus_id": "339",
   "modality_order": [
     "vis",
     "aud"
@@ -92,90 +91,10 @@
         "phase": "pattern1"
       },
       "conditions": [
-        "2",
-        "1"
+        "1",
+        "2"
       ],
       "name": "pattern1_test_aud"
-    },
-    {
-      "type": "test_questionnaire",
-      "name": "test_questionnaire"
-    },
-    {
-      "type": "test",
-      "modifiers": {
-        "modality": "vis",
-        "phase": "pattern3"
-      },
-      "conditions": [
-        "1",
-        "2"
-      ],
-      "name": "pattern3_test_vis"
-    },
-    {
-      "type": "test_questionnaire",
-      "name": "test_questionnaire"
-    },
-    {
-      "type": "test",
-      "modifiers": {
-        "modality": "aud",
-        "phase": "pattern3"
-      },
-      "conditions": [
-        "2",
-        "1"
-      ],
-      "name": "pattern3_test_aud"
-    },
-    {
-      "type": "test_questionnaire",
-      "name": "test_questionnaire"
-    },
-    {
-      "type": "test",
-      "modifiers": {
-        "modality": "vis",
-        "phase": "pattern4"
-      },
-      "conditions": [
-        "1",
-        "2"
-      ],
-      "name": "pattern4_test_vis"
-    },
-    {
-      "type": "test_questionnaire",
-      "name": "test_questionnaire"
-    },
-    {
-      "type": "test",
-      "modifiers": {
-        "modality": "vis",
-        "phase": "pattern5"
-      },
-      "conditions": [
-        "1",
-        "2"
-      ],
-      "name": "pattern5_test_vis"
-    },
-    {
-      "type": "test_questionnaire",
-      "name": "test_questionnaire"
-    },
-    {
-      "type": "test",
-      "modifiers": {
-        "modality": "aud",
-        "phase": "pattern5"
-      },
-      "conditions": [
-        "1",
-        "2"
-      ],
-      "name": "pattern5_test_aud"
     },
     {
       "type": "test_questionnaire",
@@ -204,10 +123,74 @@
         "phase": "pattern2"
       },
       "conditions": [
+        "1",
+        "2"
+      ],
+      "name": "pattern2_test_aud"
+    },
+    {
+      "type": "test_questionnaire",
+      "name": "test_questionnaire"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "vis",
+        "phase": "pattern3"
+      },
+      "conditions": [
+        "1",
+        "2"
+      ],
+      "name": "pattern3_test_vis"
+    },
+    {
+      "type": "test_questionnaire",
+      "name": "test_questionnaire"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "pattern3"
+      },
+      "conditions": [
+        "1",
+        "2"
+      ],
+      "name": "pattern3_test_aud"
+    },
+    {
+      "type": "test_questionnaire",
+      "name": "test_questionnaire"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "vis",
+        "phase": "pattern5"
+      },
+      "conditions": [
+        "1",
+        "2"
+      ],
+      "name": "pattern5_test_vis"
+    },
+    {
+      "type": "test_questionnaire",
+      "name": "test_questionnaire"
+    },
+    {
+      "type": "test",
+      "modifiers": {
+        "modality": "aud",
+        "phase": "pattern5"
+      },
+      "conditions": [
         "2",
         "1"
       ],
-      "name": "pattern2_test_aud"
+      "name": "pattern5_test_aud"
     },
     {
       "type": "test_questionnaire",
@@ -274,9 +257,9 @@
         "phase": "baseline2"
       },
       "conditions": [
-        "3",
         "1",
-        "2"
+        "2",
+        "3"
       ],
       "name": "baseline2_test_aud"
     },
@@ -316,6 +299,29 @@
         3
       ]
     },
+    "pattern2_test_vis": {},
+    "pattern2_test_aud": {
+      "1": [
+        2,
+        3,
+        7,
+        8,
+        47,
+        48,
+        52,
+        53
+      ],
+      "2": [
+        2,
+        3,
+        7,
+        8,
+        47,
+        48,
+        52,
+        53
+      ]
+    },
     "pattern3_test_vis": {},
     "pattern3_test_aud": {
       "1": [
@@ -329,15 +335,13 @@
         23
       ]
     },
-    "pattern4_test_vis": {},
     "pattern5_test_vis": {},
     "pattern5_test_aud": {
       "1": [
-        1,
         2,
         3,
         4,
-        5,
+        6,
         7,
         8,
         9,
@@ -347,6 +351,7 @@
         13,
         14,
         15,
+        16,
         17,
         18,
         19,
@@ -374,13 +379,13 @@
         43,
         44,
         45,
+        46,
         47,
         48,
         49,
-        51,
+        50,
         52,
-        53,
-        55
+        53
       ],
       "2": [
         1,
@@ -420,6 +425,7 @@
         37,
         38,
         39,
+        40,
         41,
         42,
         43,
@@ -434,29 +440,6 @@
         52,
         53,
         55
-      ]
-    },
-    "pattern2_test_vis": {},
-    "pattern2_test_aud": {
-      "1": [
-        2,
-        3,
-        7,
-        8,
-        47,
-        48,
-        52,
-        53
-      ],
-      "2": [
-        2,
-        3,
-        7,
-        8,
-        47,
-        48,
-        52,
-        53
       ]
     },
     "baseline1_test_vis": {},
