@@ -1,0 +1,44 @@
+{
+  "space_presses": {
+    "pattern1_practice_aud": {
+      "repeat_0": [
+        9.0926,
+        12.5235,
+        17.1791
+      ]
+    },
+    "pattern1_test_aud": {
+      "2": [],
+      "1": []
+    },
+    "pattern1_practice_vis": {
+      "repeat_0": [
+        7.4924,
+        13.0466,
+        16.3301,
+        21.8471
+      ]
+    },
+    "pattern1_test_vis": {
+      "1": [
+        20.5641
+      ],
+      "2": []
+    },
+    "pattern4_test_vis": {
+      "1": []
+    }
+  },
+  "repeat_num": {
+    "pattern1_familiarization_aud": 0,
+    "pattern1_practice_aud": 0,
+    "pattern1_familiarization_vis": 0,
+    "pattern1_practice_vis": 0
+  },
+  "gender": "female",
+  "age": "1",
+  "likert_pattern1_test_aud": "5",
+  "non_center_strategy_pattern1_test_aud": "",
+  "likert_pattern1_test_vis": "5",
+  "non_center_strategy_pattern1_test_vis": ""
+}
