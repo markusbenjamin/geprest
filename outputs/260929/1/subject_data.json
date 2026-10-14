@@ -1,0 +1,20 @@
+{
+  "space_presses": {
+    "pattern1_practice_aud": {
+      "repeat_0": []
+    },
+    "pattern1_test_aud": {
+      "2": [],
+      "1": []
+    }
+  },
+  "repeat_num": {
+    "pattern1_familiarization_aud": 0,
+    "pattern1_practice_aud": 0,
+    "pattern1_familiarization_vis": 0
+  },
+  "gender": "female",
+  "age": "22",
+  "likert_pattern1_test_aud": "2",
+  "non_center_strategy_pattern1_test_aud": ""
+}
