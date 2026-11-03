@@ -1,0 +1,467 @@
+{
+  "space_presses": {
+    "pattern1_practice_aud": {
+      "repeat_0": [
+        1.3204,
+        8.1809,
+        10.2621,
+        12.3873,
+        15.5432,
+        18.9598,
+        24.6043,
+        27.5775,
+        29.7087,
+        32.9712,
+        37.6031,
+        40.0171,
+        42.2357,
+        46.9834,
+        48.8328,
+        51.9223
+      ],
+      "repeat_1": [
+        7.6515,
+        10.1272,
+        12.3502,
+        15.2083,
+        17.1558,
+        19.9474,
+        22.1302,
+        24.7224,
+        29.5298,
+        35.0722,
+        37.6817,
+        39.8234,
+        46.6408,
+        51.7214
+      ]
+    },
+    "pattern1_test_aud": {
+      "2": [],
+      "1": [
+        25.2081,
+        54.867,
+        74.6481,
+        119.3799
+      ]
+    },
+    "pattern1_practice_vis": {
+      "repeat_0": [
+        3.6907,
+        5.4548,
+        7.7013,
+        10.5622,
+        13.0029,
+        16.2943,
+        18.16,
+        21.4539,
+        23.8821,
+        26.6283,
+        29.4511,
+        32.3549,
+        36.1848,
+        38.7115,
+        43.8482,
+        46.6885,
+        51.8247,
+        54.1181,
+        57.3975
+      ],
+      "repeat_1": [
+        7.5005,
+        10.3712,
+        13.0008,
+        16.1513,
+        20.8783,
+        24.1265,
+        26.9862,
+        38.4532,
+        44.0915,
+        51.6751
+      ]
+    },
+    "pattern1_test_vis": {
+      "1": [
+        14.4721,
+        20.3332,
+        28.9475,
+        38.4006,
+        55.6658,
+        83.2826,
+        93.7665,
+        101.6255,
+        123.1572
+      ],
+      "2": [
+        29.9449,
+        51.701,
+        69.341,
+        89.2251
+      ]
+    },
+    "pattern3_test_aud": {
+      "1": [
+        17.3846,
+        28.9656,
+        40.3782,
+        58.2449,
+        66.7503,
+        91.9509,
+        104.807,
+        121.0674
+      ],
+      "2": [
+        22.3349,
+        39.7398,
+        48.4913,
+        68.1155,
+        74.6713,
+        85.2645,
+        101.2231,
+        117.6817
+      ]
+    },
+    "pattern3_test_vis": {
+      "1": [
+        30.7182,
+        46.7967,
+        59.2129,
+        85.5553,
+        111.6526,
+        118.5072
+      ],
+      "2": [
+        16.0448,
+        32.9526,
+        51.6061,
+        90.9893,
+        100.7472,
+        117.0605
+      ]
+    },
+    "pattern4_test_vis": {
+      "2": [
+        22.5108,
+        38.7687,
+        58.5252,
+        65.7982,
+        83.4699,
+        111.2309,
+        115.5808
+      ],
+      "1": [
+        23.5559,
+        57.3272,
+        90.1403,
+        112.8799,
+        120.004
+      ]
+    },
+    "pattern2_test_aud": {
+      "1": [
+        38.4576,
+        47.2838,
+        52.9111,
+        63.8212,
+        103.8956,
+        117.5491
+      ],
+      "2": [
+        33.0661,
+        58.1751,
+        83.4542,
+        100.2405,
+        112.0502
+      ]
+    },
+    "pattern2_test_vis": {
+      "1": [
+        19.5972,
+        43.4707,
+        72.3959,
+        102.6274
+      ],
+      "2": [
+        21.1635,
+        54.5855,
+        69.2982,
+        94.3706,
+        124.0127
+      ]
+    },
+    "pattern5_test_aud": {
+      "2": [
+        14.482,
+        22.183,
+        29.194,
+        37.6801,
+        44.7024,
+        50.8132,
+        60.9091,
+        76.7233,
+        105.7436,
+        113.5672
+      ],
+      "1": [
+        17.0648,
+        48.147,
+        100.6532
+      ]
+    },
+    "pattern5_test_vis": {
+      "2": [
+        34.6448,
+        38.1679,
+        64.0695,
+        75.7588
+      ],
+      "1": [
+        26.4835,
+        73.3691,
+        101.6321,
+        106.5364,
+        125.8863
+      ]
+    },
+    "baseline1_practice_aud": {
+      "repeat_0": [
+        7.0462,
+        12.7137,
+        17.6909,
+        24.2543,
+        29.1382,
+        35.0931
+      ]
+    },
+    "baseline1_test_aud": {
+      "1": [
+        3.2831,
+        8.9494,
+        13.0206,
+        15.6912,
+        19.9631,
+        24.2546
+      ]
+    },
+    "baseline1_practice_vis": {
+      "repeat_0": [
+        6.0021,
+        12.0449,
+        18.6868,
+        23.8826,
+        29.7357,
+        35.5285
+      ]
+    },
+    "baseline1_test_vis": {
+      "1": [
+        4.3731,
+        8.9644,
+        16.9875,
+        21.5671,
+        25.7356
+      ]
+    },
+    "baseline2_practice_aud": {
+      "repeat_0": [
+        2.5008,
+        5.2944,
+        8.0404,
+        10.568,
+        13.2526,
+        15.3917,
+        18.0242,
+        20.142,
+        22.5599,
+        25.2773,
+        27.3344,
+        29.717
+      ]
+    },
+    "baseline2_test_aud": {
+      "3": [
+        2.9522,
+        5.8205,
+        8.1838,
+        10.5847,
+        13.3827,
+        15.7394,
+        18.6398,
+        21.8436,
+        27.8908,
+        30.6488,
+        34.0408,
+        36.6333,
+        40.9139,
+        44.3964,
+        46.6445,
+        49.0348,
+        51.8004,
+        54.0644,
+        56.9506,
+        61.0218,
+        63.9648,
+        68.5832,
+        73.1151,
+        75.2931,
+        77.7817,
+        81.7291,
+        83.2275,
+        86.0811,
+        88.6377,
+        90.5069,
+        93.9278,
+        95.7406,
+        98.5613,
+        101.0369,
+        103.5776,
+        105.9132,
+        115.4247,
+        117.0794,
+        120.3203,
+        132.6121,
+        134.0105,
+        136.1336
+      ],
+      "2": [
+        3.1003,
+        15.5997,
+        17.5396,
+        20.2723,
+        22.9736,
+        26.4473,
+        31.0976,
+        34.3205,
+        36.5933,
+        39.0778,
+        41.6647,
+        43.5804,
+        46.2174,
+        49.6693,
+        52.2997,
+        55.5381,
+        58.0601,
+        62.795,
+        65.8525,
+        68.9432,
+        71.3997,
+        73.9578,
+        76.6393,
+        80.3566,
+        86.9817,
+        90.2816,
+        92.021,
+        97.7976,
+        100.2929,
+        103.0427,
+        105.7938,
+        109.2647,
+        111.5767,
+        113.5452,
+        116.7955,
+        119.3871,
+        123.284,
+        126.5687,
+        131.3951,
+        133.9072,
+        136.7798,
+        139.3216
+      ],
+      "1": [
+        2.5446,
+        7.9474,
+        9.928,
+        12.6183,
+        14.5968,
+        17.3821,
+        20.1234,
+        22.5933,
+        25.6965,
+        29.0252,
+        34.5748,
+        37.821,
+        40.6275,
+        43.5277,
+        45.9153,
+        49.0404,
+        52.1843,
+        55.1373,
+        60.3254,
+        70.5329,
+        72.9526,
+        75.8182,
+        80.8751,
+        85.3884,
+        87.8873,
+        90.2004,
+        93.8279,
+        96.1839,
+        99.3546,
+        101.066,
+        103.2657,
+        106.1926,
+        108.9152,
+        112.0874,
+        113.4561,
+        119.0097,
+        121.6664,
+        123.9073,
+        127.3259,
+        129.0421,
+        131.5038,
+        133.8713,
+        137.3382,
+        140.6753,
+        143.0272,
+        145.8804,
+        148.305,
+        153.3572,
+        158.6362,
+        161.3093,
+        164.1486,
+        166.1322,
+        169.3558,
+        173.7654
+      ]
+    }
+  },
+  "repeat_num": {
+    "pattern1_familiarization_aud": 0,
+    "pattern1_practice_aud": 1,
+    "pattern1_familiarization_vis": 1,
+    "pattern1_practice_vis": 1,
+    "baseline1_practice_aud": 0,
+    "baseline1_practice_vis": 0,
+    "baseline2_practice_aud": 0
+  },
+  "gender": "female",
+  "age": "23",
+  "likert_pattern1_test_aud": "5",
+  "non_center_strategy_pattern1_test_aud": "",
+  "likert_pattern1_test_vis": "4",
+  "non_center_strategy_pattern1_test_vis": "",
+  "likert_pattern3_test_aud": "3",
+  "non_center_strategy_pattern3_test_aud": "With closed eyes, i could feel and hear the longer pauses better. During the first hearing test i didn't close my eyes, and it was much harder to detect them.",
+  "likert_pattern3_test_vis": "3",
+  "non_center_strategy_pattern3_test_vis": "In this visual test, i tried to find the central point of the movement of the circles appearence, and view them as one. I mean not looking at them separately, but as one big triangle, and it was easier to notice that split second they all disappeared. I tried to count the seconds in the first visual test, but it was not as effenctive as finding a middle point, and looking at them as one.",
+  "likert_pattern4_test_vis": "4",
+  "non_center_strategy_pattern4_test_vis": "",
+  "likert_pattern2_test_aud": "4",
+  "non_center_strategy_pattern2_test_aud": "",
+  "likert_pattern2_test_vis": "4",
+  "non_center_strategy_pattern2_test_vis": "",
+  "likert_pattern5_test_aud": "5",
+  "non_center_strategy_pattern5_test_aud": "",
+  "likert_pattern5_test_vis": "5",
+  "non_center_strategy_pattern5_test_vis": "",
+  "likert_baseline1_test_aud": "3",
+  "non_center_strategy_baseline1_test_aud": "",
+  "likert_baseline1_test_vis": "3",
+  "non_center_strategy_baseline1_test_vis": "",
+  "likert_baseline2_test_aud": "4",
+  "non_center_strategy_baseline2_test_aud": "",
+  "instructions_clear": "yes",
+  "auditory_patterns_notice": "No",
+  "visual_patterns_notice": "No",
+  "strategy": "Yes, closed eyes during the auditory tests, and finding the middle point of the circle movement in the visual tests."
+}
