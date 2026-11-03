@@ -1,0 +1,411 @@
+{
+  "space_presses": {
+    "pattern1_practice_vis": {
+      "repeat_0": [
+        8.0721,
+        10.6651,
+        13.0205,
+        16.3017,
+        18.3733,
+        21.4771,
+        23.9257,
+        26.6274,
+        29.11,
+        32.5013,
+        35.1803,
+        38.5938,
+        41.4021,
+        44.0879,
+        46.6442,
+        51.6193,
+        54.1259,
+        57.25
+      ]
+    },
+    "pattern1_test_vis": {
+      "2": [
+        14.5256,
+        46.5053,
+        59.758,
+        68.2833,
+        71.3937,
+        93.851,
+        111.3165
+      ],
+      "1": [
+        20.7014,
+        38.4871,
+        49.6044,
+        53.5336,
+        61.2227,
+        86.6921
+      ]
+    },
+    "pattern1_practice_aud": {
+      "repeat_0": [
+        8.0826,
+        24.6222,
+        27.8295,
+        34.1799,
+        47.0772,
+        49.1604
+      ]
+    },
+    "pattern1_test_aud": {
+      "2": [
+        64.9226,
+        78.1207
+      ],
+      "1": [
+        68.6757,
+        90.1256
+      ]
+    },
+    "pattern2_test_vis": {
+      "2": [
+        27.7369,
+        43.8071,
+        58.8169,
+        69.172,
+        103.1713,
+        122.1334,
+        125.8059
+      ],
+      "1": [
+        22.1681,
+        105.6581
+      ]
+    },
+    "pattern2_test_aud": {
+      "1": [
+        57.7762
+      ],
+      "2": [
+        81.918
+      ]
+    },
+    "pattern4_test_vis": {
+      "1": [
+        33.7881,
+        42.2946,
+        52.7765,
+        70.7168,
+        85.9761
+      ],
+      "2": []
+    },
+    "pattern3_test_vis": {
+      "1": [
+        25.0663,
+        28.1303,
+        47.8673,
+        58.1352
+      ],
+      "2": [
+        44.4317,
+        85.8768
+      ]
+    },
+    "pattern3_test_aud": {
+      "1": [
+        2.8755,
+        83.5482
+      ],
+      "2": [
+        40.7334,
+        98.4409
+      ]
+    },
+    "pattern5_test_vis": {
+      "2": [
+        30.3002,
+        48.598,
+        86.2269,
+        111.787
+      ],
+      "1": [
+        65.8273,
+        79.3573,
+        84.089,
+        87.0047
+      ]
+    },
+    "pattern5_test_aud": {
+      "2": [
+        68.7007
+      ],
+      "1": [
+        72.517
+      ]
+    },
+    "baseline1_practice_vis": {
+      "repeat_0": [
+        6.208,
+        12.0079,
+        18.771,
+        23.7525,
+        29.7848,
+        35.8048
+      ]
+    },
+    "baseline1_test_vis": {
+      "1": [
+        3.8677,
+        7.9839,
+        12.5725,
+        16.3223,
+        20.1366,
+        24.7068
+      ]
+    },
+    "baseline1_practice_aud": {
+      "repeat_0": [
+        6.8837,
+        12.6624,
+        17.7907,
+        24.2947,
+        29.0553
+      ]
+    },
+    "baseline1_test_aud": {
+      "1": [
+        3.4647,
+        12.3531,
+        21.1718
+      ]
+    },
+    "baseline2_practice_aud": {
+      "repeat_0": [
+        2.6103,
+        8.155,
+        10.6106,
+        13.2877,
+        15.3832,
+        18.0909,
+        20.0699,
+        22.5754,
+        25.224,
+        27.4623,
+        29.6039,
+        31.5436
+      ]
+    },
+    "baseline2_test_aud": {
+      "3": [
+        3.1639,
+        5.4197,
+        8.2205,
+        10.9803,
+        14.0575,
+        15.325,
+        17.404,
+        19.7441,
+        22.1249,
+        26.1076,
+        28.6253,
+        30.9478,
+        33.6654,
+        36.4927,
+        38.9893,
+        41.0519,
+        43.3525,
+        46.2677,
+        49.3926,
+        52.1313,
+        55.3576,
+        57.744,
+        59.8617,
+        62.5554,
+        65.7545,
+        68.5912,
+        71.2344,
+        73.7517,
+        76.9624,
+        79.6591,
+        81.8525,
+        83.721,
+        86.9146,
+        89.392,
+        91.8777,
+        94.5533,
+        97.803,
+        100.4283,
+        103.0275,
+        105.7501,
+        109.0623,
+        113.7031,
+        116.5786,
+        118.9095,
+        121.8269,
+        123.7238,
+        126.5935,
+        128.5194,
+        131.3671,
+        133.7726,
+        136.666,
+        139.3647,
+        141.8659
+      ],
+      "1": [
+        8.6306,
+        10.955,
+        13.0449,
+        14.9328,
+        17.5186,
+        20.2327,
+        21.9735,
+        24.7195,
+        26.9417,
+        30.2459,
+        33.3824,
+        35.7617,
+        38.5782,
+        40.6139,
+        43.8747,
+        46.926,
+        49.6585,
+        52.2086,
+        54.6032,
+        57.307,
+        59.8478,
+        62.5696,
+        64.9557,
+        68.1908,
+        70.4818,
+        73.0559,
+        75.7908,
+        78.5318,
+        81.7297,
+        84.5918,
+        86.9977,
+        89.73,
+        92.0314,
+        94.9701,
+        97.7659,
+        103.7617,
+        106.2171,
+        108.5784,
+        111.2764,
+        113.7729,
+        116.1235,
+        118.9352,
+        121.764,
+        123.7243,
+        126.1741,
+        128.3823,
+        131.0555,
+        132.9285,
+        135.2869,
+        138.5681,
+        141.7564,
+        144.2416,
+        147.3171,
+        150.2171,
+        152.9786,
+        154.9655,
+        157.7269,
+        160.5157,
+        163.1114,
+        164.9749,
+        167.8491,
+        170.5751,
+        173.7324
+      ],
+      "2": [
+        3.1087,
+        5.3946,
+        7.3833,
+        9.3172,
+        12.154,
+        14.6516,
+        17.4883,
+        20.5742,
+        23.4497,
+        26.1937,
+        28.6326,
+        31.3127,
+        34.1262,
+        36.6808,
+        39.0302,
+        41.8223,
+        43.8653,
+        47.0843,
+        50.1498,
+        52.9997,
+        55.6505,
+        58.2179,
+        60.5132,
+        62.6291,
+        64.9777,
+        67.2876,
+        69.6289,
+        72.8432,
+        74.9726,
+        77.6173,
+        80.1378,
+        82.8824,
+        85.2768,
+        87.3907,
+        90.5373,
+        92.8976,
+        95.6426,
+        98.2039,
+        101.3244,
+        103.816,
+        106.5436,
+        109.2087,
+        112.4492,
+        114.9283,
+        117.6672,
+        119.8252,
+        122.2152,
+        124.8919,
+        127.66,
+        131.0182,
+        133.4255,
+        136.5275,
+        139.7941,
+        141.9326
+      ]
+    }
+  },
+  "repeat_num": {
+    "pattern1_familiarization_vis": 0,
+    "pattern1_practice_vis": 0,
+    "pattern1_familiarization_aud": 0,
+    "pattern1_practice_aud": 0,
+    "baseline1_practice_vis": 0,
+    "baseline1_practice_aud": 0,
+    "baseline2_practice_aud": 0
+  },
+  "gender": "female",
+  "age": "19\n19",
+  "likert_pattern1_test_vis": "4",
+  "non_center_strategy_pattern1_test_vis": "",
+  "likert_pattern1_test_aud": "4",
+  "non_center_strategy_pattern1_test_aud": "I just stared right in front of me ",
+  "likert_pattern2_test_vis": "5",
+  "non_center_strategy_pattern2_test_vis": "",
+  "likert_pattern2_test_aud": "4",
+  "non_center_strategy_pattern2_test_aud": "",
+  "likert_pattern4_test_vis": "5",
+  "non_center_strategy_pattern4_test_vis": "",
+  "likert_pattern3_test_vis": "5",
+  "non_center_strategy_pattern3_test_vis": "",
+  "likert_pattern3_test_aud": "5",
+  "non_center_strategy_pattern3_test_aud": "",
+  "likert_pattern5_test_vis": "5",
+  "non_center_strategy_pattern5_test_vis": "",
+  "likert_pattern5_test_aud": "4",
+  "non_center_strategy_pattern5_test_aud": "",
+  "likert_baseline1_test_vis": "3",
+  "non_center_strategy_baseline1_test_vis": "",
+  "likert_baseline1_test_aud": "3",
+  "non_center_strategy_baseline1_test_aud": "",
+  "likert_baseline2_test_aud": "3",
+  "non_center_strategy_baseline2_test_aud": "I closed my eyes for the majority of the time\n",
+  "instructions_clear": "yes",
+  "auditory_patterns_notice": "The patterns were changing, but usually a given number of sounds from one direction and then one from an other, and during one I felt like it was going back and forth from one side to the other ",
+  "visual_patterns_notice": "It was waz harder to find anz patterns, but sometimes ot went in kind of a circle",
+  "strategy": "I always tried to find a patterns so the change is easier to find"
+}
