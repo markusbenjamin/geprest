@@ -1,0 +1,509 @@
+{
+  "space_presses": {
+    "pattern1_practice_aud": {
+      "repeat_0": [
+        3.996,
+        7.9299,
+        10.4922,
+        13.1668,
+        20.248,
+        28.2357,
+        35.3176,
+        38.0766,
+        42.6651,
+        49.3056
+      ]
+    },
+    "pattern1_test_aud": {
+      "1": [
+        23.6201,
+        36.5912,
+        42.8271,
+        46.6367,
+        65.9773,
+        75.1899,
+        82.2025,
+        91.3145,
+        93.6477,
+        100.3764,
+        117.4205
+      ],
+      "2": [
+        17.2052,
+        29.8817,
+        40.5283,
+        49.097,
+        54.9984,
+        61.2154,
+        91.2014,
+        121.7989
+      ]
+    },
+    "pattern1_practice_vis": {
+      "repeat_0": [
+        8.4509,
+        13.3344,
+        16.4051,
+        22.4735,
+        24.3279,
+        27.2588,
+        30.1364,
+        32.6371,
+        36.3458,
+        38.7858,
+        41.3469,
+        43.8462,
+        49.89,
+        51.9136,
+        57.8148
+      ],
+      "repeat_1": [
+        7.6611,
+        10.9546,
+        13.5017,
+        16.3316,
+        18.436,
+        21.8468,
+        26.9208,
+        30.8783,
+        36.3269,
+        46.0685,
+        47.5716,
+        51.8825,
+        54.682,
+        57.8507
+      ]
+    },
+    "pattern1_test_vis": {
+      "1": [
+        15.1792,
+        20.7822,
+        29.1789,
+        38.8966,
+        46.6758,
+        57.0128,
+        64.2059,
+        76.394,
+        84.2405,
+        94.3146,
+        110.9322,
+        123.7308
+      ],
+      "2": [
+        22.0129,
+        38.0576,
+        41.4659,
+        52.3746,
+        61.9166,
+        70.3953,
+        84.7252,
+        105.8361
+      ]
+    },
+    "pattern2_test_aud": {
+      "2": [
+        15.7278,
+        20.4169,
+        33.2795,
+        41.7227,
+        58.4506,
+        84.6524,
+        107.6777
+      ],
+      "1": [
+        31.1115,
+        47.8587,
+        74.2114,
+        96.1702,
+        119.5732
+      ]
+    },
+    "pattern2_test_vis": {
+      "1": [
+        27.9882,
+        44.6115,
+        69.2662,
+        72.6297,
+        82.3856,
+        96.558,
+        113.2034
+      ],
+      "2": [
+        17.5354,
+        26.4872,
+        35.5076,
+        46.3569,
+        52.8568,
+        75.1775,
+        79.6334,
+        90.2159,
+        124.7115
+      ]
+    },
+    "pattern3_test_aud": {
+      "2": [
+        29.5909,
+        48.9918,
+        79.6161
+      ],
+      "1": [
+        20.3793,
+        41.7955,
+        92.6173
+      ]
+    },
+    "pattern3_test_vis": {
+      "2": [
+        16.6113,
+        28.8284,
+        33.4397,
+        44.3273,
+        56.7551,
+        85.0278,
+        96.7253,
+        104.9643,
+        119.0965
+      ],
+      "1": [
+        20.4891,
+        26.2318,
+        39.2925,
+        47.7175,
+        60.8454,
+        87.3013,
+        112.2342,
+        121.6842
+      ]
+    },
+    "pattern4_test_vis": {
+      "2": [
+        22.6854,
+        39.0776,
+        45.2177,
+        51.4238,
+        66.1509,
+        81.2171,
+        98.0094,
+        109.38,
+        112.0935,
+        116.9889,
+        121.6025
+      ],
+      "1": [
+        15.0825,
+        23.7856,
+        49.5001,
+        57.863,
+        66.5089,
+        83.4066,
+        97.7422,
+        107.4661,
+        114.4626,
+        122.9596
+      ]
+    },
+    "pattern5_test_aud": {
+      "2": [
+        14.677,
+        72.923,
+        88.8485
+      ],
+      "1": [
+        22.7295,
+        35.7477,
+        68.8622
+      ]
+    },
+    "pattern5_test_vis": {
+      "1": [
+        22.9003,
+        48.5823,
+        55.6667,
+        65.3226,
+        73.3878,
+        86.5738,
+        108.9031,
+        112.2245,
+        127.3797
+      ],
+      "2": [
+        17.9754,
+        39.0772,
+        49.1312,
+        57.5179,
+        62.0829,
+        77.1703,
+        81.473,
+        99.5262,
+        108.9776,
+        117.5416
+      ]
+    },
+    "baseline1_practice_aud": {
+      "repeat_0": [
+        7.2448,
+        14.7357,
+        18.2572,
+        24.9448,
+        29.9418,
+        36.5258
+      ],
+      "repeat_1": [
+        7.4333,
+        13.6227,
+        18.1952,
+        30.3094,
+        35.6046
+      ]
+    },
+    "baseline1_test_aud": {
+      "1": [
+        3.4764,
+        9.1288,
+        13.5286,
+        16.2706,
+        24.6693
+      ]
+    },
+    "baseline1_practice_vis": {
+      "repeat_0": [
+        6.1262,
+        12.1775,
+        18.9499,
+        24.183,
+        29.8484,
+        35.9788
+      ]
+    },
+    "baseline1_test_vis": {
+      "1": [
+        4.8127,
+        13.1409,
+        17.9378,
+        26.1277
+      ]
+    },
+    "baseline2_practice_aud": {
+      "repeat_0": [
+        2.8053,
+        5.6089,
+        8.4392,
+        10.7748,
+        13.8897,
+        15.7241,
+        18.2491,
+        20.2326,
+        22.5906,
+        25.4814,
+        27.5759,
+        29.7812
+      ]
+    },
+    "baseline2_test_aud": {
+      "3": [
+        3.9337,
+        11.0769,
+        13.5772,
+        15.8992,
+        18.6978,
+        21.9782,
+        25.261,
+        27.9531,
+        31.1487,
+        34.1639,
+        37.1107,
+        38.9334,
+        41.4086,
+        44.4318,
+        46.7739,
+        49.7182,
+        53.8777,
+        58.6201,
+        61.0138,
+        64.2241,
+        66.2489,
+        72.169,
+        75.5617,
+        80.7222,
+        86.184,
+        88.6596,
+        90.6194,
+        93.7866,
+        96.364,
+        98.8544,
+        100.8223,
+        103.9011,
+        106.2506,
+        109.3585,
+        111.6385,
+        114.7924,
+        117.447,
+        120.2024,
+        123.2547,
+        126.4306,
+        129.2613,
+        131.9805,
+        134.001,
+        136.8024,
+        139.7693,
+        141.8986
+      ],
+      "1": [
+        3.9662,
+        6.3052,
+        8.6198,
+        10.4325,
+        12.8488,
+        14.8504,
+        20.191,
+        22.7661,
+        26.1339,
+        28.9593,
+        31.8229,
+        34.9541,
+        38.1676,
+        40.8351,
+        43.7841,
+        45.7725,
+        49.385,
+        52.6077,
+        55.5132,
+        57.5234,
+        60.2252,
+        63.4442,
+        64.8745,
+        71.0241,
+        73.8409,
+        77.5765,
+        79.0905,
+        81.2037,
+        83.8438,
+        85.8642,
+        88.6528,
+        91.5048,
+        93.867,
+        96.5559,
+        99.6982,
+        101.3253,
+        103.7044,
+        106.2258,
+        109.1809,
+        111.424,
+        113.5418,
+        116.6924,
+        118.9837,
+        122.3018,
+        124.5654,
+        127.1278,
+        129.4356,
+        131.8295,
+        134.4445,
+        137.6679,
+        140.9325,
+        143.6628,
+        145.9064,
+        148.9152,
+        151.3742,
+        153.5656,
+        155.9616,
+        159.0449,
+        161.857,
+        166.465,
+        169.647,
+        172.149,
+        174.2661
+      ],
+      "2": [
+        3.4941,
+        6.2084,
+        8.3722,
+        11.2007,
+        15.8259,
+        17.7766,
+        20.3194,
+        23.4545,
+        27.2093,
+        29.4916,
+        33.6306,
+        34.1794,
+        36.7525,
+        39.262,
+        41.8029,
+        43.9055,
+        46.7899,
+        49.8132,
+        52.5956,
+        56.3143,
+        58.4404,
+        60.2638,
+        62.8585,
+        66.5713,
+        69.3825,
+        71.9225,
+        74.4105,
+        77.5606,
+        80.5915,
+        82.5464,
+        84.2217,
+        87.6968,
+        90.133,
+        92.9309,
+        100.7567,
+        104.0791,
+        106.6645,
+        109.7608,
+        112.2142,
+        115.5524,
+        116.8149,
+        119.509,
+        121.888,
+        124.6594,
+        129.0386,
+        132.2453,
+        134.9528,
+        136.9271,
+        139.6505,
+        141.8564
+      ]
+    }
+  },
+  "repeat_num": {
+    "pattern1_familiarization_aud": 1,
+    "pattern1_practice_aud": 0,
+    "pattern1_familiarization_vis": 0,
+    "pattern1_practice_vis": 1,
+    "baseline1_practice_aud": 1,
+    "baseline1_practice_vis": 0,
+    "baseline2_practice_aud": 0
+  },
+  "gender": "female",
+  "age": "23",
+  "likert_pattern1_test_aud": "4",
+  "non_center_strategy_pattern1_test_aud": "I looked a bit lower and maybe oriented myself towards one of the sounds a bit",
+  "likert_pattern1_test_vis": "3",
+  "non_center_strategy_pattern1_test_vis": "At the second test i tried focusing on only one of the circles and that maybe easier. The left circles i could see wuth my peripherial vision",
+  "likert_pattern2_test_aud": "3",
+  "non_center_strategy_pattern2_test_aud": "",
+  "likert_pattern2_test_vis": "4",
+  "non_center_strategy_pattern2_test_vis": "",
+  "likert_pattern3_test_aud": "3",
+  "non_center_strategy_pattern3_test_aud": "",
+  "likert_pattern3_test_vis": "4",
+  "non_center_strategy_pattern3_test_vis": "",
+  "likert_pattern4_test_vis": "3",
+  "non_center_strategy_pattern4_test_vis": "",
+  "likert_pattern5_test_aud": "4",
+  "non_center_strategy_pattern5_test_aud": "",
+  "likert_pattern5_test_vis": "3",
+  "non_center_strategy_pattern5_test_vis": "In the second half i tried to follow the cirles with my eyes, that way it was easier to detect pauses",
+  "likert_baseline1_test_aud": "3",
+  "non_center_strategy_baseline1_test_aud": "",
+  "likert_baseline1_test_vis": "3",
+  "non_center_strategy_baseline1_test_vis": "",
+  "likert_baseline2_test_aud": "5",
+  "non_center_strategy_baseline2_test_aud": "",
+  "instructions_clear": "yes",
+  "auditory_patterns_notice": "It had a rhytm, usually it was like 2 similar than 1 different sound, and the pauses were sometimes at the same space from each other. If there were two sounds coming from the right than the pause was usually after the second one (if these sounds came after each otherö. ",
+  "visual_patterns_notice": "The circle went in a triangle and maybe after completing one pattern was the pause, but I am not certain. The circles went in certain shapes depending on the task.",
+  "strategy": "Sometimes i tried to follow from where the cirles went and by moving my eyes and trying to predict when they are supposed to show up. I tilte my head in the auditory task a little."
+}
