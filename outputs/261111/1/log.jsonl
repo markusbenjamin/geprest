@@ -1,0 +1,8 @@
+{"time": 0.0, "msg": "Start."}
+{"time": 0.0752, "msg": "Set up welcome stage."}
+{"time": 10.5617, "event": "Proceed clicked."}
+{"time": 10.6133, "msg": "Shut down welcome stage."}
+{"time": 10.6578, "event": "Consented.", "answer": "I consent to participate in the experiment"}
+{"time": 10.7026, "msg": "Set up screener stage."}
+{"time": 17.8184, "msg": "Data successfully exported."}
+{"time": 17.87, "msg": "User interrupt."}
