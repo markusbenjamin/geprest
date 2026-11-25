@@ -1,0 +1,19 @@
+{"time": 0.0, "msg": "Start."}
+{"time": 0.0853, "msg": "Set up welcome stage."}
+{"time": 10.6916, "event": "Proceed clicked."}
+{"time": 10.7331, "msg": "Shut down welcome stage."}
+{"time": 10.7871, "event": "Consented.", "answer": "I consent to participate in the experiment"}
+{"time": 10.8339, "msg": "Set up screener stage."}
+{"time": 21.2992, "event": "Proceed clicked."}
+{"time": 21.3433, "msg": "Shut down screener stage."}
+{"time": 21.3925, "event": "Screened.", "answer": "I confirm that none of the above listed items applies to me."}
+{"time": 21.4819, "msg": "Set up intro_questionnaire stage."}
+{"time": 28.346, "event": "Proceed clicked."}
+{"time": 28.3897, "msg": "Shut down intro_questionnaire stage."}
+{"time": 28.4403, "event": "Gender submitted.", "answer": "male"}
+{"time": 28.4756, "event": "Age submitted.", "answer": "8"}
+{"time": 28.5159, "msg": "Set up pattern1_familiarization_aud stage."}
+{"time": 30.0013, "event": "Start clicked for pattern1_familiarization_aud."}
+{"time": 30.7779, "msg": "Start stimulus for pattern1_familiarization_aud."}
+{"time": 34.1323, "msg": "Data successfully exported."}
+{"time": 34.2327, "msg": "User interrupt."}
